@@ -41,7 +41,7 @@ export default {
   }
 }
 </script>
-<style lang="less">
+<style lang="less" scoped>
 @import './common.less';
 header {
   /*padding for导航栏*/
@@ -52,6 +52,7 @@ header {
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  border-bottom: 1px @maincolor solid;
   .btn-group {
     display: inline-block;
   }
