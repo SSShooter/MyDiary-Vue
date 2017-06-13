@@ -46,7 +46,7 @@ export default {
 header {
   /*padding for导航栏*/
   padding-top: @paddingforbar;
-  height: 5rem;
+  height: @diaryheaderheight;
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
