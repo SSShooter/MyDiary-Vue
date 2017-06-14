@@ -75,15 +75,15 @@ import 'vue-awesome/icons'
 import Icon from 'vue-awesome/components/Icon.vue'
 Vue.use(vmodal)
 Vue.component('icon', Icon)
-let db = new Dexie("FriendDatabase");
-db.version(1).stores({ friends: "++id,name,age" });
-db.friends.add({ name: "Josephine", age: 21 }).then(function () {
-    return db.friends.where("age").below(25).toArray();
-}).then(function (youngFriends) {
-    console.log("My young friends: " + JSON.stringify(youngFriends));
-}).catch(function (e) {
-    console.log("Error: " + (e.stack || e));
-});
+// let db = new Dexie("FriendDatabase");
+// db.version(1).stores({ friends: "++id,name,age" });
+// db.friends.add({ name: "Josephine", age: 21 }).then(function () {
+//     return db.friends.where("age").below(25).toArray();
+// }).then(function (youngFriends) {
+//     console.log("My young friends: " + JSON.stringify(youngFriends));
+// }).catch(function (e) {
+//     console.log("Error: " + (e.stack || e));
+// });
 
 export default {
     name: 'home',
