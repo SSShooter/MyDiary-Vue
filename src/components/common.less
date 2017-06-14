@@ -1,4 +1,17 @@
 @paddingforbar: 22px;
 @maincolor: #5A95BA;
-@diaryheaderheight:5rem;
-@diarycontainerheight:calc(~"100vh - "@diaryheaderheight);
+@commonheaderheight:5rem;
+@diarycontainerheight:calc(~"100vh - "@commonheaderheight);
+.commonheader {
+  padding-top: @paddingforbar;
+  height: @commonheaderheight;
+}
+.diaryfooter {
+  height: 2.8rem;
+  width: 100vw;
+  background-color: @maincolor;
+  color: #fff;
+  position: fixed;
+  left: 0;
+  bottom: 0;
+}

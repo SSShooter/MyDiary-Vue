@@ -1,20 +1,26 @@
 <template>
   <div id="entries">
-    <div class="item">
-      <div class="dd">
-        <p class="date">13</p>
-        <p class="day">Thu</p>
-      </div>
-      <div class="content">
-        <div class="time">20:04</div>
-        <div class="title">我的project</div>
-      </div>
-      <div class="state">
-        <i class="iconfont icon-baoxue"></i>
-        <i class="iconfont icon-kaixin-"></i>
-        <i class="iconfont icon-bookmark"></i>
+    <div class="items">
+      <div class="item">
+        <div class="dd">
+          <p class="date">13</p>
+          <p class="day">Thu</p>
+        </div>
+        <div class="content">
+          <div class="time">20:04</div>
+          <div class="title">我的project</div>
+        </div>
+        <div class="state">
+          <i class="iconfont icon-baoxue"></i>
+          <i class="iconfont icon-kaixin-"></i>
+          <i class="iconfont icon-bookmark"></i>
+        </div>
       </div>
     </div>
+    <footer>
+      <div class="buttons">aaa</div>
+      <div class="total">1 Entries</div>
+    </footer>
   </div>
 </template>
 <script>
@@ -67,6 +73,17 @@ export default {
       .icon {
         font-size: 18px;
       }
+    }
+  }
+  footer {
+    .diaryfooter;
+    display: flex;
+    text-align: center;
+    align-items: center;
+    justify-content: Space-between;
+    .buttons,.total {
+      font-size: 1.5rem;
+      padding: 0 10px;
     }
   }
 }

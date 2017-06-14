@@ -45,8 +45,7 @@ export default {
 @import './common.less';
 header {
   /*padding for导航栏*/
-  padding-top: @paddingforbar;
-  height: @diaryheaderheight;
+  .commonheader;
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
