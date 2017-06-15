@@ -7,14 +7,12 @@
       </div>
     </header>
     <ul class="items">
-      <li class="item">
-        ※ hfdiaeohofha
-      </li>
-      <li class="item">
-        ※ hfdiaeohofha
-      </li>
-      <li class="item">
-        ※ hfdiaeohofha
+      <li v-for="item in testData"
+          class="item"
+          @click="complete"
+          data-id="xxx"
+          :class="{complete:item.isComplete}">
+        {{item.thing}}
       </li>
       <li class="item">
         <input />
@@ -24,12 +22,21 @@
 </template>
 
 <script>
-  export default {
-    data() {
-      return {
-      }
+export default {
+  data() {
+    return {
+      testData: [
+        { thing: '今天也要学习javascript', isComplete: true },
+        { thing: '今天也要学习健身', isComplete: false }
+      ]
+    }
+  },
+  methods: {
+    complete(e) {
+      console.log(e.currentTarget.dataset.id, this.temp)
     }
   }
+}
 </script>
 
 <style lang="less" scoped>
@@ -62,6 +69,9 @@
     background-image: url('../assets/line.png');
     background-size: 100vw 60px;
     position: relative;
+    .complete {
+      text-decoration: line-through;
+    }
     .item {
       box-sizing: border-box;
       color: @maincolor;
@@ -69,9 +79,12 @@
       padding: 0 20px;
       line-height: 60px;
       word-wrap: break-word;
+      &:before {
+        content: '·'
+      }
       input {
         display: inline-block;
-        width: 100%;
+        width: 95%;
         color: @maincolor;
         font-size: 20px;
         outline: none;
