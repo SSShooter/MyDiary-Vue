@@ -34,7 +34,7 @@ export default {
 @import '//at.alicdn.com/t/font_7y3xysg41dghw7b9.css';
 #entries {
   background-image: url('../assets/52502973_p0.png');
-  height: @diarycontainerheight;
+  height: @commoncontainerheight;
   box-sizing: border-box;
   padding: 8px;
   .item {

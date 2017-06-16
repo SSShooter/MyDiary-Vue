@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Address from '../components/Address.vue'
+import Phonebook from '../components/Phonebook.vue'
 import Home from '../components/Home.vue'
 import Todolist from '../components/Todolist.vue'
 import Diary from '../components/Diary.vue'
@@ -34,8 +34,8 @@ const router = new Router({
             }]
         },
         {
-            path: '/address',
-            component: Address
+            path: '/phonebook',
+            component: Phonebook
         },
         {
             path: '/todolist',

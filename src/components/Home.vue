@@ -70,7 +70,7 @@
 <script>
 import Vue from 'vue'
 import vmodal from 'vue-js-modal'
-import Dexie from 'dexie'
+// import Dexie from 'dexie'
 import 'vue-awesome/icons'
 import Icon from 'vue-awesome/components/Icon.vue'
 Vue.use(vmodal)

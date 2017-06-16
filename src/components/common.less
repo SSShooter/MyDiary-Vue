@@ -1,10 +1,35 @@
-@paddingforbar: 22px;
+@paddingforbar: 1.4rem;
 @maincolor: #5A95BA;
 @commonheaderheight:5rem;
-@diarycontainerheight:calc(~"100vh - "@commonheaderheight);
-.commonheader {
-  padding-top: @paddingforbar;
-  height: @commonheaderheight;
+@commoncontainerheight:calc(~"100vh - "@commonheaderheight);
+.diaryheader{
+  margin-top: @paddingforbar;
+  height: @commonheaderheight - @paddingforbar;
+  box-sizing: border-box;
+}
+.commonheader(@bgcolor,@fontcolor) {
+  margin-top: @paddingforbar;
+  height: @commonheaderheight - @paddingforbar;
+  box-sizing: border-box;
+  background-color: @bgcolor;
+  text-align: center;
+  font-size: 1.8rem;
+  color: @fontcolor;
+  position: relative;
+  .title {
+    line-height: @commonheaderheight - @paddingforbar;
+  }
+  .right-btn {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    height: @commonheaderheight - @paddingforbar;
+    padding-right: 10px;
+    .iconfont {
+      line-height: @commonheaderheight - @paddingforbar;
+      font-size: 1.5rem;
+    }
+  }
 }
 .diaryfooter {
   height: 2.8rem;

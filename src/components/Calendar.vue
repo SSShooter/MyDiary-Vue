@@ -97,7 +97,7 @@ export default {
 
 #calendar {
   background-color: @maincolor;
-  height: @diarycontainerheight;
+  height: @commoncontainerheight;
   .cadiv {
     width: 100vw;
     height: 100vw;

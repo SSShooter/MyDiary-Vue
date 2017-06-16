@@ -25,6 +25,9 @@ export default {
       menu: 'entries'
     }
   },
+  mounted () {
+    this.menu = this.$route.path.split('/')[2];
+  },
   methods: {
     loadEntries() {
       this.$router.replace('/diary/entries');//疑问
@@ -44,8 +47,7 @@ export default {
 <style lang="less" scoped>
 @import './common.less';
 header {
-  /*padding for导航栏*/
-  .commonheader;
+  .diaryheader;
   box-sizing: border-box;
   display: flex;
   flex-direction: column;

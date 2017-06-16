@@ -2,7 +2,7 @@
   <div class="todolist">
     <header>
       <span class="title">biaoti</span>
-      <div class="add">
+      <div class="right-btn">
         <i class="iconfont icon-pen"></i>
       </div>
     </header>
@@ -44,26 +44,7 @@ export default {
 @import '//at.alicdn.com/t/font_cy3k4msf00y66r.css';
 .todolist {
   header {
-    .commonheader;
-    background-color: @maincolor;
-    text-align: center;
-    font-size: 1.8rem;
-    color: #fff;
-    position: relative;
-    .title {
-      line-height: @commonheaderheight;
-    }
-    .add {
-      position: absolute;
-      bottom: 0;
-      right: 0;
-      height: @commonheaderheight;
-      padding-right: 10px;
-      .iconfont {
-        line-height: @commonheaderheight;
-        font-size: 1.5rem;
-      }
-    }
+    .commonheader(@bgcolor: @maincolor, @fontcolor: #fff);
   }
   .items {
     background-image: url('../assets/line.png');

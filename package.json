@@ -9,6 +9,7 @@
     "build": "cross-env NODE_ENV=production webpack --progress --hide-modules"
   },
   "dependencies": {
+    "alloyfinger": "^0.1.7",
     "css-loader": "^0.25.0",
     "dexie": "^1.5.1",
     "less": "^2.7.2",

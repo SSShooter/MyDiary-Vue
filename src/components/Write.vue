@@ -1,14 +1,9 @@
 <template>
   <div id="write">
-    <!--<div class="calendar">
-                  <div class="month">{{month}}</div>
-                  <div class="date">{{date}}</div>
-                  <div class="day">{{day}}{{time}}</div>
-                </div>-->
     <div class="calendar">
-      <div class="month">Jun</div>
-      <div class="date">14</div>
-      <div class="day">Wednesday 19:34</div>
+      <div class="month">{{month}}</div>
+      <div class="date">{{date}}</div>
+      <div class="day">{{day}} {{time}}</div>
     </div>
     <div class="write">
       <input placeholder="title" />
@@ -23,9 +18,16 @@
 </template>
 
 <script>
+var moment = require('moment');
+var monthArr = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+var dayArr = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
 export default {
   data() {
     return {
+      month: monthArr[moment().month()],
+      date: moment().date(),
+      day: dayArr[moment().day()],
+      time: moment().hours() + ':' + moment().minutes()
     }
   }
 }
@@ -67,6 +69,7 @@ export default {
   textarea {
     resize: none;
     width: 100%;
+    height: 200px;
     margin-top: 10px;
     padding: 10px;
     border: none;
@@ -78,9 +81,9 @@ footer {
   .diaryfooter;
   display: flex;
   text-align: center;
-  align-items:center;
+  align-items: center;
   justify-content: center;
-  .iconfont{
+  .iconfont {
     font-size: 1.5rem;
     padding: 0 20px;
   }
