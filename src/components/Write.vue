@@ -19,15 +19,13 @@
 
 <script>
 var moment = require('moment');
-var monthArr = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
-var dayArr = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
 export default {
   data() {
     return {
-      month: monthArr[moment().month()],
-      date: moment().date(),
-      day: dayArr[moment().day()],
-      time: moment().hours() + ':' + moment().minutes()
+      month: moment().format('MMM'),
+      date: moment().format('DD'),
+      day: moment().format('dddd'),
+      time: moment().format('HH:MM')
     }
   }
 }

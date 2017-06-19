@@ -20,17 +20,15 @@ import Vue from 'vue'
 import VueAwesomeSwiper from 'vue-awesome-swiper'
 Vue.use(VueAwesomeSwiper)
 var moment = require('moment');
-var monthArr = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
-var dayArr = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
 export default {
   name: 'calendar',
   data() {
     return {
       moment: moment(),
       thispage: 0,
-      month: monthArr[moment().month()],
-      date: moment().date(),
-      day: dayArr[moment().day()],
+      month: moment().format('MMM'),
+      date: moment().format('DD'),
+      day: moment().format('ddd'),
       month2: '',
       date2: '',
       day2: '',
@@ -46,14 +44,14 @@ export default {
           console.log(this.thispage);
           this.moment = this.moment.add(1, 'd');
           if (this.thispage == 0) {
-            this.month2 = monthArr[this.moment.month()];
-            this.date2 = this.moment.date();
-            this.day2 = dayArr[this.moment.day()];
+            this.month2 = this.moment.format('MMM');
+            this.date2 = this.moment.format('DD');
+            this.day2 = this.moment.format('ddd');
             this.thispage = 1;
           } else {
-            this.month = monthArr[this.moment.month()];
-            this.date = this.moment.date();
-            this.day = dayArr[this.moment.day()];
+            this.month = this.moment.format('MMM');
+            this.date = this.moment.format('DD');
+            this.day = this.moment.format('ddd');
             this.thispage = 0;
           }
         },
@@ -62,14 +60,14 @@ export default {
           console.log(this.thispage);
           this.moment = this.moment.subtract(1, 'd');
           if (this.thispage == 0) {
-            this.month2 = monthArr[this.moment.month()];
-            this.date2 = this.moment.date();
-            this.day2 = dayArr[this.moment.day()];
+            this.month2 = this.moment.format('MMM');
+            this.date2 = this.moment.format('DD');
+            this.day2 = this.moment.format('ddd');
             this.thispage = 1;
           } else {
-            this.month = monthArr[this.moment.month()];
-            this.date = this.moment.date();
-            this.day = dayArr[this.moment.day()];
+            this.month = this.moment.format('MMM');
+            this.date = this.moment.format('DD');
+            this.day = this.moment.format('ddd');
             this.thispage = 0;
           }
         }
@@ -77,13 +75,6 @@ export default {
     }
   },
   methods: {
-    onSwipeLeft: function (e) {
-      this.moment = this.moment.add(1, 'd');
-      this.month = monthArr[this.moment.month()];
-      this.date = this.moment.date();
-      this.day = dayArr[this.moment.day()];
-      console.log(this.month, this.date, this.day)
-    }
   }
 }
 </script>

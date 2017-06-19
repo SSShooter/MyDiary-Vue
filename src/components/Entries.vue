@@ -1,18 +1,19 @@
 <template>
   <div id="entries">
     <div class="items">
-      <div class="item">
+      <div v-for="item in testdata"
+           class="item">
         <div class="dd">
-          <p class="date">13</p>
-          <p class="day">Thu</p>
+          <p class="date">{{convertToDD(item.createdate)}}</p>
+          <p class="day">{{convertToddd(item.createdate)}}</p>
         </div>
         <div class="content">
-          <div class="time">20:04</div>
-          <div class="title">我的project</div>
+          <div class="time">{{convertToHHMM(item.createdate)}}</div>
+          <div class="title">{{item.title}}</div>
         </div>
         <div class="state">
-          <i class="iconfont icon-baoxue"></i>
-          <i class="iconfont icon-kaixin-"></i>
+          <i class="iconfont" :class="'icon-'+ item.weather"></i>
+          <i class="iconfont" :class="'icon-'+ item.mood"></i>
           <i class="iconfont icon-bookmark"></i>
         </div>
       </div>
@@ -25,8 +26,47 @@
 </template>
 <script>
 import Vue from 'vue'
-export default {
+var moment = require('moment');
 
+export default {
+  data() {
+    return {
+      testdata: [
+        {
+          "_id": "594785c8887da62d86d8235b",
+          "folderId": "594782856659ac2d39589508",
+          "title": "第二篇日记2",
+          "content": "something happend",
+          "mood": "kaixin-",
+          "weather": "baoxue",
+          "createdate": "2017-06-18",
+          "__v": 0,
+          "pic": []
+        },
+        {
+          "_id": "594785d3887da62d86d8235c",
+          "folderId": "594782856659ac2d39589508",
+          "title": "第一篇日记",
+          "content": "something happend",
+          "mood": "nanguo",
+          "weather": "qingtian",
+          "createdate": "2017-06-18",
+          "__v": 0,
+          "pic": []
+        }
+      ]
+    }
+  }, methods: {
+    convertToDD(timestamp) {
+      return moment(timestamp).format('DD');
+    },
+    convertToddd(timestamp) {
+      return moment(timestamp).format('ddd');
+    },
+    convertToHHMM(timestamp) {
+      return moment(timestamp).format('HH:MM');
+    },
+  }
 }
 </script>
 <style lang="less">
@@ -44,6 +84,7 @@ export default {
     box-sizing: border-box;
     height: 4.5rem;
     padding: 5px;
+    margin-bottom: 8px;
     .dd {
       float: left;
       width: 3rem;
@@ -81,7 +122,8 @@ export default {
     text-align: center;
     align-items: center;
     justify-content: Space-between;
-    .buttons,.total {
+    .buttons,
+    .total {
       font-size: 1.5rem;
       padding: 0 10px;
     }
