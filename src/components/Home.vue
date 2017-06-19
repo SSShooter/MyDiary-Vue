@@ -1,63 +1,37 @@
 <template>
-    <div class="home"
-         id="home">
-        <modal name="hello-world"
-               width=300>
+    <div class="home">
+        <modal name="hello-world" :width="300" :height="200">
             <div class="pop-up-box clearfix">
+                <span>文件夹类型</span>
                 <div class="checkbox">
-                    <strong>folder type</strong>
-                    <label name="diary"
-                           class="checked"
-                           for="diary">
-                        <i class="iconfont icon-book"></i>diary
-                        <input type="radio"
-                               id="diary"
-                               checked="checked"
-                               value="diary">
+                    <label :class="{'checked': newFolderType==='diary'}" name="diary" for="diary">
+                        <i class="iconfont icon-book"></i>日记本
+                        <input id="diary" v-model="newFolderType" type="radio" value="diary">
                     </label>
-                    <label name="list"
-                           for="list">
-                        <i class="iconfont icon-alert"></i>list
-                        <input type="radio"
-                               id="list"
-                               value="list">
+                    <label :class="{'checked': newFolderType==='list'}" name="list" for="list">
+                        <i class="iconfont icon-alert"></i>待办事项
+                        <input id="list" v-model="newFolderType" type="radio" value="list">
                     </label>
-                    <label name="address"
-                           for="address">
-                        <i class="iconfont icon-phone"></i>address book
-                        <input type="radio"
-                               id="address"
-                               value="address">
+                    <label :class="{'checked':newFolderType==='contact' }" name="address" for="contact">
+                        <i class="iconfont icon-contact"></i>电话本
+                        <input id="contact" v-model="newFolderType" type="radio" value="contact">
                     </label>
                 </div>
-                <div class="form-group">
-                    <strong>folder name</strong>
-                    <input type="text"
-                           name="folder_name"
-                           class="form-control">
-                </div>
-                <button type="submit"
-                        class="btn btn-default pull-right"
-                        id="submitNewFolder">Submit</button>
+                <span>文件夹名称</span>
+                <input type="text" v-model="newFolderName" class="foldername">
+                <button class="confirm" @click="newFolder">确定</button>
             </div>
         </modal>
     
         <header>
-            <img src="http://tva1.sinaimg.cn/crop.316.53.496.496.180/686d7361jw1f3q2lpig4cj20vk0hswn3.jpg"
-                 alt="avatar"
-                 class="img-circle">
+            <img src="http://tva1.sinaimg.cn/crop.316.53.496.496.180/686d7361jw1f3q2lpig4cj20vk0hswn3.jpg" alt="avatar" class="img-circle">
             <div class="name">
-                <span class="nickname"
-                      @click="show">{{nickname}}</span>
-                <span class="realname">{{realname}}</span>
+                <div class="nickname" @click="show">{{nickname}}</div>
+                <div class="realname">{{realname}}</div>
             </div>
         </header>
         <div id="main">
-            <div v-for="item in testdata"
-                 class="item"
-                 :data-folderid="item._id"
-                 :data-type="item.type"
-                 @click="jump">
+            <div v-for="item in testdata" class="item" :data-folderid="item._id" :data-type="item.type" @click="jump">
                 <i class="iconfont" :class="transferToIcon(item.type)"></i>
                 <span>{{item.foldername}}</span>
                 <div class="total">
@@ -66,33 +40,19 @@
                 </div>
             </div>
         </div>
-        <div id="search-result"
-             class="container">
+        <div id="search-result" class="container">
         </div>
         <footer>
             <div class="inputdiv">
-                <icon name="search"
-                      class="search"
-                      scale="1.5"></icon>
-                <input type="text"
-                       name="search"
-                       id="search" />
+                <icon name="search" class="search" scale="1.5"></icon>
+                <input type="text" name="search" id="search" />
             </div>
-            <icon name="cog"
-                  class="cog"
-                  scale="1.5"></icon>
+            <icon name="cog" class="cog" scale="1.5"></icon>
         </footer>
         <div id="setting-div">
-            <i class="iconfont icon-tianjia"
-               id="new"
-               data-toggle="modal"
-               data-poptarget="newfolder"></i>
-            <i class="iconfont icon-zhuti"
-               id="theme"
-               onclick="changeTheme()"></i>
-            <i class="iconfont icon-about"
-               id="about"
-               onClick="location='about.html'"></i>
+            <i class="iconfont icon-tianjia" id="new" data-toggle="modal" data-poptarget="newfolder"></i>
+            <i class="iconfont icon-zhuti" id="theme" onclick="changeTheme()"></i>
+            <i class="iconfont icon-about" id="about" onClick="location='about.html'"></i>
         </div>
     </div>
 </template>
@@ -104,7 +64,6 @@ import Icon from 'vue-awesome/components/Icon.vue'
 Vue.use(vmodal)
 Vue.component('icon', Icon)
 export default {
-    name: 'home',
     data() {
         return {
             nickname: '立花　瀧',
@@ -125,6 +84,8 @@ export default {
                     "__v": 0
                 }
             ],
+            newFolderType:'diary',
+            newFolderName:'',
             list: []
         }
     },
@@ -143,6 +104,13 @@ export default {
         jump(event) {
             if (event.currentTarget.dataset.type === 'diary')
                 this.$router.push('/diary/entries');
+            if (event.currentTarget.dataset.type === 'phonebook')
+                this.$router.push('/phonebook');
+            if (event.currentTarget.dataset.type === 'todolist')
+                this.$router.push('/todilist');
+        },
+        newFolder(){
+            alert(this.newFolderType)
         }
     }
 }
@@ -152,7 +120,8 @@ export default {
 @import './common.less';
 @import '//at.alicdn.com/t/font_h8pyt35bn8xmkj4i.css';
 @headerheight: 6rem;
-.box {
+@black: #3c3c3c;
+.box() {
     float: left;
     box-sizing: border-box;
     padding: 10px 10px;
@@ -167,12 +136,54 @@ header {
     width: 100vw;
     background-color: @maincolor;
     color: #fff;
+    .nickname{
+        font-size: 1.2rem;
+    }
     img {
-        .box;
+        .box();
         height: 100%;
     }
     .name {
-        .box;
+        .box();
+    }
+}
+
+.pop-up-box {
+    color: @maincolor;
+    box-sizing: border-box;
+    padding: 30px 10px;
+    text-align: center;
+    .checkbox {
+        margin: 10px 0;
+        display: flex;
+        justify-content: Space-around;
+        label {
+            opacity: .5;
+            .iconfont {
+                padding-right: 10px;
+            }
+            input[type="radio"] {
+                display: none;
+            }
+        }
+        .checked {
+            opacity: 1;
+        }
+    }
+    .foldername {
+        border: 1px @maincolor solid;
+        border-radius: 5px;
+        line-height: 1.5rem;
+        outline: none;
+        padding: 0 10px;
+        margin: 10px 0;
+    }
+    .confirm {
+        border: 1px @maincolor solid;
+        border-radius: 5px;
+        margin: 10px 0;
+        padding: 5px 15px;
+        background-color: #fff;
     }
 }
 
@@ -188,7 +199,7 @@ header {
         line-height: 3rem;
         color: rgb(92, 115, 136);
         height: 3rem;
-        .iconfont{
+        .iconfont {
             font-size: 1.5rem;
         }
         .iconfont,
@@ -241,133 +252,5 @@ footer {
     .cog {
         color: @maincolor;
     }
-}
-
-#search-result {
-    display: none;
-    background-color: rgba(0, 0, 0, .5);
-    position: absolute;
-    height: calc(100vh - 44px);
-    width: 100vw;
-    top: 0;
-    left: 0;
-    padding-top: 20px;
-    overflow: scroll;
-}
-
-#search-result .item {
-    height: 80px;
-    background-color: #fff;
-    border-radius: 6px;
-    margin-bottom: 10px;
-    color: @maincolor;
-}
-
-.date-and-week {
-    padding-top: 10px;
-    height: 60px;
-    width: 60px;
-    text-align: center;
-}
-
-.date-and-week .date {
-    font-size: 40px;
-    line-height: 40px;
-    margin-bottom: 0;
-}
-
-.content {
-    padding-top: 14px;
-}
-
-.content p {
-    margin-bottom: 0;
-}
-
-.content .create_time {
-    font-size: 10px;
-}
-
-.content .description {
-    font-size: 10px;
-}
-
-.state {
-    padding-right: 10px;
-    padding-top: 14px;
-}
-
-.state i {
-    margin: 0 2px;
-}
-
-.state p {
-    text-align: right;
-    font-size: 20px;
-}
-
-#setting-div {
-    height: 60px;
-    width: 100vw;
-    background-color: @maincolor;
-    position: fixed;
-    bottom: 0;
-    display: none;
-    color: #fff;
-    line-height: 60px;
-}
-
-#setting-div .iconfont {
-    text-align: center;
-    font-size: 30px;
-    width: 32%;
-    display: inline-block;
-}
-
-#setting-mask {
-    position: absolute;
-    top: 0;
-    left: 0;
-    height: 100%;
-    width: 100vw;
-    background-color: rgba(0, 0, 0, .5);
-    display: none;
-}
-
-
-/*table居中法*/
-
-.table {
-    display: table;
-    height: 100%;
-    pointer-events: none;
-    /* This makes sure that we can still click outside of the modal to close it */
-}
-
-.table-cell {
-    display: table-cell;
-    vertical-align: middle;
-    pointer-events: none;
-}
-
-.modal-content {
-    pointer-events: all;
-}
-
-input[type="radio"] {
-    display: none;
-}
-
-.checkbox label {
-    opacity: .5;
-}
-
-.checkbox label.checked {
-    opacity: 1;
-}
-
-strong {
-    display: inline-block;
-    margin-bottom: 5px;
 }
 </style>
