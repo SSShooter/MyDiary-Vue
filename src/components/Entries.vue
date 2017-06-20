@@ -69,7 +69,7 @@ export default {
   }
 }
 </script>
-<style lang="less">
+<style lang="less" scoped>
 @import './common.less';
 @import '//at.alicdn.com/t/font_7y3xysg41dghw7b9.css';
 #entries {

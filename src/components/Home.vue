@@ -1,38 +1,66 @@
 <template>
     <div class="home">
-        <modal name="hello-world" :width="300" :height="200">
+        <modal name="new-folder"
+               :width="300"
+               :height="200">
             <div class="pop-up-box clearfix">
                 <span>文件夹类型</span>
                 <div class="checkbox">
-                    <label :class="{'checked': newFolderType==='diary'}" name="diary" for="diary">
+                    <label :class="{'checked': newFolderType==='diary'}"
+                           name="diary"
+                           for="diary">
                         <i class="iconfont icon-book"></i>日记本
-                        <input id="diary" v-model="newFolderType" type="radio" value="diary">
+                        <input id="diary"
+                               v-model="newFolderType"
+                               type="radio"
+                               value="diary">
                     </label>
-                    <label :class="{'checked': newFolderType==='list'}" name="list" for="list">
+                    <label :class="{'checked': newFolderType==='todolist'}"
+                           name="todolist"
+                           for="todolist">
                         <i class="iconfont icon-alert"></i>待办事项
-                        <input id="list" v-model="newFolderType" type="radio" value="list">
+                        <input id="todolist"
+                               v-model="newFolderType"
+                               type="radio"
+                               value="todolist">
                     </label>
-                    <label :class="{'checked':newFolderType==='contact' }" name="address" for="contact">
+                    <label :class="{'checked':newFolderType==='contact' }"
+                           name="address"
+                           for="contact">
                         <i class="iconfont icon-contact"></i>电话本
-                        <input id="contact" v-model="newFolderType" type="radio" value="contact">
+                        <input id="contact"
+                               v-model="newFolderType"
+                               type="radio"
+                               value="contact">
                     </label>
                 </div>
                 <span>文件夹名称</span>
-                <input type="text" v-model="newFolderName" class="foldername">
-                <button class="confirm" @click="newFolder">确定</button>
+                <input type="text"
+                       v-model="newFolderName"
+                       class="foldername">
+                <button class="confirm"
+                        @click="newFolder">确定</button>
             </div>
         </modal>
     
         <header>
-            <img src="http://tva1.sinaimg.cn/crop.316.53.496.496.180/686d7361jw1f3q2lpig4cj20vk0hswn3.jpg" alt="avatar" class="img-circle">
+            <img src="http://tva1.sinaimg.cn/crop.316.53.496.496.180/686d7361jw1f3q2lpig4cj20vk0hswn3.jpg"
+                 alt="avatar"
+                 class="img-circle">
             <div class="name">
-                <div class="nickname" @click="show">{{nickname}}</div>
+                <div class="nickname"
+                     @click="show">{{nickname}}</div>
                 <div class="realname">{{realname}}</div>
             </div>
         </header>
         <div id="main">
-            <div v-for="item in testdata" class="item" :data-folderid="item._id" :data-type="item.type" @click="jump">
-                <i class="iconfont" :class="transferToIcon(item.type)"></i>
+            <div v-for="item in testdata"
+                 class="item"
+                 :data-folderid="item._id"
+                 :data-type="item.type"
+                 @click="jump">
+                <i class="iconfont"
+                   :class="transferToIcon(item.type)"></i>
                 <span>{{item.foldername}}</span>
                 <div class="total">
                     <span>30</span>
@@ -40,29 +68,37 @@
                 </div>
             </div>
         </div>
-        <div id="search-result" class="container">
+        <div id="search-result"
+             class="container">
         </div>
         <footer>
             <div class="inputdiv">
-                <icon name="search" class="search" scale="1.5"></icon>
-                <input type="text" name="search" id="search" />
+                <i class="iconfont icon-search search"></i>
+                <input type="text"
+                       name="search"
+                       id="search" />
             </div>
-            <icon name="cog" class="cog" scale="1.5"></icon>
+            <i class="iconfont icon-setting cog"></i>
         </footer>
         <div id="setting-div">
-            <i class="iconfont icon-tianjia" id="new" data-toggle="modal" data-poptarget="newfolder"></i>
-            <i class="iconfont icon-zhuti" id="theme" onclick="changeTheme()"></i>
-            <i class="iconfont icon-about" id="about" onClick="location='about.html'"></i>
+            <i class="iconfont icon-tianjia"
+               id="new"
+               data-toggle="modal"
+               data-poptarget="newfolder"></i>
+            <i class="iconfont icon-zhuti"
+               id="theme"
+               onclick="changeTheme()"></i>
+            <i class="iconfont icon-about"
+               id="about"
+               onClick="location='about.html'"></i>
         </div>
     </div>
 </template>
 <script>
 import Vue from 'vue'
 import vmodal from 'vue-js-modal'
-import 'vue-awesome/icons'
-import Icon from 'vue-awesome/components/Icon.vue'
+import axios from 'axios';
 Vue.use(vmodal)
-Vue.component('icon', Icon)
 export default {
     data() {
         return {
@@ -84,33 +120,58 @@ export default {
                     "__v": 0
                 }
             ],
-            newFolderType:'diary',
-            newFolderName:'',
+            newFolderType: 'diary',
+            newFolderName: '',
             list: []
         }
     },
     mounted() {
+        this.getFolder();
     },
     methods: {
-        transferToIcon(type){
-            return 'icon-' + (type === 'diary' ? 'book' : type === 'phonebook' ? 'contact' : type === 'todolist' ? 'alert' : false);
+        transferToIcon(type) {
+            return 'icon-' + (type === 'diary' ? 'book' : type === 'contact' ? 'contact' : type === 'todolist' ? 'alert' : false);
         },
         show() {
-            this.$modal.show('hello-world');
+            this.$modal.show('new-folder');
         },
         hide() {
-            this.$modal.hide('hello-world');
+            this.$modal.hide('new-folder');
         },
         jump(event) {
             if (event.currentTarget.dataset.type === 'diary')
                 this.$router.push('/diary/entries');
-            if (event.currentTarget.dataset.type === 'phonebook')
+            if (event.currentTarget.dataset.type === 'contact')
                 this.$router.push('/phonebook');
             if (event.currentTarget.dataset.type === 'todolist')
-                this.$router.push('/todilist');
+                this.$router.push('/todolist');
         },
-        newFolder(){
-            alert(this.newFolderType)
+        newFolder() {
+            axios.post('http://120.76.217.199:8080/api/folder', {
+                type: this.newFolderType,
+                foldername: this.newFolderName,
+                createdate: +new Date()
+            })
+                .then(res => {
+                    if (res.data.code === 0) {
+                        this.$modal.hide('new-folder');
+                        this.getFolder();
+                    }
+                })
+                .catch(function (error) {
+                    console.log(error);
+                });
+        },
+        getFolder() {
+            axios.get('http://120.76.217.199:8080/api/folder')
+                .then(res => {
+                    if (res.data.code === 0) {
+                        this.testdata = res.data.data
+                    }
+                })
+                .catch(function (error) {
+                    console.log(error);
+                });
         }
     }
 }
@@ -118,7 +179,7 @@ export default {
 
 <style lang="less" scoped>
 @import './common.less';
-@import '//at.alicdn.com/t/font_h8pyt35bn8xmkj4i.css';
+@import '//at.alicdn.com/t/font_r2ob7nylkvwe9udi.css';
 @headerheight: 6rem;
 @black: #3c3c3c;
 .box() {
@@ -136,7 +197,7 @@ header {
     width: 100vw;
     background-color: @maincolor;
     color: #fff;
-    .nickname{
+    .nickname {
         font-size: 1.2rem;
     }
     img {
@@ -173,8 +234,8 @@ header {
     .foldername {
         border: 1px @maincolor solid;
         border-radius: 5px;
+        color: @maincolor;
         line-height: 1.5rem;
-        outline: none;
         padding: 0 10px;
         margin: 10px 0;
     }
@@ -184,6 +245,7 @@ header {
         margin: 10px 0;
         padding: 5px 15px;
         background-color: #fff;
+        color: @maincolor;
     }
 }
 
@@ -243,6 +305,7 @@ footer {
             top: 50%;
             margin-top: -12px;
             left: 5px;
+            line-height: 24px;
         }
     }
     .search,
@@ -251,6 +314,7 @@ footer {
     }
     .cog {
         color: @maincolor;
+        font-size: 24px;
     }
 }
 </style>

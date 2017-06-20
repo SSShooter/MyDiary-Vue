@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "alloyfinger": "^0.1.7",
+    "axios": "^0.16.2",
     "css-loader": "^0.25.0",
     "dexie": "^1.5.1",
     "less": "^2.7.2",
