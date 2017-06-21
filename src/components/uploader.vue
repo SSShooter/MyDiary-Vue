@@ -1,7 +1,7 @@
 <template>
   <div>
-    <input @change="getimg"
-           type="file" />
+    <input @change="getimg" type="file" id="file"/>
+    <label for="file">Choose a file</label>
   </div>
 </template>
 <script>
@@ -19,16 +19,12 @@ export default {
   },
   methods: {
     getimg(e) {
-      console.log(e.target.files[0]);
+      var formData = new FormData();
+      formData.append('file',e.target.files[0])
       axios({
         url: 'http://120.76.217.199:8080/api/diary/picupload',
         method: 'post',
-        data: {
-          file: e.target.files[0]
-        },
-        headers: {
-          'Content-Type': 'multipart/form-data'
-        }
+        data:formData
       })
         .then(function (response) {
           console.log(response);
@@ -42,5 +38,7 @@ export default {
 </script>
 
 <style lang="less" scoped>
-
+input{
+  display: none;
+}
 </style>
