@@ -1,5 +1,6 @@
 <template>
   <div id="write">
+    <uploader></uploader>
     <div class="calendar">
       <div class="month">{{month}}</div>
       <div class="date">{{date}}</div>
@@ -19,13 +20,30 @@
 
 <script>
 var moment = require('moment');
+import Vue from 'vue'
+import Uploader from './uploader.vue'
 export default {
   data() {
     return {
-      month: moment().format('MMM'),
-      date: moment().format('DD'),
-      day: moment().format('dddd'),
-      time: moment().format('HH:MM')
+      moment: '',
+      month: '',
+      date: '',
+      day: '',
+      time: ''
+    }
+  },
+  components: {
+    'uploader': Uploader
+  },
+  mounted() {
+    this.moment = moment();
+  },
+  watch: {
+    moment() {
+      this.month = this.moment.format('MMM'),
+        this.date = this.moment.format('DD'),
+        this.day = this.moment.format('dddd'),
+        this.time = this.moment.format('hh:mm')
     }
   }
 }

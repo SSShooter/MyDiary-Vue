@@ -12,14 +12,16 @@
           <div class="title">{{item.title}}</div>
         </div>
         <div class="state">
-          <i class="iconfont" :class="'icon-'+ item.weather"></i>
-          <i class="iconfont" :class="'icon-'+ item.mood"></i>
+          <i class="iconfont"
+             :class="'icon-'+ item.weather"></i>
+          <i class="iconfont"
+             :class="'icon-'+ item.mood"></i>
           <i class="iconfont icon-bookmark"></i>
         </div>
       </div>
     </div>
     <footer>
-      <div class="buttons">aaa</div>
+      <div class="buttons">{{currentFolder}}</div>
       <div class="total">1 Entries</div>
     </footer>
   </div>
@@ -27,6 +29,7 @@
 <script>
 import Vue from 'vue'
 var moment = require('moment');
+import { mapState, mapActions } from 'vuex'
 
 export default {
   data() {
@@ -56,7 +59,11 @@ export default {
         }
       ]
     }
-  }, methods: {
+  },
+  computed: mapState([
+    'currentFolder'
+  ]),
+  methods: {
     convertToDD(timestamp) {
       return moment(timestamp).format('DD');
     },

@@ -96,6 +96,7 @@
 </template>
 <script>
 import Vue from 'vue'
+import { mapState, mapActions, mapMutations } from 'vuex'
 import vmodal from 'vue-js-modal'
 import axios from 'axios';
 Vue.use(vmodal)
@@ -128,6 +129,9 @@ export default {
     mounted() {
         this.getFolder();
     },
+    computed: mapState([
+        'currentFolder'
+    ]),
     methods: {
         transferToIcon(type) {
             return 'icon-' + (type === 'diary' ? 'book' : type === 'contact' ? 'contact' : type === 'todolist' ? 'alert' : false);
@@ -139,12 +143,16 @@ export default {
             this.$modal.hide('new-folder');
         },
         jump(event) {
-            if (event.currentTarget.dataset.type === 'diary')
-                this.$router.push('/diary/entries');
-            if (event.currentTarget.dataset.type === 'contact')
-                this.$router.push('/phonebook');
-            if (event.currentTarget.dataset.type === 'todolist')
-                this.$router.push('/todolist');
+            var type = event.currentTarget.dataset.type;
+            var id = event.currentTarget.dataset.folderid;
+            // this.changeCurrentFolder(id);
+            this.$store.commit('changeCurrentFolder',id)
+            if (type === 'diary')
+                this.$router.push('/diary/entries/');
+            if (type === 'contact')
+                this.$router.push('/phonebook/');
+            if (type === 'todolist')
+                this.$router.push('/todolist/');
         },
         newFolder() {
             axios.post('http://120.76.217.199:8080/api/folder', {

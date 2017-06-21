@@ -14,7 +14,9 @@
       </div>
       <div class="bookname">nikki</div>
     </header>
-    <router-view></router-view>
+    <transition name="fade">
+      <router-view></router-view>
+    </transition>
   </div>
 </template>
 <script>
@@ -25,7 +27,7 @@ export default {
       menu: 'entries'
     }
   },
-  mounted () {
+  mounted() {
     this.menu = this.$route.path.split('/')[2];
   },
   methods: {
