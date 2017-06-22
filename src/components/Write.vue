@@ -1,6 +1,5 @@
 <template>
   <div id="write">
-    <uploader></uploader>
     <div class="calendar">
       <div class="month">{{month}}</div>
       <div class="date">{{date}}</div>
@@ -11,17 +10,23 @@
       <textarea placeholder="content"></textarea>
     </div>
     <footer>
-      <i class="iconfont icon-zhaopian"></i>
+      <i class="iconfont icon-zhaopian" @click="showUploadModal"></i>
       <i class="iconfont icon-baocun"></i>
       <i class="iconfont icon-guanbi"></i>
     </footer>
+  
+    <modal name="example" :width="300" :height="80" :pivotY=".9">
+      <uploader></uploader>
+    </modal>
   </div>
 </template>
 
 <script>
 var moment = require('moment');
 import Vue from 'vue'
-import Uploader from './uploader.vue'
+import Uploader from './Uploader.vue'
+import vmodal from 'vue-js-modal'
+Vue.use(vmodal)
 export default {
   data() {
     return {
@@ -37,6 +42,11 @@ export default {
   },
   mounted() {
     this.moment = moment();
+  },
+  methods:{
+    showUploadModal(){
+    this.$modal.show('example');
+    }
   },
   watch: {
     moment() {

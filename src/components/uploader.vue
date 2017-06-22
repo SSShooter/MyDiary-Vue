@@ -1,13 +1,9 @@
 <template>
-  <div>
-    <div class="imgwrapper"
-         v-for="pic in pics">
-      <img :src="pic"
-           @click="getlarge" />
+  <div class="uploader">
+    <div class="imgwrapper" v-for="pic in pics">
+      <img :src="pic" />
     </div>
-    <input @change="getimg"
-           type="file"
-           id="file" />
+    <input @change="getimg" type="file" id="file" />
     <label for="file">+</label>
   </div>
 </template>
@@ -17,7 +13,7 @@ export default {
   data() {
     return {
       file: '',
-      pics: []
+      pics: ["http://www.time-record.net:8080/1498102597917NMzb.jpg","http://www.time-record.net:8080/1498102597917NMzb.jpg","http://www.time-record.net:8080/1498131919564CCJ2.jpg","http://www.time-record.net:8080/1498102597917NMzb.jpg","http://www.time-record.net:8080/1498131919564CCJ2.jpg"]
     }
   },
   watch: {
@@ -47,33 +43,29 @@ export default {
 </script>
 
 <style lang="less" scoped>
+.uploader {
+  display: flex;
+  width: 100%;
+  overflow-x: scroll;
+  .imgwrapper {
+    display: block;
+    height: 80px;
+    overflow: hidden;
+    img {
+      height: 100%;
+    }
+  }
+}
+
 input {
   display: none;
 }
 
 label {
   display: block;
-  height: 50px;
-  width: 50px;
-  border: 1px solid #000;
+  height: 80px;
+  width: 80px;
   text-align: center;
   line-height: 50px;
-}
-
-.imgwrapper {
-  display: block;
-  height: 50px;
-  width: 50px;
-  border: 1px solid #000;
-  overflow: hidden;
-}
-
-img {
-  height: 100%;
-}
-
-.large {
-  position: absolute;
-  width: 100vw;
 }
 </style>
