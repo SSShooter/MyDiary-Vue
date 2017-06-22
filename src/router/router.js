@@ -7,6 +7,7 @@ import Diary from '../components/Diary.vue'
 import Entries from '../components/Entries.vue'
 import Calendar from '../components/Calendar.vue'
 import Write from '../components/Write.vue'
+import Gallery from '../components/Gallery.vue'
 
 Vue.use(Router)
 
@@ -40,6 +41,10 @@ const router = new Router({
         {
             path: '/todolist',
             component: Todolist
+        },
+        {
+            path: '/gallery',
+            component: Gallery
         }
     ]
 })
