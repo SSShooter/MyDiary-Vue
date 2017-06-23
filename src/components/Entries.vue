@@ -27,9 +27,10 @@
   </div>
 </template>
 <script>
+import axios from 'axios';
 import Vue from 'vue'
 var moment = require('moment');
-import { mapState, mapActions } from 'vuex'
+import { mapState, mapGetters, mapMutations } from 'vuex'
 
 export default {
   data() {
@@ -60,6 +61,21 @@ export default {
       ]
     }
   },
+  mounted() {
+    axios.get('http://120.76.217.199:8080/api/folder/diary/' + this.currentFolder)
+      .then(res => {
+        if (res.data.code === 0) {
+          this.testdata = res.data.data
+        }
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  },
+  computed: mapGetters({
+    uploadlist: 'getUploadlist',
+    currentFolder: 'getCurrentFolder'
+  }),
   computed: mapState([
     'currentFolder'
   ]),
@@ -84,6 +100,7 @@ export default {
   height: @commoncontainerheight;
   box-sizing: border-box;
   padding: 8px;
+  overflow: scroll;
   .item {
     color: @maincolor;
     background-color: #fff;

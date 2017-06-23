@@ -6,24 +6,33 @@
       <div class="day">{{day}} {{time}}</div>
     </div>
     <div class="write">
-      <input placeholder="title" />
-      <textarea placeholder="content"></textarea>
+      <input v-model="title"
+             placeholder="title" />
+      <textarea v-model="content"
+                placeholder="content"></textarea>
     </div>
     <footer>
-      <i class="iconfont icon-zhaopian" @click="showUploadModal"></i>
-      <i class="iconfont icon-baocun"></i>
+      <i class="iconfont icon-zhaopian"
+         @click="showUploadModal"></i>
+      <i class="iconfont icon-baocun"
+         @click="newDiary"></i>
       <i class="iconfont icon-guanbi"></i>
     </footer>
   
-    <modal name="example" :width="300" :height="80" :pivotY=".9">
+    <modal name="example"
+           :width="300"
+           :height="80"
+           :pivotY=".9">
       <uploader></uploader>
     </modal>
   </div>
 </template>
 
 <script>
+import axios from 'axios';
 var moment = require('moment');
 import Vue from 'vue'
+import { mapGetters, mapActions, mapMutations } from 'vuex'
 import Uploader from './Uploader.vue'
 import vmodal from 'vue-js-modal'
 Vue.use(vmodal)
@@ -34,7 +43,13 @@ export default {
       month: '',
       date: '',
       day: '',
-      time: ''
+      time: '',
+      title: '',
+      content: '',
+      mood: '',
+      weather: '',
+      bookmark: '',
+      tag: ''
     }
   },
   components: {
@@ -43,17 +58,56 @@ export default {
   mounted() {
     this.moment = moment();
   },
-  methods:{
-    showUploadModal(){
-    this.$modal.show('example');
+  computed: mapGetters({
+    uploadlist: 'getUploadlist',
+    currentFolder: 'getCurrentFolder'
+  }),
+  methods: {
+    ...mapMutations([
+      'clearUploadlist'
+    ]),
+    showUploadModal() {
+      this.$modal.show('example');
+    },
+    newDiary() {
+      axios({
+        url: 'http://120.76.217.199:8080/api/diary',
+        method: 'post',
+        data: {
+          folderId: this.currentFolder,
+          title: this.title,
+          content: this.content,
+          pic: this.uploadlist,
+          mood: this.mood,
+          weather: this.weather,
+          bookmark: this.bookmark,
+          tag: this.tag,
+          createdate: +new Date()
+        }
+      })
+        .then(res => {
+          console.log(res)
+          if (res.data.code === 0) {
+            this.title = '',
+              this.content = '',
+              this.mood = '',
+              this.weather = '',
+              this.bookmark = '',
+              this.tag = '',
+              this.clearUploadlist();
+          }
+        })
+        .catch(err => {
+          console.log(err);
+        });
     }
   },
   watch: {
     moment() {
-      this.month = this.moment.format('MMM'),
-        this.date = this.moment.format('DD'),
-        this.day = this.moment.format('dddd'),
-        this.time = this.moment.format('hh:mm')
+      this.month = this.moment.format('MMM')
+      this.date = this.moment.format('DD')
+      this.day = this.moment.format('dddd')
+      this.time = this.moment.format('hh:mm')
     }
   }
 }
