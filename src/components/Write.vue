@@ -6,23 +6,16 @@
       <div class="day">{{day}} {{time}}</div>
     </div>
     <div class="write">
-      <input v-model="title"
-             placeholder="title" />
-      <textarea v-model="content"
-                placeholder="content"></textarea>
+      <input v-model="title" placeholder="title">
+      <textarea v-model="content" placeholder="content"></textarea>
     </div>
     <footer>
-      <i class="iconfont icon-zhaopian"
-         @click="showUploadModal"></i>
-      <i class="iconfont icon-baocun"
-         @click="newDiary"></i>
+      <i class="iconfont icon-zhaopian" @click="showUploadModal"></i>
+      <i class="iconfont icon-baocun" @click="newDiary"></i>
       <i class="iconfont icon-guanbi"></i>
     </footer>
   
-    <modal name="example"
-           :width="300"
-           :height="80"
-           :pivotY=".9">
+    <modal name="example" :width="300" :height="80" :pivotY=".9">
       <uploader></uploader>
     </modal>
   </div>
@@ -88,13 +81,13 @@ export default {
         .then(res => {
           console.log(res)
           if (res.data.code === 0) {
-            this.title = '',
-              this.content = '',
-              this.mood = '',
-              this.weather = '',
-              this.bookmark = '',
-              this.tag = '',
-              this.clearUploadlist();
+            this.title = ''
+            this.content = ''
+            this.mood = ''
+            this.weather = ''
+            this.bookmark = ''
+            this.tag = ''
+            this.clearUploadlist();
           }
         })
         .catch(err => {

@@ -1,8 +1,7 @@
 <template>
   <div id="entries">
     <div class="items">
-      <div v-for="item in testdata"
-           class="item">
+      <div v-for="item in testdata" v-bind:key="item._id" class="item">
         <div class="dd">
           <p class="date">{{convertToDD(item.createdate)}}</p>
           <p class="day">{{convertToddd(item.createdate)}}</p>
@@ -12,10 +11,8 @@
           <div class="title">{{item.title}}</div>
         </div>
         <div class="state">
-          <i class="iconfont"
-             :class="'icon-'+ item.weather"></i>
-          <i class="iconfont"
-             :class="'icon-'+ item.mood"></i>
+          <i class="iconfont" :class="'icon-'+ item.weather"></i>
+          <i class="iconfont" :class="'icon-'+ item.mood"></i>
           <i class="iconfont icon-bookmark"></i>
         </div>
       </div>
@@ -62,18 +59,9 @@ export default {
     }
   },
   mounted() {
-    axios.get('http://120.76.217.199:8080/api/folder/diary/' + this.currentFolder)
-      .then(res => {
-        if (res.data.code === 0) {
-          this.testdata = res.data.data
-        }
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
+    this.getFolderContents();
   },
   computed: mapGetters({
-    uploadlist: 'getUploadlist',
     currentFolder: 'getCurrentFolder'
   }),
   computed: mapState([
@@ -89,6 +77,17 @@ export default {
     convertToHHMM(timestamp) {
       return moment(timestamp).format('HH:MM');
     },
+    getFolderContents() {
+      axios.get('http://120.76.217.199:8080/api/folder/diary/' + this.currentFolder)
+        .then(res => {
+          if (res.data.code === 0) {
+            this.testdata = res.data.data
+          }
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+    }
   }
 }
 </script>

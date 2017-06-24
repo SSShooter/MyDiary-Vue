@@ -7,15 +7,11 @@
       </div>
     </header>
     <ul class="items">
-      <li v-for="item in testData"
-          class="item"
-          @click="complete"
-          data-id="xxx"
-          :class="{complete:item.isComplete}">
+      <li v-for="item in testData" class="item" @click="complete" data-id="xxx" :class="{complete:item.isComplete}">
         {{item.thing}}
       </li>
       <li class="item">
-        <input />
+        <input>
       </li>
     </ul>
   </div>
@@ -31,9 +27,23 @@ export default {
       ]
     }
   },
+  mounted(){
+    this.getFolderContents()
+  },
   methods: {
     complete(e) {
       console.log(e.currentTarget.dataset.id, this.temp)
+    },
+    getFolderContents() {
+      axios.get('http://120.76.217.199:8080/api/folder/todolist/' + this.currentFolder)
+        .then(res => {
+          if (res.data.code === 0) {
+            this.testdata = res.data.data
+          }
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
     }
   }
 }
