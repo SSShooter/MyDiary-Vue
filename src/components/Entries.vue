@@ -58,15 +58,17 @@ export default {
       ]
     }
   },
-  mounted() {
+  created() {
     this.getFolderContents();
+  },
+  watch: {
+    currentFolder() {
+      this.getFolderContents();
+    }
   },
   computed: mapGetters({
     currentFolder: 'getCurrentFolder'
   }),
-  computed: mapState([
-    'currentFolder'
-  ]),
   methods: {
     convertToDD(timestamp) {
       return moment(timestamp).format('DD');
@@ -78,6 +80,7 @@ export default {
       return moment(timestamp).format('HH:MM');
     },
     getFolderContents() {
+      console.log(this.currentFolder);
       axios.get('http://120.76.217.199:8080/api/folder/diary/' + this.currentFolder)
         .then(res => {
           if (res.data.code === 0) {

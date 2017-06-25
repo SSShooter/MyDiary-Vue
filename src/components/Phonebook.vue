@@ -8,43 +8,11 @@
     </header>
     <div class="container">
       <index></index>
-      <div class="item">
+      <div class="item in testdata">
         <div class="name">zdj</div>
         <div class="number">3310333</div>
       </div>
-      <div class="item">
-        <div class="name">zdj</div>
-        <div class="number">3310333</div>
-      </div>
-      <div class="item">
-        <div class="name">zdj</div>
-        <div class="number">3310333</div>
-      </div>
-      <div class="item">
-        <div class="name">zdj</div>
-        <div class="number">3310333</div>
-      </div>
-      <div class="item">
-        <div class="name">zdj</div>
-        <div class="number">3310333</div>
-      </div>
-      <div class="item">
-        <div class="name">zdj</div>
-        <div class="number">3310333</div>
-      </div>
-      <div class="item">
-        <div class="name">zdj</div>
-        <div class="number">3310333</div>
-      </div>
-      <div class="item">
-        <div class="name">zdj</div>
-        <div class="number">3310333</div>
-      </div>
-      <div class="item">
-        <div class="name">zdj</div>
-        <div class="number">3310333</div>
-      </div>
-      <div class="iniapha" id="a">
+      <div class="initial" id="a">
         aa
       </div>
     </div>
@@ -58,6 +26,10 @@ import Index from './Index.vue'
 export default {
   data() {
     return {
+      contact:'',
+      initial:'',
+      number:'',
+      testdata:[]
     }
   },
   components: {
@@ -90,12 +62,25 @@ header {
 }
 
 .container {
+  display: flex;
+  justify-content: baseline;
+  align-items: center;
+  flex-direction: column;
   height: @contactcontainerheight;
   background-color: @maincolor;
   box-sizing: border-box;
-}
-
-.item {
-  padding: 30px;
+  overflow: scroll;
+  .item {
+    padding: 10px 50px;
+    background-color: #fff;
+    color: @maincolor;
+    border-radius: 5px;
+    margin: 5px 0;
+  }
+  .initial{
+    font-size: 2rem;
+    color: #fff;
+    font-weight: bold;
+  }
 }
 </style>
