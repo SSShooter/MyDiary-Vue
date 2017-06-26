@@ -1,32 +1,55 @@
 <template>
   <transition name="fade">
     <div v-show="isModalShow">
-      <div class="mask"
-           @click="isModalShow=!isModalShow"></div>
+      <div class="mask" @click="isModalShow=!isModalShow"></div>
       <div class="modal">
-        <input v-model="contact"
-               placeholder="姓名">
-        <input v-model="number"
-               placeholder="联系方式">
-        <button>确定</button>
+        <input v-model.trim="contact" placeholder="姓名">
+        <input v-model="number" placeholder="联系方式">
+        <input v-model="initial" placeholder="首字母">
+        <button @click="newContact">确定</button>
       </div>
     </div>
   </transition>
 </template>
 <script>
+import { mapGetters } from 'vuex'
+import axios from 'axios';
+const pinyin = require('pinyin');
 export default {
   data() {
     return {
       isModalShow: false,
       contact: '',
-      number: ''
+      number: '',
+      initial: ''
     }
   },
+  watch: {
+    contact(val, oldval) {
+      var reg = /^[A-Za-z]$/;
+      if (oldval === '') {
+        if (reg.test(val)) {
+          this.initial = val;
+        } else {
+          this.initial = pinyin(val.split('')[0], {
+            style: pinyin.STYLE_FIRST_LETTER
+          })[0][0];
+          if(!reg.test(this.initial)) this.initial = '#';
+        }
+      }
+      console.log(this.initial);
+    }
+  },
+  computed: mapGetters({
+    currentFolder: 'getCurrentFolder'
+  }),
   methods: {
     newContact() {
-      axios.post('http://120.76.217.199:8080/api/folder', {
-        type: this.newFolderType,
-        foldername: this.newFolderName,
+      axios.post('http://120.76.217.199:8080/api/phonebook', {
+        folderId: this.currentFolder,
+        contact: this.contact,
+        initial: this.initial,
+        number: this.number,
         createdate: +new Date()
       })
         .then(res => {
@@ -58,7 +81,7 @@ export default {
 .modal {
   position: absolute;
   box-sizing: border-box;
-  padding: 20px;
+  padding: 0 20px;
   top: 50%;
   left: 50%;
   margin-left: -140px;
@@ -71,13 +94,14 @@ export default {
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  border-radius: 3px;
+  border-radius: 5px;
   input,
   button {
     height: 30px;
     line-height: 30px;
     margin: 2px;
     border: 1px solid @maincolor;
+    border-radius: 5px;
   }
   input {
     width: 180px;

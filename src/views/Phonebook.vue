@@ -3,19 +3,17 @@
     <header>
       <span class="title">biaoti</span>
       <div class="right-btn">
-        <i class="iconfont icon-pen"
-           @click="showNewContactModal"></i>
+        <i class="iconfont icon-pen" @click="showNewContactModal"></i>
       </div>
     </header>
     <div class="container">
       <index></index>
-      <div class="item in items">
-        <div class="name">zdj</div>
-        <div class="number">3310333</div>
-      </div>
-      <div class="initial"
-           id="a">
-        aa
+      <div v-for="(item,index) in items">
+        <div v-if="!items[index-1] || item.initial !== items[index-1].initial" class="initial" :id="item.initial">{{item.initial}}</div>
+        <div class="item">
+          <div class="name">{{item.contact}}</div>
+          <div class="number">{{item.number}}</div>
+        </div>
       </div>
     </div>
     <new-contact-modal ref="NewContactModal"></new-contact-modal>
@@ -23,8 +21,8 @@
 </template>
 
 <script>
-import axios from 'axios';
-import Vue from 'vue'
+import axios from 'axios'
+import { mapGetters } from 'vuex'
 import Index from '../components/contact/Index.vue'
 import NewContactModal from '../components/contact/NewContactModal.vue'
 export default {
@@ -36,12 +34,17 @@ export default {
       items: []
     }
   },
+  computed: mapGetters({
+    currentFolder: 'getCurrentFolder'
+  }),
   components: {
     Index,
     NewContactModal
   },
-  mounted() {
-    this.getFolderContents()
+  watch: {
+    currentFolder() {
+      this.getFolderContents()
+    }
   },
   methods: {
     showNewContactModal() {
@@ -51,6 +54,7 @@ export default {
       axios.get('http://120.76.217.199:8080/api/folder/phonebook/' + this.currentFolder)
         .then(res => {
           if (res.data.code === 0) {
+            console.log(res.data.data)
             this.items = res.data.data
           }
         })

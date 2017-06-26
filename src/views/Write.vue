@@ -6,8 +6,8 @@
       <div class="day">{{day}} {{time}}</div>
     </div>
     <div class="write">
-      <input v-model="title" placeholder="title">
-      <textarea v-model="content" placeholder="content"></textarea>
+      <input v-model.trim="title" placeholder="title">
+      <textarea v-model.trim="content" placeholder="content"></textarea>
     </div>
     <footer>
       <i class="iconfont icon-zhaopian" @click="showUploadModal"></i>
