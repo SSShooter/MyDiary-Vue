@@ -1,13 +1,13 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Phonebook from '../components/Phonebook.vue'
-import Home from '../components/Home.vue'
-import Todolist from '../components/Todolist.vue'
-import Diary from '../components/Diary.vue'
-import Entries from '../components/Entries.vue'
-import Calendar from '../components/Calendar.vue'
-import Write from '../components/Write.vue'
-import Gallery from '../components/Gallery.vue'
+import Phonebook from '../views/Phonebook.vue'
+import Home from '../views/Home.vue'
+import Todolist from '../views/Todolist.vue'
+import Diary from '../views/Diary.vue'
+import Entries from '../views/Entries.vue'
+import Calendar from '../views/Calendar.vue'
+import Write from '../views/Write.vue'
+import Gallery from '../views/Gallery.vue'
 
 Vue.use(Router)
 

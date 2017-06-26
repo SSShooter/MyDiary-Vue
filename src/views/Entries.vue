@@ -95,7 +95,7 @@ export default {
 }
 </script>
 <style lang="less" scoped>
-@import './common.less';
+@import '../less/common.less';
 @import '//at.alicdn.com/t/font_7y3xysg41dghw7b9.css';
 #entries {
   background-image: url('../assets/52502973_p0.png');

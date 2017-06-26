@@ -26,7 +26,7 @@ import axios from 'axios';
 var moment = require('moment');
 import Vue from 'vue'
 import { mapGetters, mapActions, mapMutations } from 'vuex'
-import Uploader from './Uploader.vue'
+import Uploader from '../components/Uploader.vue'
 import vmodal from 'vue-js-modal'
 Vue.use(vmodal)
 export default {
@@ -108,7 +108,7 @@ export default {
 
 <style lang="less" scoped>
 @import '//at.alicdn.com/t/font_cy3k4msf00y66r.css';
-@import './common.less';
+@import '../less/common.less';
 * {
   box-sizing: border-box;
   outline: none;

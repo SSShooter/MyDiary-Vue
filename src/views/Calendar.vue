@@ -79,7 +79,7 @@ export default {
 }
 </script>
 <style lang="less" scoped>
-@import './common.less';
+@import '../less/common.less';
 .swiper-slide {
   display: flex;
   flex-direction: column;

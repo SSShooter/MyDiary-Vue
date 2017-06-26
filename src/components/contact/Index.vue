@@ -80,7 +80,7 @@ export default {
 }
 </script>
 <style lang="less">
-@import './common.less';
+@import '../../less/common.less';
 .index {
   position: fixed;
   left: 0;

@@ -47,7 +47,7 @@ export default {
 }
 </script>
 <style lang="less" scoped>
-@import './common.less';
+@import '../less/common.less';
 header {
   .diaryheader;
   box-sizing: border-box;

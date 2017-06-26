@@ -50,7 +50,7 @@ export default {
 </script>
 
 <style lang="less" scoped>
-@import './common.less';
+@import '../less/common.less';
 @import '//at.alicdn.com/t/font_cy3k4msf00y66r.css';
 .todolist {
   header {
