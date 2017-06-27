@@ -63,21 +63,18 @@ export default {
       this.$modal.show('example');
     },
     newDiary() {
-      axios({
-        url: 'http://120.76.217.199:8080/api/diary',
-        method: 'post',
-        data: {
-          folderId: this.currentFolder,
-          title: this.title,
-          content: this.content,
-          pic: this.uploadlist,
-          mood: this.mood,
-          weather: this.weather,
-          bookmark: this.bookmark,
-          tag: this.tag,
-          createdate: +new Date()
-        }
-      })
+      let data = {
+        folderId: this.currentFolder,
+        title: this.title,
+        content: this.content,
+        pic: this.uploadlist,
+        mood: this.mood,
+        weather: this.weather,
+        bookmark: this.bookmark,
+        tag: this.tag,
+        createdate: +new Date()
+      }
+      axios.post('http://120.76.217.199:8080/api/diary',data)
         .then(res => {
           console.log(res)
           if (res.data.code === 0) {

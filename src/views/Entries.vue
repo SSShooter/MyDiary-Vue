@@ -27,7 +27,7 @@
 import axios from 'axios';
 import Vue from 'vue'
 var moment = require('moment');
-import { mapState, mapGetters, mapMutations } from 'vuex'
+import { mapGetters } from 'vuex'
 
 export default {
   data() {
@@ -58,13 +58,9 @@ export default {
       ]
     }
   },
-  created() {
+  //钩子的触发顺序created-> mounted-> activated，退出时触发deactivated。当再次进入（前进或者后退）时，只触发activated。
+  activated() {
     this.getFolderContents();
-  },
-  watch: {
-    currentFolder() {
-      this.getFolderContents();
-    }
   },
   computed: mapGetters({
     currentFolder: 'getCurrentFolder'
