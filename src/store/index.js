@@ -10,21 +10,22 @@ export default new Vuex.Store({
   },
   state: {
     currentFolder: '594895ca3e16a13016739408',
-    currentFolderName: '电话本',
-    currentFolderContent:[],
-    currentItem: 'test',
+    currentFolderName: '电话本'
   },
   getters: {
     getCurrentFolder(state) {
       return state.currentFolder;
+    },
+    getCurrentFolderName(state) {
+      return state.currentFolderName;
     }
   },
   mutations: {
     changeCurrentFolder(state, newCurrentFolder) {
       state.currentFolder = newCurrentFolder
     },
-    getCurrentFolderContent(){
-      
+    changeCurrentFolderName(state, newCurrentFolderName) {
+      state.currentFolderName = newCurrentFolderName
     }
   }
 })

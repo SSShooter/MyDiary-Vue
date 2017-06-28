@@ -33,7 +33,6 @@
 import Vue from 'vue'
 import AlloyFinger from 'alloyfinger/alloy_finger.js'
 import AlloyFingerVue from 'alloyfinger/vue/alloy_finger.vue.js'
-
 Vue.use(AlloyFingerVue, {
   AlloyFinger
 })

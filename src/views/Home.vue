@@ -1,25 +1,16 @@
 <template>
   <div class="home">
     <header>
-      <img src="http://tva1.sinaimg.cn/crop.316.53.496.496.180/686d7361jw1f3q2lpig4cj20vk0hswn3.jpg"
-           alt="avatar"
-           class="img-circle">
+      <img src="http://tva1.sinaimg.cn/crop.316.53.496.496.180/686d7361jw1f3q2lpig4cj20vk0hswn3.jpg" alt="avatar" class="img-circle">
       <div class="name">
-        <div class="nickname"
-             @click="showNewFolderModal">{{nickname}}</div>
+        <div class="nickname" @click="showNewFolderModal">{{nickname}}</div>
         <div class="realname">{{realname}}</div>
       </div>
     </header>
   
     <div id="main">
-      <div v-for="item in items"
-           class="item"
-           :data-folderid="item._id"
-           :data-type="item.type"
-           @click="jump"
-           :key="item._id">
-        <i class="iconfont"
-           :class="transferToIcon(item.type)"></i>
+      <div v-for="item in items" class="item" :data-folderid="item._id" :data-foldername="item.foldername" :data-type="item.type" @click="jump" :key="item._id">
+        <i class="iconfont" :class="transferToIcon(item.type)"></i>
         <span>{{item.foldername}}</span>
         <div class="total">
           <span>{{item.total}}</span>
@@ -27,19 +18,15 @@
         </div>
       </div>
     </div>
-    <div id="search-result"
-         class="container">
+    <div id="search-result" class="container">
     </div>
   
     <footer>
       <div class="inputdiv">
         <i class="iconfont icon-search search"></i>
-        <input type="text"
-               name="search"
-               id="search">
+        <input type="text" name="search" id="search">
       </div>
-      <i class="iconfont icon-setting cog"
-         @click="showSettingPanel"></i>
+      <i class="iconfont icon-setting cog" @click="showSettingPanel"></i>
     </footer>
   
     <setting-panel ref="SettingPanel"></setting-panel>
@@ -69,11 +56,12 @@ export default {
       list: []
     }
   },
-  mounted() {
+  activated() {
     this.getFolder();
   },
   computed: mapState([
-    'currentFolder'
+    'currentFolder',
+    'currentFolderName'
   ]),
   methods: {
     transferToIcon(type) {
@@ -86,9 +74,11 @@ export default {
       this.$refs.SettingPanel.isModalShow = true;
     },
     jump(event) {
-      var type = event.currentTarget.dataset.type;
-      var id = event.currentTarget.dataset.folderid;
+      var type = event.currentTarget.dataset.type,
+        id = event.currentTarget.dataset.folderid,
+        name = event.currentTarget.dataset.foldername
       this.$store.commit('changeCurrentFolder', id)
+      this.$store.commit('changeCurrentFolderName', name)
       if (type === 'diary')
         this.$router.push('/diary/entries/');
       if (type === 'contact')

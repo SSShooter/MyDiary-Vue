@@ -1,7 +1,7 @@
 <template>
   <div class="todolist">
     <header>
-      <span class="title">biaoti</span>
+      <span class="title">{{currentFolderName}}</span>
       <div class="right-btn">
         <i class="iconfont icon-pen" @click="isInputShow = !isInputShow"></i>
       </div>
@@ -33,7 +33,8 @@ export default {
     this.getFolderContents()
   },
   computed: mapGetters({
-    currentFolder: 'getCurrentFolder'
+    currentFolder: 'getCurrentFolder',
+    currentFolderName: 'getCurrentFolderName'
   }),
   watch: {
     newTodoItem() {

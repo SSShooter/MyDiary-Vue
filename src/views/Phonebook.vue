@@ -1,21 +1,16 @@
 <template>
   <div id="phonebook">
     <header>
-      <span class="title">biaoti</span>
+      <span class="title">{{currentFolderName}}</span>
       <div class="right-btn">
-        <i class="iconfont icon-pen"
-           @click="showNewContactModal"></i>
+        <i class="iconfont icon-pen" @click="showNewContactModal"></i>
       </div>
     </header>
     <div class="container">
       <index></index>
       <div v-for="(item,index) in items">
-        <div v-if="!items[index-1] || item.initial !== items[index-1].initial"
-             class="initial"
-             :id="item.initial">{{item.initial}}</div>
-        <div class="item"
-             :data-id="item._id"
-             @click="showDeleteModal">
+        <div v-if="!items[index-1] || item.initial !== items[index-1].initial" class="initial" :id="item.initial">{{item.initial}}</div>
+        <div class="item" :data-id="item._id" v-finger:long-tap="showDeleteModal">
           <div class="name">{{item.contact}}</div>
           <div class="number">{{item.number}}</div>
         </div>
@@ -32,6 +27,14 @@ import { mapGetters } from 'vuex'
 import Index from '../components/contact/Index.vue'
 import NewContactModal from '../components/contact/NewContactModal.vue'
 import DeleteModal from '../components/DeleteModal.vue'
+
+import Vue from 'vue'
+import AlloyFinger from 'alloyfinger/alloy_finger.js'
+import AlloyFingerVue from 'alloyfinger/vue/alloy_finger.vue.js'
+Vue.use(AlloyFingerVue, {
+  AlloyFinger
+})
+
 export default {
   data() {
     return {
@@ -46,7 +49,8 @@ export default {
     this.getFolderContents()
   },
   computed: mapGetters({
-    currentFolder: 'getCurrentFolder'
+    currentFolder: 'getCurrentFolder',
+    currentFolderName: 'getCurrentFolderName'
   }),
   components: {
     Index,
@@ -59,7 +63,11 @@ export default {
     },
     showDeleteModal(e) {
       this.$refs.DeleteModal.isModalShow = true;
-      this.selectedItem = e.currentTarget.dataset.id;
+      if (e.target.dataset.id) {
+        this.selectedItem = e.target.dataset.id;
+      } else {
+        this.selectedItem = e.target.parentNode.dataset.id;
+      }
       console.log(this.selectedItem)
     },
     getFolderContents() {
