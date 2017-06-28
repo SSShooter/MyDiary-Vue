@@ -15,7 +15,9 @@
       <div class="bookname">nikki</div>
     </header>
     <transition name="fade">
-      <router-view></router-view>
+      <keep-alive>
+        <router-view></router-view>
+      </keep-alive>
     </transition>
   </div>
 </template>
@@ -32,7 +34,7 @@ export default {
   },
   methods: {
     loadEntries() {
-      this.$router.replace('/diary/entries');//疑问
+      this.$router.replace('/diary/entries');
       this.menu = 'entries';
     },
     loadCalendar() {

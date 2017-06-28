@@ -1,12 +1,12 @@
 <template>
   <transition name="fade">
     <div v-show="isModalShow">
-      <div class="mask" @click="isModalShow=!isModalShow"></div>
+      <div class="mask"
+           @click="isModalShow=!isModalShow"></div>
       <div class="modal">
-        <input v-model.trim="contact" placeholder="姓名">
-        <input v-model="number" placeholder="联系方式">
-        <input v-model="initial" placeholder="首字母">
-        <button @click="newContact">确定</button>
+        <p>是否确定删除</p>
+        <button @click="yes">确定</button>
+        <button @click="no">取消</button>
       </div>
     </div>
   </transition>
@@ -25,48 +25,23 @@ export default {
     }
   },
   watch: {
-    contact(val, oldval) {
-      var reg = /^[A-Za-z]$/;
-      if (oldval === '') {
-        if (reg.test(val)) {
-          this.initial = val;
-        } else {
-          this.initial = pinyin(val.split('')[0], {
-            style: pinyin.STYLE_FIRST_LETTER
-          })[0][0];
-          if(!reg.test(this.initial)) this.initial = '#';
-        }
-      }
-      console.log(this.initial);
-    }
   },
   computed: mapGetters({
     currentFolder: 'getCurrentFolder'
   }),
   methods: {
-    newContact() {
-      axios.post('http://120.76.217.199:8080/api/phonebook', {
-        folderId: this.currentFolder,
-        contact: this.contact,
-        initial: this.initial,
-        number: this.number,
-        createdate: +new Date()
-      })
-        .then(res => {
-          if (res.data.code === 0) {
-            this.isModalShow = false;
-            this.$parent.getFolderContents();
-          }
-        })
-        .catch(function (error) {
-          console.log(error);
-        });
+    yes() {
+      this.$parent.deleteItem()
+      this.isModalShow = !this.isModalShow
+    },
+    no() {
+      this.isModalShow = !this.isModalShow
     }
   }
 }
 </script>
 <style lang="less" scoped>
-@import '../../less/common.less';
+@import '../less/common.less';
 @import '//at.alicdn.com/t/font_mznevhjpmzp5vcxr.css';
 .mask {
   position: absolute;

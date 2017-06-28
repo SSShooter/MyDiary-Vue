@@ -18,7 +18,7 @@
       </div>
     </div>
     <footer>
-      <div class="buttons">{{currentFolder}}</div>
+      <div class="buttons"></div>
       <div class="total">1 Entries</div>
     </footer>
   </div>
@@ -32,8 +32,7 @@ import { mapGetters } from 'vuex'
 export default {
   data() {
     return {
-      testdata: [
-        {
+      testdata: [{
           "_id": "594785c8887da62d86d8235b",
           "folderId": "594782856659ac2d39589508",
           "title": "第二篇日记2",
@@ -43,23 +42,12 @@ export default {
           "createdate": "2017-06-18",
           "__v": 0,
           "pic": []
-        },
-        {
-          "_id": "594785d3887da62d86d8235c",
-          "folderId": "594782856659ac2d39589508",
-          "title": "第一篇日记",
-          "content": "something happend",
-          "mood": "nanguo",
-          "weather": "qingtian",
-          "createdate": "2017-06-18",
-          "__v": 0,
-          "pic": []
-        }
-      ]
+        }]
     }
   },
   //钩子的触发顺序created-> mounted-> activated，退出时触发deactivated。当再次进入（前进或者后退）时，只触发activated。
   activated() {
+    console.log('activated')
     this.getFolderContents();
   },
   computed: mapGetters({
@@ -76,7 +64,6 @@ export default {
       return moment(timestamp).format('HH:MM');
     },
     getFolderContents() {
-      console.log(this.currentFolder);
       axios.get('http://120.76.217.199:8080/api/folder/diary/' + this.currentFolder)
         .then(res => {
           if (res.data.code === 0) {

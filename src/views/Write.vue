@@ -6,16 +6,23 @@
       <div class="day">{{day}} {{time}}</div>
     </div>
     <div class="write">
-      <input v-model.trim="title" placeholder="title">
-      <textarea v-model.trim="content" placeholder="content"></textarea>
+      <input v-model.trim="title"
+             placeholder="title">
+      <textarea v-model.trim="content"
+                placeholder="content"></textarea>
     </div>
     <footer>
-      <i class="iconfont icon-zhaopian" @click="showUploadModal"></i>
-      <i class="iconfont icon-baocun" @click="newDiary"></i>
+      <i class="iconfont icon-zhaopian"
+         @click="showUploadModal"></i>
+      <i class="iconfont icon-baocun"
+         @click="newDiary"></i>
       <i class="iconfont icon-guanbi"></i>
     </footer>
   
-    <modal name="example" :width="300" :height="80" :pivotY=".9">
+    <modal name="example"
+           :width="300"
+           :height="80"
+           :pivotY=".9">
       <uploader></uploader>
     </modal>
   </div>
@@ -74,9 +81,8 @@ export default {
         tag: this.tag,
         createdate: +new Date()
       }
-      axios.post('http://120.76.217.199:8080/api/diary',data)
+      axios.post('http://120.76.217.199:8080/api/diary', data)
         .then(res => {
-          console.log(res)
           if (res.data.code === 0) {
             this.title = ''
             this.content = ''
@@ -85,6 +91,8 @@ export default {
             this.bookmark = ''
             this.tag = ''
             this.clearUploadlist();
+
+            this.$router.replace('/diary/entries');
           }
         })
         .catch(err => {

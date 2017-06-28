@@ -22,7 +22,7 @@
            :class="transferToIcon(item.type)"></i>
         <span>{{item.foldername}}</span>
         <div class="total">
-          <span>30</span>
+          <span>{{item.total}}</span>
           <i class="iconfont icon-next"></i>
         </div>
       </div>
@@ -38,9 +38,10 @@
                name="search"
                id="search">
       </div>
-      <i class="iconfont icon-setting cog" @click="showSettingPanel"></i>
+      <i class="iconfont icon-setting cog"
+         @click="showSettingPanel"></i>
     </footer>
-    
+  
     <setting-panel ref="SettingPanel"></setting-panel>
     <new-folder-modal></new-folder-modal>
   </div>
@@ -81,7 +82,7 @@ export default {
     showNewFolderModal() {
       this.$modal.show('new-folder');
     },
-    showSettingPanel(){
+    showSettingPanel() {
       this.$refs.SettingPanel.isModalShow = true;
     },
     jump(event) {
