@@ -33,7 +33,7 @@ import axios from 'axios';
 var moment = require('moment');
 import Vue from 'vue'
 import { mapGetters, mapActions, mapMutations } from 'vuex'
-import Uploader from '../components/Uploader.vue'
+import Uploader from '../components/diary/Uploader.vue'
 import vmodal from 'vue-js-modal'
 Vue.use(vmodal)
 export default {
@@ -53,7 +53,7 @@ export default {
     }
   },
   components: {
-    'uploader': Uploader
+    Uploader
   },
   mounted() {
     this.moment = moment();
@@ -93,6 +93,7 @@ export default {
             this.clearUploadlist();
 
             this.$router.replace('/diary/entries');
+            this.$parent.menu = 'entries';
           }
         })
         .catch(err => {

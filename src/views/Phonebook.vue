@@ -3,14 +3,19 @@
     <header>
       <span class="title">{{currentFolderName}}</span>
       <div class="right-btn">
-        <i class="iconfont icon-pen" @click="showNewContactModal"></i>
+        <i class="iconfont icon-pen"
+           @click="showNewContactModal"></i>
       </div>
     </header>
     <div class="container">
       <index></index>
       <div v-for="(item,index) in items">
-        <div v-if="!items[index-1] || item.initial !== items[index-1].initial" class="initial" :id="item.initial">{{item.initial}}</div>
-        <div class="item" :data-id="item._id" v-finger:long-tap="showDeleteModal">
+        <div v-if="!items[index-1] || item.initial !== items[index-1].initial"
+             class="initial"
+             :id="item.initial">{{item.initial}}</div>
+        <div class="item"
+             :data-id="item._id"
+             v-finger:long-tap="showDeleteModal">
           <div class="name">{{item.contact}}</div>
           <div class="number">{{item.number}}</div>
         </div>

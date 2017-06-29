@@ -1,7 +1,11 @@
 <template>
   <div id="entries">
     <div class="items">
-      <div v-for="item in testdata" v-bind:key="item._id" class="item">
+      <div v-for="item in testdata"
+           v-bind:key="item._id"
+           v-finger:long-tap="showDeleteModal"
+           v-finger:tap="showDiaryContentModal"
+           class="item">
         <div class="dd">
           <p class="date">{{convertToDD(item.createdate)}}</p>
           <p class="day">{{convertToddd(item.createdate)}}</p>
@@ -11,8 +15,10 @@
           <div class="title">{{item.title}}</div>
         </div>
         <div class="state">
-          <i class="iconfont" :class="'icon-'+ item.weather"></i>
-          <i class="iconfont" :class="'icon-'+ item.mood"></i>
+          <i class="iconfont"
+             :class="'icon-'+ item.weather"></i>
+          <i class="iconfont"
+             :class="'icon-'+ item.mood"></i>
           <i class="iconfont icon-bookmark"></i>
         </div>
       </div>
@@ -21,6 +27,23 @@
       <div class="buttons"></div>
       <div class="total">1 Entries</div>
     </footer>
+    <diary-content-modal ref="DiaryContentModal">
+      <div class="modal-date">
+        <div class="close"></div>
+        <p class="month">dwjo</p>
+        <p class="date">11</p>
+        <p class="time">11:33</p>
+      </div>
+      <div class="modal-content">
+        <div class="title">
+          <p>ssssdwjo</p>
+        </div>
+        <span>Pencil V3 is a rewrite of Pencil that aims to fix major performance and scalability issues of the application. The new version is under heavy development and we are expecting GA builds in June. The following list summarizes important changes in the new version:</span>
+      </div>
+      <div class="modal-footer">
+  
+      </div>
+    </diary-content-modal>
   </div>
 </template>
 <script>
@@ -28,27 +51,31 @@ import axios from 'axios';
 import Vue from 'vue'
 var moment = require('moment');
 import { mapGetters } from 'vuex'
+import DiaryContentModal from '../components/diary/DiaryContentModal.vue'
 
 export default {
   data() {
     return {
+      selectedItem: '',
       testdata: [{
-          "_id": "594785c8887da62d86d8235b",
-          "folderId": "594782856659ac2d39589508",
-          "title": "第二篇日记2",
-          "content": "something happend",
-          "mood": "kaixin-",
-          "weather": "baoxue",
-          "createdate": "2017-06-18",
-          "__v": 0,
-          "pic": []
-        }]
+        "_id": "594785c8887da62d86d8235b",
+        "folderId": "594782856659ac2d39589508",
+        "title": "第二篇日记2",
+        "content": "something happend",
+        "mood": "kaixin-",
+        "weather": "baoxue",
+        "createdate": "2017-06-18",
+        "__v": 0,
+        "pic": []
+      }]
     }
+  },
+  components: {
+    DiaryContentModal
   },
   //钩子的触发顺序created-> mounted-> activated，退出时触发deactivated。当再次进入（前进或者后退）时，只触发activated。
   activated() {
-    console.log('activated')
-    this.getFolderContents();
+    this.getFolderContents()
   },
   computed: mapGetters({
     currentFolder: 'getCurrentFolder'
@@ -62,6 +89,18 @@ export default {
     },
     convertToHHMM(timestamp) {
       return moment(timestamp).format('HH:MM');
+    },
+    showDiaryContentModal(e) {
+      this.$refs.DiaryContentModal.isModalShow = true;
+      if (e.target.dataset.id) {
+        this.selectedItem = e.target.dataset.id;
+      } else {
+        this.selectedItem = e.target.parentNode.dataset.id;
+      }
+      console.log(this.selectedItem)
+    },
+    showDeleteModal() {
+
     },
     getFolderContents() {
       axios.get('http://120.76.217.199:8080/api/folder/diary/' + this.currentFolder)
@@ -135,6 +174,33 @@ export default {
     .total {
       font-size: 1.5rem;
       padding: 0 10px;
+    }
+  }
+  .modal {
+    .modal-date {
+      background-color: @maincolor;
+      color: #fff;
+      text-align: center;
+      .month,
+      .date,
+      .time {
+        line-height: 2rem;
+      }
+      .date {
+        font-size: 1.5rem;
+      }
+    }
+    .modal-content {
+      box-sizing: border-box;
+      padding: 15px;
+      .title {
+        font-size: 1.5rem;
+        text-align: center;
+      }
+      span {
+        word-break:break-all;
+        white-space:pre-wrap;
+      }
     }
   }
 }

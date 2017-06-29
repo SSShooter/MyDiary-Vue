@@ -3,23 +3,41 @@
     <header>
       <span class="title">{{currentFolderName}}</span>
       <div class="right-btn">
-        <i class="iconfont icon-pen" @click="isInputShow = !isInputShow"></i>
+        <i class="iconfont icon-pen"
+           @click="isInputShow = !isInputShow"></i>
       </div>
     </header>
     <ul class="items">
-      <li v-for="item in items" class="item" @click="changeState" :key="item._id" :data-id="item._id" :class="{complete:item.state}">
+      <li v-for="item in items"
+          v-finger:long-tap="showDeleteModal"
+          class="item"
+          @click="changeState"
+          :key="item._id"
+          :data-id="item._id"
+          :class="{complete:item.state}">
         {{item.content}}
       </li>
-      <li v-show="isInputShow" class="item">
+      <li v-show="isInputShow"
+          class="item">
         <input v-model.lazy="newTodoItem">
       </li>
     </ul>
+    <delete-modal ref="DeleteModal"></delete-modal>
   </div>
 </template>
 
 <script>
 import axios from 'axios';
 import { mapGetters } from 'vuex'
+import DeleteModal from '../components/DeleteModal.vue'
+
+import Vue from 'vue'
+import AlloyFinger from 'alloyfinger/alloy_finger.js'
+import AlloyFingerVue from 'alloyfinger/vue/alloy_finger.vue.js'
+Vue.use(AlloyFingerVue, {
+  AlloyFinger
+})
+
 export default {
   data() {
     return {
@@ -27,6 +45,9 @@ export default {
       newTodoItem: '',
       items: []
     }
+  },
+  components: {
+    DeleteModal
   },
   activated() {
     this.isInputShow = false;
@@ -42,14 +63,32 @@ export default {
     }
   },
   methods: {
-    complete(e) {
-      console.log(e.currentTarget.dataset.id, this.temp)
+    showDeleteModal(e) {
+      this.$refs.DeleteModal.isModalShow = true;
+      if (e.target.dataset.id) {
+        this.selectedItem = e.target.dataset.id;
+      } else {
+        this.selectedItem = e.target.parentNode.dataset.id;
+      }
+      console.log(this.selectedItem)
     },
     getFolderContents() {
       axios.get('http://120.76.217.199:8080/api/folder/todolist/' + this.currentFolder)
         .then(res => {
           if (res.data.code === 0) {
             this.items = res.data.data
+          }
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+    },
+    deleteItem() {
+      axios.delete('http://120.76.217.199:8080/api/todolist/' + this.selectedItem)
+        .then(res => {
+          if (res.data.code === 0) {
+            console.log(res)
+            this.getFolderContents()
           }
         })
         .catch(function (error) {
