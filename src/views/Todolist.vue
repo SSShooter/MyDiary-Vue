@@ -27,7 +27,7 @@
 </template>
 
 <script>
-import axios from 'axios';
+import axios from 'axios'
 import { mapGetters } from 'vuex'
 import DeleteModal from '../components/DeleteModal.vue'
 

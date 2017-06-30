@@ -12,7 +12,7 @@
                 :class="{active: menu==='write'}"
                 @click="loadWrite">Write</button>
       </div>
-      <div class="bookname">nikki</div>
+      <div class="bookname">{{currentFolderName}}</div>
     </header>
     <transition name="fade">
       <keep-alive>
@@ -22,7 +22,7 @@
   </div>
 </template>
 <script>
-import Vue from 'vue'
+import { mapGetters } from 'vuex'
 export default {
   data() {
     return {
@@ -32,6 +32,9 @@ export default {
   mounted() {
     this.menu = this.$route.path.split('/')[2];
   },
+  computed: mapGetters({
+    currentFolderName: 'getCurrentFolderName'
+  }),
   methods: {
     loadEntries() {
       this.$router.replace('/diary/entries');

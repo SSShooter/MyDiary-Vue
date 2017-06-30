@@ -13,6 +13,7 @@
         <div class="content">
           <div class="time">{{convertToHHMM(item.createdate)}}</div>
           <div class="title">{{item.title}}</div>
+          <div class="article">{{item.content}}</div>
         </div>
         <div class="state">
           <i class="iconfont"
@@ -29,7 +30,6 @@
     </footer>
     <diary-content-modal ref="DiaryContentModal">
       <div class="modal-date">
-        <div class="close"></div>
         <p class="month">dwjo</p>
         <p class="date">11</p>
         <p class="time">11:33</p>
@@ -106,6 +106,7 @@ export default {
       axios.get('http://120.76.217.199:8080/api/folder/diary/' + this.currentFolder)
         .then(res => {
           if (res.data.code === 0) {
+            console.log(this.currentFolder)
             this.testdata = res.data.data
           }
         })
@@ -151,8 +152,9 @@ export default {
       .time {
         font-size: .7em;
       }
-      .title {
+      .title,.article {
         overflow: hidden;
+        text-overflow: ellipsis;
         height: 1.5rem;
       }
     }
@@ -198,8 +200,8 @@ export default {
         text-align: center;
       }
       span {
-        word-break:break-all;
-        white-space:pre-wrap;
+        word-break: break-all;
+        white-space: pre-wrap;
       }
     }
   }

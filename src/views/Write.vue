@@ -70,6 +70,10 @@ export default {
       this.$modal.show('example');
     },
     newDiary() {
+      if (!this.title && !this.content) {
+        alert('请填写标题和日记内容');
+        return ;
+      }
       let data = {
         folderId: this.currentFolder,
         title: this.title,

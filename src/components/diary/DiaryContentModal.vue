@@ -4,6 +4,8 @@
       <div class="mask"
            @click="isModalShow=!isModalShow"></div>
       <div class="modal">
+        <div class="takeplace">X</div>
+        <div class="close" @click="isModalShow=!isModalShow">X</div>
         <slot></slot>
       </div>
     </div>
@@ -46,5 +48,15 @@ export default {
   background-color: #fff;
   color: @maincolor;
   border-radius: 5px;
+  //hack,左方用与close大小相等的float left占位
+  .takeplace{
+    float: left;
+    padding: 15px;
+  }
+  .close{
+    float: right;
+    padding: 15px;
+    color: #fff;
+  }
 }
 </style>
