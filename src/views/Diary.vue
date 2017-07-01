@@ -29,7 +29,7 @@ export default {
       menu: 'entries'
     }
   },
-  mounted() {
+  activated() {
     this.menu = this.$route.path.split('/')[2];
   },
   computed: mapGetters({

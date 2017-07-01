@@ -1,11 +1,7 @@
 <template>
   <div id="entries">
     <div class="items">
-      <div v-for="item in testdata"
-           v-bind:key="item._id"
-           v-finger:long-tap="showDeleteModal"
-           v-finger:tap="showDiaryContentModal"
-           class="item">
+      <div v-for="(item,index) in items" v-finger:long-tap="showDeleteModal" v-finger:double-tap="showDiaryContentModal" :key="item._id" :data-index="index" class="item">
         <div class="dd">
           <p class="date">{{convertToDD(item.createdate)}}</p>
           <p class="day">{{convertToddd(item.createdate)}}</p>
@@ -16,10 +12,8 @@
           <div class="article">{{item.content}}</div>
         </div>
         <div class="state">
-          <i class="iconfont"
-             :class="'icon-'+ item.weather"></i>
-          <i class="iconfont"
-             :class="'icon-'+ item.mood"></i>
+          <i class="iconfont" :class="'icon-'+ item.weather"></i>
+          <i class="iconfont" :class="'icon-'+ item.mood"></i>
           <i class="iconfont icon-bookmark"></i>
         </div>
       </div>
@@ -29,21 +23,22 @@
       <div class="total">1 Entries</div>
     </footer>
     <diary-content-modal ref="DiaryContentModal">
-      <div class="modal-date">
+      <div class="modal-date" v-if="items[selectedItem]">
         <p class="month">dwjo</p>
-        <p class="date">11</p>
-        <p class="time">11:33</p>
+        <p class="date">{{convertToDD(items[selectedItem].createdate)}}</p>
+        <p class="time">{{convertToHHMM(items[selectedItem].createdate)}}</p>
       </div>
-      <div class="modal-content">
+      <div class="modal-content" v-if="items[selectedItem]">
         <div class="title">
-          <p>ssssdwjo</p>
+          <span>{{items[selectedItem].title}}</span>
         </div>
-        <span>Pencil V3 is a rewrite of Pencil that aims to fix major performance and scalability issues of the application. The new version is under heavy development and we are expecting GA builds in June. The following list summarizes important changes in the new version:</span>
+        <span>{{items[selectedItem].content}}</span>
       </div>
       <div class="modal-footer">
   
       </div>
     </diary-content-modal>
+    <delete-modal ref="DeleteModal"></delete-modal>
   </div>
 </template>
 <script>
@@ -52,12 +47,14 @@ import Vue from 'vue'
 var moment = require('moment');
 import { mapGetters } from 'vuex'
 import DiaryContentModal from '../components/diary/DiaryContentModal.vue'
+import DeleteModal from '../components/DeleteModal.vue'
 
 export default {
   data() {
     return {
       selectedItem: '',
-      testdata: [{
+      items: [],
+      example: {
         "_id": "594785c8887da62d86d8235b",
         "folderId": "594782856659ac2d39589508",
         "title": "第二篇日记2",
@@ -67,11 +64,12 @@ export default {
         "createdate": "2017-06-18",
         "__v": 0,
         "pic": []
-      }]
+      }
     }
   },
   components: {
-    DiaryContentModal
+    DiaryContentModal,
+    DeleteModal
   },
   //钩子的触发顺序created-> mounted-> activated，退出时触发deactivated。当再次进入（前进或者后退）时，只触发activated。
   activated() {
@@ -92,22 +90,43 @@ export default {
     },
     showDiaryContentModal(e) {
       this.$refs.DiaryContentModal.isModalShow = true;
-      if (e.target.dataset.id) {
-        this.selectedItem = e.target.dataset.id;
+      if (e.target.dataset.index) {
+        this.selectedItem = e.target.dataset.index;
+      } else if (e.target.parentNode.dataset.index) {
+        this.selectedItem = e.target.parentNode.dataset.index;
       } else {
-        this.selectedItem = e.target.parentNode.dataset.id;
+        this.selectedItem = e.target.parentNode.parentNode.dataset.index;
       }
-      console.log(this.selectedItem)
     },
-    showDeleteModal() {
-
+    showDeleteModal(e) {
+      this.$refs.DeleteModal.isModalShow = true;
+      if (e.target.dataset.index) {
+        this.selectedItem = e.target.dataset.index;
+      } else if (e.target.parentNode.dataset.index) {
+        this.selectedItem = e.target.parentNode.dataset.index;
+      } else {
+        this.selectedItem = e.target.parentNode.parentNode.dataset.index;
+      }
     },
     getFolderContents() {
       axios.get('http://120.76.217.199:8080/api/folder/diary/' + this.currentFolder)
         .then(res => {
           if (res.data.code === 0) {
             console.log(this.currentFolder)
-            this.testdata = res.data.data
+            this.items = res.data.data
+          }
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+    },
+    deleteItem() {
+      console.log(this.items[this.selectedItem]._id)
+      axios.delete('http://120.76.217.199:8080/api/diary/' + this.items[this.selectedItem]._id)
+        .then(res => {
+          if (res.data.code === 0) {
+            console.log(res)
+            this.getFolderContents()
           }
         })
         .catch(function (error) {
@@ -152,7 +171,8 @@ export default {
       .time {
         font-size: .7em;
       }
-      .title,.article {
+      .title,
+      .article {
         overflow: hidden;
         text-overflow: ellipsis;
         height: 1.5rem;
@@ -183,6 +203,7 @@ export default {
       background-color: @maincolor;
       color: #fff;
       text-align: center;
+      height: 20%;
       .month,
       .date,
       .time {
@@ -195,6 +216,8 @@ export default {
     .modal-content {
       box-sizing: border-box;
       padding: 15px;
+      height: 70%;
+      overflow-y: scroll; 
       .title {
         font-size: 1.5rem;
         text-align: center;

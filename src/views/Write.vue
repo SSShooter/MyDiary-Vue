@@ -152,7 +152,7 @@ export default {
   textarea {
     resize: none;
     width: 100%;
-    height: 200px;
+    height: 180px;
     margin-top: 10px;
     padding: 10px;
     border: none;

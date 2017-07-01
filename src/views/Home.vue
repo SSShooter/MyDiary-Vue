@@ -3,9 +3,10 @@
     <header>
       <img src="http://tva1.sinaimg.cn/crop.316.53.496.496.180/686d7361jw1f3q2lpig4cj20vk0hswn3.jpg" alt="avatar" class="img-circle">
       <div class="name">
-        <div class="nickname" @click="showNewFolderModal">{{nickname}}</div>
+        <div class="nickname">{{nickname}}</div>
         <div class="realname">{{realname}}</div>
       </div>
+      <i class="iconfont icon-tianjia" @click="showNewFolderModal"></i>
     </header>
   
     <div id="main">
@@ -119,15 +120,22 @@ header {
   width: 100vw;
   background-color: @maincolor;
   color: #fff;
-  .nickname {
-    font-size: 1.2rem;
-  }
   img {
     .box();
     height: 100%;
+    border-radius: 50%;
   }
   .name {
     .box();
+    .nickname {
+      font-size: 1.2rem;
+    }
+  }
+  i{
+    float: right;
+    line-height: @headerheight - @paddingforbar;
+    font-size: 1.5rem;
+    padding-right: 10px;
   }
 }
 

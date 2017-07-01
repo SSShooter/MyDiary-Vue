@@ -3,19 +3,14 @@
     <header>
       <span class="title">{{currentFolderName}}</span>
       <div class="right-btn">
-        <i class="iconfont icon-pen"
-           @click="showNewContactModal"></i>
+        <i class="iconfont icon-pen" @click="showNewContactModal"></i>
       </div>
     </header>
     <div class="container">
       <index></index>
-      <div v-for="(item,index) in items">
-        <div v-if="!items[index-1] || item.initial !== items[index-1].initial"
-             class="initial"
-             :id="item.initial">{{item.initial}}</div>
-        <div class="item"
-             :data-id="item._id"
-             v-finger:long-tap="showDeleteModal">
+      <div v-for="(item,index) in items" class="wrap">
+        <div v-if="!items[index-1] || item.initial !== items[index-1].initial" class="initial" :id="item.initial">{{item.initial}}</div>
+        <div class="item" :data-id="item._id" v-finger:long-tap="showDeleteModal">
           <div class="name">{{item.contact}}</div>
           <div class="number">{{item.number}}</div>
         </div>
@@ -51,6 +46,7 @@ export default {
     }
   },
   activated() {
+    console.log('act')
     this.getFolderContents()
   },
   computed: mapGetters({
@@ -76,6 +72,7 @@ export default {
       console.log(this.selectedItem)
     },
     getFolderContents() {
+      console.log(this.currentFolder)
       axios.get('http://120.76.217.199:8080/api/folder/phonebook/' + this.currentFolder)
         .then(res => {
           if (res.data.code === 0) {
@@ -119,18 +116,29 @@ header {
   background-color: @maincolor;
   box-sizing: border-box;
   overflow: scroll;
-  .item {
-    padding: 10px 50px;
-    background-color: #fff;
-    color: @maincolor;
-    border-radius: 5px;
-    margin: 5px 0;
-  }
-  .initial {
-    text-align: center;
-    font-size: 2rem;
-    color: #fff;
-    font-weight: bold;
+  .wrap {
+    width: 70%;
+    .item {
+      padding: 10px 50px;
+      background-color: #fff;
+      color: @maincolor;
+      border-radius: 5px;
+      margin: 5px 0;
+      .name {
+        font-size: 1.8rem;
+        text-align: left;
+      }
+      .number{
+        font-size: .9;
+        text-align: right;
+      }
+    }
+    .initial {
+      text-align: center;
+      font-size: 2rem;
+      color: #fff;
+      font-weight: bold;
+    }
   }
 }
 </style>

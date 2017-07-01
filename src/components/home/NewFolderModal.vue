@@ -1,51 +1,31 @@
 <template>
-  <modal name="new-folder"
-         :width="300"
-         :height="200">
+  <modal name="new-folder" :width="300" :height="200" @closed="newFolderName=''">
     <div class="pop-up-box clearfix">
       <span>文件夹类型</span>
       <div class="checkbox">
-        <label :class="{'checked': newFolderType==='diary'}"
-               name="diary"
-               for="diary">
+        <label :class="{'checked': newFolderType==='diary'}" name="diary" for="diary">
           <i class="iconfont icon-book"></i>日记本
-          <input id="diary"
-                 v-model="newFolderType"
-                 type="radio"
-                 value="diary">
+          <input id="diary" v-model="newFolderType" type="radio" value="diary">
         </label>
-        <label :class="{'checked': newFolderType==='todolist'}"
-               name="todolist"
-               for="todolist">
+        <label :class="{'checked': newFolderType==='todolist'}" name="todolist" for="todolist">
           <i class="iconfont icon-alert"></i>待办事项
-          <input id="todolist"
-                 v-model="newFolderType"
-                 type="radio"
-                 value="todolist">
+          <input id="todolist" v-model="newFolderType" type="radio" value="todolist">
         </label>
-        <label :class="{'checked':newFolderType==='contact' }"
-               name="address"
-               for="contact">
+        <label :class="{'checked':newFolderType==='contact' }" name="address" for="contact">
           <i class="iconfont icon-contact"></i>电话本
-          <input id="contact"
-                 v-model="newFolderType"
-                 type="radio"
-                 value="contact">
+          <input id="contact" v-model="newFolderType" type="radio" value="contact">
         </label>
       </div>
       <span>文件夹名称</span>
-      <input type="text"
-             v-model="newFolderName"
-             class="foldername">
-      <button class="confirm"
-              @click="newFolder">确定</button>
+      <input type="text" v-model="newFolderName" class="foldername">
+      <button class="confirm" @click="newFolder">确定</button>
     </div>
   </modal>
 </template>
 <script>
 import axios from 'axios';
 export default {
-  data () {
+  data() {
     return {
       newFolderType: 'diary',
       newFolderName: '',
@@ -53,6 +33,10 @@ export default {
   },
   methods: {
     newFolder() {
+      if (this.newFolderName.length > 8) {
+        alert("文件夹名称请不要超过8个字");
+        return;
+      }
       axios.post('http://120.76.217.199:8080/api/folder', {
         type: this.newFolderType,
         foldername: this.newFolderName,

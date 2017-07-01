@@ -4,7 +4,7 @@
       <div class="mask" @click="isModalShow=!isModalShow"></div>
       <div class="modal">
         <input v-model.trim="contact" placeholder="姓名">
-        <input v-model="number" placeholder="联系方式">
+        <input v-model="number" type="number" placeholder="联系方式">
         <input v-model="initial" placeholder="首字母">
         <button @click="newContact">确定</button>
       </div>
@@ -25,6 +25,13 @@ export default {
     }
   },
   watch: {
+    isModalShow(val) {
+      if (!val) {
+        this.contact = '';
+        this.number = '';
+        this.initial = '';
+      }
+    },
     contact(val, oldval) {
       var reg = /^[A-Za-z]$/;
       if (oldval === '') {
@@ -34,10 +41,9 @@ export default {
           this.initial = pinyin(val.split('')[0], {
             style: pinyin.STYLE_FIRST_LETTER
           })[0][0];
-          if(!reg.test(this.initial)) this.initial = '#';
+          if (!reg.test(this.initial)) this.initial = '#';
         }
       }
-      console.log(this.initial);
     }
   },
   computed: mapGetters({
@@ -45,22 +51,26 @@ export default {
   }),
   methods: {
     newContact() {
-      axios.post('http://120.76.217.199:8080/api/phonebook', {
-        folderId: this.currentFolder,
-        contact: this.contact,
-        initial: this.initial,
-        number: this.number,
-        createdate: +new Date()
-      })
-        .then(res => {
-          if (res.data.code === 0) {
-            this.isModalShow = false;
-            this.$parent.getFolderContents();
-          }
+      if (this.contact && this.number && this.initial)
+        axios.post('http://120.76.217.199:8080/api/phonebook', {
+          folderId: this.currentFolder,
+          contact: this.contact,
+          initial: this.initial,
+          number: this.number,
+          createdate: +new Date()
         })
-        .catch(function (error) {
-          console.log(error);
-        });
+          .then(res => {
+            if (res.data.code === 0) {
+              this.isModalShow = false;
+              this.$parent.getFolderContents();
+            }
+          })
+          .catch(function (error) {
+            console.log(error);
+          });
+      else {
+        alert('信息还没填好吧？')
+      }
     }
   }
 }
