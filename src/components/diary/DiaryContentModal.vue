@@ -47,7 +47,8 @@ export default {
   overflow: hidden;
   background-color: #fff;
   color: @maincolor;
-  border-radius: 5px;
+  border-radius: 8px;
+  border: none;
   //hack,左方用与close大小相等的float left占位
   .takeplace{
     float: left;

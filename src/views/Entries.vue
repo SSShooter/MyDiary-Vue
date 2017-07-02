@@ -1,7 +1,8 @@
 <template>
   <div id="entries">
+
     <div class="items">
-      <div v-for="(item,index) in items" v-finger:long-tap="showDeleteModal" v-finger:double-tap="showDiaryContentModal" :key="item._id" :data-index="index" class="item">
+      <div v-for="(item,index) in items" v-finger:long-tap="showDeleteModal" @click="showDiaryContentModal" :key="item._id" :data-index="index" class="item">
         <div class="dd">
           <p class="date">{{convertToDD(item.createdate)}}</p>
           <p class="day">{{convertToddd(item.createdate)}}</p>
@@ -18,27 +19,29 @@
         </div>
       </div>
     </div>
+
     <footer>
       <div class="buttons"></div>
       <div class="total">1 Entries</div>
     </footer>
+
     <diary-content-modal ref="DiaryContentModal">
       <div class="modal-date" v-if="items[selectedItem]">
         <p class="month">{{convertToMMM(items[selectedItem].createdate)}}</p>
-        <p class="date">{{convertToDD(items[selectedItem].createdate)}}</p>
+        <p class="date">{{convertToD(items[selectedItem].createdate)}}</p>
         <p class="time">{{convertToHHmm(items[selectedItem].createdate)}}</p>
       </div>
       <div class="modal-content" v-if="items[selectedItem]">
         <div class="title">
           <span>{{items[selectedItem].title}}</span>
         </div>
-        <span>{{items[selectedItem].content}}</span>
+        <span class="content">{{items[selectedItem].content}}</span>
         <div class="img-wrapper">
           <img v-for="pic in items[selectedItem].pic" :src="pic" @click="loadImg">
         </div>
       </div>
       <div class="modal-footer">
-  
+
       </div>
     </diary-content-modal>
     <delete-modal ref="DeleteModal"></delete-modal>
@@ -91,6 +94,9 @@ export default {
     },
     convertToDD(timestamp) {
       return moment(timestamp).format('DD');
+    },
+    convertToD(timestamp) {
+      return moment(timestamp).format('D');
     },
     convertToddd(timestamp) {
       return moment(timestamp).format('ddd');
@@ -158,7 +164,7 @@ export default {
   height: @commoncontainerheight;
   box-sizing: border-box;
   padding: 8px;
-  overflow: scroll;
+  overflow-x: scroll;
   .item {
     color: @maincolor;
     background-color: #fff;
@@ -214,39 +220,48 @@ export default {
   }
   .modal {
     .modal-date {
+      box-sizing: border-box;
       background-color: @maincolor;
       color: #fff;
       text-align: center;
       height: 20%;
+      padding-top: 2%;
       .month,
       .date,
       .time {
         line-height: 2rem;
       }
       .date {
-        font-size: 1.5rem;
+        font-size: 2rem;
       }
     }
     .modal-content {
       box-sizing: border-box;
-      padding: 15px;
+      padding: 15px 10%;
       height: 70%;
       overflow-y: scroll;
       .title {
         font-size: 1.5rem;
         text-align: center;
       }
-      span {
+      .content {
         word-break: break-all;
         white-space: pre-wrap;
+        color: #545454;
       }
       .img-wrapper {
         margin-top: 20px;
         width: 100%;
         img {
-          width: 33.3%;
+          height: 50px;
+          width: 50px;
         }
       }
+    }
+    .modal-footer{
+      box-sizing: border-box;
+      height: 10%;
+      background-color: @maincolor;
     }
   }
 }

@@ -32,6 +32,7 @@
   
     <setting-panel ref="SettingPanel"></setting-panel>
     <new-folder-modal></new-folder-modal>
+    <delete-modal ref="DeleteModal"></delete-modal>
   </div>
 </template>
 <script>
@@ -39,16 +40,19 @@ import api from '../api/api-config.js'
 import Vue from 'vue'
 import axios from 'axios';
 import { mapState } from 'vuex'
+
 import vmodal from 'vue-js-modal'
 Vue.use(vmodal)
 import SettingPanel from '../components/home/SettingPanel.vue'
 import NewFolderModal from '../components/home/NewFolderModal.vue'
+import DeleteModal from '../components/DeleteModal.vue'
 
 
 export default {
   components: {
     SettingPanel,
-    NewFolderModal
+    NewFolderModal,
+    DeleteModal
   },
   data() {
     return {
@@ -98,6 +102,19 @@ export default {
         .catch(function (error) {
           console.log(error);
         });
+    },
+    deleteFolder(event) {
+      var id = event.currentTarget.dataset.folderid;
+      axios.delete(api.deleteList + id)
+        .then(res => {
+          if (res.data.code === 0) {
+            console.log(res)
+            this.getFolderContents()
+          }
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
     }
   }
 }
@@ -132,7 +149,7 @@ header {
       font-size: 1.2rem;
     }
   }
-  i{
+  i {
     float: right;
     line-height: @headerheight - @paddingforbar;
     font-size: 1.5rem;
