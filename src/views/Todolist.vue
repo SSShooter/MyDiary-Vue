@@ -28,6 +28,7 @@
 
 <script>
 import axios from 'axios'
+import api from '../api/api-config.js'
 import { mapGetters } from 'vuex'
 import DeleteModal from '../components/DeleteModal.vue'
 
@@ -73,7 +74,7 @@ export default {
       console.log(this.selectedItem)
     },
     getFolderContents() {
-      axios.get('http://120.76.217.199:8080/api/folder/todolist/' + this.currentFolder)
+      axios.get(api.getListContents + this.currentFolder)
         .then(res => {
           if (res.data.code === 0) {
             this.items = res.data.data
@@ -84,7 +85,7 @@ export default {
         });
     },
     deleteItem() {
-      axios.delete('http://120.76.217.199:8080/api/todolist/' + this.selectedItem)
+      axios.delete(api.deleteList + this.selectedItem)
         .then(res => {
           if (res.data.code === 0) {
             console.log(res)
@@ -102,7 +103,7 @@ export default {
         content: this.newTodoItem,
         createdate: +new Date()
       }
-      axios.post('http://120.76.217.199:8080/api/todolist', data)
+      axios.post(api.newList, data)
         .then(res => {
           if (res.data.code === 0) {
             this.getFolderContents()
@@ -114,7 +115,7 @@ export default {
         });
     },
     changeState(e) {
-      axios.put('http://120.76.217.199:8080/api/todolist/' + e.currentTarget.dataset.id)
+      axios.put(api.changeListItemState + e.currentTarget.dataset.id)
         .then(res => {
           console.log(res)
           if (res.data.code === 0) {

@@ -14,6 +14,7 @@
 <script>
 import { mapGetters } from 'vuex'
 import axios from 'axios';
+import api from '../../api/api-config.js'
 const pinyin = require('pinyin');
 export default {
   data() {
@@ -52,7 +53,7 @@ export default {
   methods: {
     newContact() {
       if (this.contact && this.number && this.initial)
-        axios.post('http://120.76.217.199:8080/api/phonebook', {
+        axios.post(api.newContact, {
           folderId: this.currentFolder,
           contact: this.contact,
           initial: this.initial,

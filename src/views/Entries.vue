@@ -43,6 +43,7 @@
 </template>
 <script>
 import axios from 'axios';
+import api from '../api/api-config.js'
 import Vue from 'vue'
 var moment = require('moment');
 import { mapGetters } from 'vuex'
@@ -109,7 +110,7 @@ export default {
       }
     },
     getFolderContents() {
-      axios.get('http://120.76.217.199:8080/api/folder/diary/' + this.currentFolder)
+      axios.get(api.getDiaryContents + this.currentFolder)
         .then(res => {
           if (res.data.code === 0) {
             console.log(this.currentFolder)
@@ -122,7 +123,7 @@ export default {
     },
     deleteItem() {
       console.log(this.items[this.selectedItem]._id)
-      axios.delete('http://120.76.217.199:8080/api/diary/' + this.items[this.selectedItem]._id)
+      axios.delete(api.deleteDiary + this.items[this.selectedItem]._id)
         .then(res => {
           if (res.data.code === 0) {
             console.log(res)

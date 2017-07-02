@@ -35,6 +35,7 @@
   </div>
 </template>
 <script>
+import api from '../api/api-config.js'
 import Vue from 'vue'
 import axios from 'axios';
 import { mapState, mapActions, mapMutations } from 'vuex'
@@ -88,7 +89,7 @@ export default {
         this.$router.push('/todolist/');
     },
     getFolder() {
-      axios.get('http://120.76.217.199:8080/api/folder')
+      axios.get(api.getFolder)
         .then(res => {
           if (res.data.code === 0) {
             this.items = res.data.data

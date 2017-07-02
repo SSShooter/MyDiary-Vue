@@ -30,6 +30,7 @@
 
 <script>
 import axios from 'axios';
+import api from '../api/api-config.js'
 var moment = require('moment');
 import Vue from 'vue'
 import { mapGetters, mapActions, mapMutations } from 'vuex'
@@ -85,7 +86,7 @@ export default {
         tag: this.tag,
         createdate: +new Date()
       }
-      axios.post('http://120.76.217.199:8080/api/diary', data)
+      axios.post(api.newDiary, data)
         .then(res => {
           if (res.data.code === 0) {
             this.title = ''

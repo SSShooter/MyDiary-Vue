@@ -24,6 +24,7 @@
 </template>
 <script>
 import axios from 'axios';
+import api from '../../api/api-config.js'
 export default {
   data() {
     return {
@@ -37,7 +38,7 @@ export default {
         alert("文件夹名称请不要超过8个字");
         return;
       }
-      axios.post('http://120.76.217.199:8080/api/folder', {
+      axios.post(api.newFolder, {
         type: this.newFolderType,
         foldername: this.newFolderName,
         createdate: +new Date()

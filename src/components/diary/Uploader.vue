@@ -15,6 +15,7 @@
 </template>
 <script>
 import axios from 'axios';
+import api from '../../api/api-config.js'
 import { mapGetters, mapActions, mapMutations } from 'vuex'
 export default {
   data() {
@@ -43,7 +44,7 @@ export default {
       formData.append('file', e.target.files[0])
       e.target.value = ''
       axios({
-        url: 'http://120.76.217.199:8080/api/diary/picupload',
+        url: api.uploadImg,
         method: 'post',
         data: formData
       })
