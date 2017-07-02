@@ -40,8 +40,6 @@ export default {
             this.theWayToSkipTheFirstRunOfOnSlideNextStart = 1;
             return false;
           }
-          console.log('next');
-          console.log(this.thispage);
           this.moment = this.moment.add(1, 'd');
           if (this.thispage == 0) {
             this.month2 = this.moment.format('MMM');
@@ -56,8 +54,6 @@ export default {
           }
         },
         onSlidePrevStart: () => {
-          console.log('prev');
-          console.log(this.thispage);
           this.moment = this.moment.subtract(1, 'd');
           if (this.thispage == 0) {
             this.month2 = this.moment.format('MMM');
@@ -88,7 +84,7 @@ export default {
 
 #calendar {
   background-color: @maincolor;
-  height: @commoncontainerheight;
+  height: @contactcontainerheight;
   .cadiv {
     width: 100vw;
     height: 100vw;

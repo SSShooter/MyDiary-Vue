@@ -9,8 +9,9 @@ export default new Vuex.Store({
     diary
   },
   state: {
-    currentFolder: '594895ca3e16a13016739408',
-    currentFolderName: '电话本'
+    currentFolder: '',
+    currentFolderName: '',
+    currentImg: ''
   },
   getters: {
     getCurrentFolder(state) {
@@ -18,6 +19,9 @@ export default new Vuex.Store({
     },
     getCurrentFolderName(state) {
       return state.currentFolderName;
+    },
+    getCurrentImg(state) {
+      return state.currentImg;
     }
   },
   mutations: {
@@ -26,6 +30,9 @@ export default new Vuex.Store({
     },
     changeCurrentFolderName(state, newCurrentFolderName) {
       state.currentFolderName = newCurrentFolderName
+    },
+    changeCurrentImg(state, newCurrentImg) {
+      state.currentImg = newCurrentImg
     }
   }
 })

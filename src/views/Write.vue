@@ -4,6 +4,7 @@
       <div class="month">{{month}}</div>
       <div class="date">{{date}}</div>
       <div class="day">{{day}} {{time}}</div>
+      <div>心情 天气</div>
     </div>
     <div class="write">
       <input v-model.trim="title"
@@ -25,6 +26,7 @@
            :pivotY=".9">
       <uploader></uploader>
     </modal>
+    
   </div>
 </template>
 

@@ -8,45 +8,50 @@ import Entries from '../views/Entries.vue'
 import Calendar from '../views/Calendar.vue'
 import Write from '../views/Write.vue'
 import Gallery from '../views/Gallery.vue'
+import Img from '../views/Img.vue'
 
 Vue.use(Router)
 
 const router = new Router({
-    mode: 'history',
-    routes: [
-        {
-            path: '/home',
-            component: Home
-        },
-        {
-            path: '/diary',
-            component: Diary,
-            children: [{
-                path: 'entries',
-                component: Entries
-            },
-            {
-                path: 'calendar',
-                component: Calendar
-            },
-            {
-                path: 'write',
-                component: Write
-            }]
-        },
-        {
-            path: '/phonebook',
-            component: Phonebook
-        },
-        {
-            path: '/todolist',
-            component: Todolist
-        },
-        {
-            path: '/gallery',
-            component: Gallery
-        }
-    ]
+  mode: 'history',
+  routes: [
+    {
+      path: '/home',
+      component: Home
+    },
+    {
+      path: '/diary',
+      component: Diary,
+      children: [{
+        path: 'entries',
+        component: Entries
+      },
+      {
+        path: 'calendar',
+        component: Calendar
+      },
+      {
+        path: 'write',
+        component: Write
+      }]
+    },
+    {
+      path: '/phonebook',
+      component: Phonebook
+    },
+    {
+      path: '/todolist',
+      component: Todolist
+    },
+    {
+      path: '/gallery',
+      component: Gallery
+    },
+    {
+      path: '/img',
+      component: Img
+    }
+  ]
 })
 
 export default router

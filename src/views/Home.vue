@@ -38,7 +38,7 @@
 import api from '../api/api-config.js'
 import Vue from 'vue'
 import axios from 'axios';
-import { mapState, mapActions, mapMutations } from 'vuex'
+import { mapState } from 'vuex'
 import vmodal from 'vue-js-modal'
 Vue.use(vmodal)
 import SettingPanel from '../components/home/SettingPanel.vue'
@@ -146,8 +146,8 @@ header {
   box-sizing: border-box;
   .item {
     border-bottom: 1px #ccc solid;
-    padding: 10px 30px 10px 0;
-    margin-left: 30px;
+    padding: 10px 10px 10px 0;
+    margin-left: 20px;
     line-height: 3rem;
     color: rgb(92, 115, 136);
     height: 3rem;

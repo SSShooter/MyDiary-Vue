@@ -7,7 +7,7 @@
           <p class="day">{{convertToddd(item.createdate)}}</p>
         </div>
         <div class="content">
-          <div class="time">{{convertToHHMM(item.createdate)}}</div>
+          <div class="time">{{convertToHHmm(item.createdate)}}</div>
           <div class="title">{{item.title}}</div>
           <div class="article">{{item.content}}</div>
         </div>
@@ -24,15 +24,18 @@
     </footer>
     <diary-content-modal ref="DiaryContentModal">
       <div class="modal-date" v-if="items[selectedItem]">
-        <p class="month">dwjo</p>
+        <p class="month">{{convertToMMM(items[selectedItem].createdate)}}</p>
         <p class="date">{{convertToDD(items[selectedItem].createdate)}}</p>
-        <p class="time">{{convertToHHMM(items[selectedItem].createdate)}}</p>
+        <p class="time">{{convertToHHmm(items[selectedItem].createdate)}}</p>
       </div>
       <div class="modal-content" v-if="items[selectedItem]">
         <div class="title">
           <span>{{items[selectedItem].title}}</span>
         </div>
         <span>{{items[selectedItem].content}}</span>
+        <div class="img-wrapper">
+          <img v-for="pic in items[selectedItem].pic" :src="pic" @click="loadImg">
+        </div>
       </div>
       <div class="modal-footer">
   
@@ -46,7 +49,7 @@ import axios from 'axios';
 import api from '../api/api-config.js'
 import Vue from 'vue'
 var moment = require('moment');
-import { mapGetters } from 'vuex'
+import { mapGetters, mapMutations } from 'vuex'
 import DiaryContentModal from '../components/diary/DiaryContentModal.vue'
 import DeleteModal from '../components/DeleteModal.vue'
 
@@ -80,14 +83,20 @@ export default {
     currentFolder: 'getCurrentFolder'
   }),
   methods: {
+    ...mapMutations(
+      ['changeCurrentImg']
+    ),
+    convertToMMM(timestamp) {
+      return moment(timestamp).format('MMM');
+    },
     convertToDD(timestamp) {
       return moment(timestamp).format('DD');
     },
     convertToddd(timestamp) {
       return moment(timestamp).format('ddd');
     },
-    convertToHHMM(timestamp) {
-      return moment(timestamp).format('HH:MM');
+    convertToHHmm(timestamp) {
+      return moment(timestamp).format('HH:mm');
     },
     showDiaryContentModal(e) {
       this.$refs.DiaryContentModal.isModalShow = true;
@@ -122,7 +131,6 @@ export default {
         });
     },
     deleteItem() {
-      console.log(this.items[this.selectedItem]._id)
       axios.delete(api.deleteDiary + this.items[this.selectedItem]._id)
         .then(res => {
           if (res.data.code === 0) {
@@ -133,6 +141,11 @@ export default {
         .catch(function (error) {
           console.log(error);
         });
+    },
+    loadImg(e) {
+      console.log(e.currentTarget.src)
+      this.changeCurrentImg(e.currentTarget.src)
+      this.$router.push('/img');
     }
   }
 }
@@ -218,7 +231,7 @@ export default {
       box-sizing: border-box;
       padding: 15px;
       height: 70%;
-      overflow-y: scroll; 
+      overflow-y: scroll;
       .title {
         font-size: 1.5rem;
         text-align: center;
@@ -226,6 +239,13 @@ export default {
       span {
         word-break: break-all;
         white-space: pre-wrap;
+      }
+      .img-wrapper {
+        margin-top: 20px;
+        width: 100%;
+        img {
+          width: 33.3%;
+        }
       }
     }
   }

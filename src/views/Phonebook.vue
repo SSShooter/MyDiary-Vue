@@ -47,7 +47,6 @@ export default {
     }
   },
   activated() {
-    console.log('act')
     this.getFolderContents()
   },
   computed: mapGetters({
@@ -120,7 +119,7 @@ header {
   .wrap {
     width: 70%;
     .item {
-      padding: 10px 50px;
+      padding: 10px;
       background-color: #fff;
       color: @maincolor;
       border-radius: 5px;

@@ -1,14 +1,10 @@
 <template>
-  <div class="wrap-all"
-       @click="test">
+  <div class="wrap-all" @click="test">
     <div class="uploader">
-      <div class="imgwrapper"
-           v-for="pic in uploadlist">
-        <img :src="pic" />
+      <div class="imgwrapper" v-for="pic in uploadlist">
+        <img :src="pic">
       </div>
-      <input @change="getimg"
-             type="file"
-             id="file" />
+      <input @change="getimg" type="file" id="file">
       <label for="file">+</label>
     </div>
   </div>
@@ -16,7 +12,7 @@
 <script>
 import axios from 'axios';
 import api from '../../api/api-config.js'
-import { mapGetters, mapActions, mapMutations } from 'vuex'
+import { mapGetters, mapMutations } from 'vuex'
 export default {
   data() {
     return {
