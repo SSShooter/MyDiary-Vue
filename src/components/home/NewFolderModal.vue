@@ -58,7 +58,6 @@ export default {
 </script>
 <style lang="less" scoped>
 @import '../../less/common.less';
-@import '//at.alicdn.com/t/font_mznevhjpmzp5vcxr.css';
 .pop-up-box {
   color: @maincolor;
   box-sizing: border-box;

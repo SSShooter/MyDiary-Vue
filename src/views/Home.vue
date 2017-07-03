@@ -134,7 +134,6 @@ export default {
 
 <style lang="less" scoped>
 @import '../less/common.less';
-@import '//at.alicdn.com/t/font_mznevhjpmzp5vcxr.css';
 @headerheight: 6rem;
 @black: #3c3c3c;
 .box() {

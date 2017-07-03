@@ -132,7 +132,6 @@ export default {
 
 <style lang="less" scoped>
 @import '../less/common.less';
-@import '//at.alicdn.com/t/font_cy3k4msf00y66r.css';
 .todolist {
   header {
     .commonheader(@bgcolor: @maincolor, @fontcolor: #fff);

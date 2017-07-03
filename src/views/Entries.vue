@@ -27,9 +27,10 @@
   
     <diary-content-modal ref="DiaryContentModal">
       <div class="modal-date" v-if="items[selectedItem]">
-        <p class="month">{{convertToMMM(items[selectedItem].createdate)}}</p>
-        <p class="date">{{convertToD(items[selectedItem].createdate)}}</p>
-        <p class="time">{{convertToHHmm(items[selectedItem].createdate)}}</p>
+        <span class="month">{{convertToMMMM(items[selectedItem].createdate)}}</span>
+        <span class="date">{{convertToD(items[selectedItem].createdate)}}</span>
+        <span>{{convertTodddd(items[selectedItem].createdate)}}&nbsp;&nbsp;{{convertToYYYY(items[selectedItem].createdate)}}</span>
+        <span>{{convertToHHmm(items[selectedItem].createdate)}}</span>
       </div>
       <div class="modal-content" v-if="items[selectedItem]">
         <div class="title">
@@ -41,8 +42,10 @@
         </div>
       </div>
       <div class="modal-footer" v-if="items[selectedItem]">
-        <i class="iconfont" :class="'icon-'+ items[selectedItem].weather"></i>
-        <i class="iconfont" :class="'icon-'+ items[selectedItem].mood"></i>
+        <div>
+          <i class="iconfont" :class="'icon-'+ items[selectedItem].weather"></i>
+          <i class="iconfont" :class="'icon-'+ items[selectedItem].mood"></i>
+        </div>
       </div>
     </diary-content-modal>
     <delete-modal ref="DeleteModal"></delete-modal>
@@ -90,8 +93,8 @@ export default {
     ...mapMutations(
       ['changeCurrentImg']
     ),
-    convertToMMM(timestamp) {
-      return moment(timestamp).format('MMM');
+    convertToMMMM(timestamp) {
+      return moment(timestamp).format('MMMM');
     },
     convertToDD(timestamp) {
       return moment(timestamp).format('DD');
@@ -104,6 +107,12 @@ export default {
     },
     convertToHHmm(timestamp) {
       return moment(timestamp).format('HH:mm');
+    },
+    convertToYYYY(timestamp) {
+      return moment(timestamp).format('YYYY');
+    },
+    convertTodddd(timestamp) {
+      return moment(timestamp).format('dddd');
     },
     showDiaryContentModal(e) {
       this.$refs.DiaryContentModal.isModalShow = true;
@@ -159,7 +168,6 @@ export default {
 </script>
 <style lang="less" scoped>
 @import '../less/common.less';
-@import '//at.alicdn.com/t/font_cy3k4msf00y66r.css';
 #entries {
   background-image: url('../assets/52502973_p0.png');
   height: @commoncontainerheight;
@@ -221,25 +229,27 @@ export default {
   }
   .modal {
     .modal-date {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
       box-sizing: border-box;
       background-color: @maincolor;
       color: #fff;
-      text-align: center;
-      height: 20%;
-      padding-top: 2%;
-      .month,
-      .date,
-      .time {
-        line-height: 2rem;
+      height: 30%;
+      span {
+        margin: 1px 0;
+        font-size: .8rem;
       }
       .date {
-        font-size: 2rem;
+        font-size: 4rem;
+        line-height: 4rem;
       }
     }
     .modal-content {
       box-sizing: border-box;
-      padding: 15px 10%;
-      height: 70%;
+      padding: 5px 10%;
+      height: 60%;
       overflow-y: scroll;
       .title {
         font-size: 1.5rem;
@@ -262,13 +272,14 @@ export default {
     .modal-footer {
       display: flex;
       align-items: center;
+      justify-content: space-between;
       box-sizing: border-box;
       height: 10%;
       background-color: @maincolor;
       i {
-        font-size: 2rem;
+        font-size: 1.5rem;
         color: #fff;
-        padding: 0 5px;
+        padding-left: 10px;
       }
     }
   }

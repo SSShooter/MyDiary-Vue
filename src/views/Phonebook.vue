@@ -101,7 +101,6 @@ export default {
 </script>
 
 <style lang="less" scoped>
-@import '//at.alicdn.com/t/font_cy3k4msf00y66r.css';
 @import '../less/common.less';
 header {
   .commonheader(@bgcolor: #fff, @fontcolor: @maincolor);

@@ -80,7 +80,6 @@ export default {
 </script>
 <style lang="less" scoped>
 @import '../../less/common.less';
-@import '//at.alicdn.com/t/font_g5ogpwo006xvquxr.css';
 .mask {
   position: absolute;
   left: 0;
