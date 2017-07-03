@@ -1,6 +1,6 @@
 <template>
   <div id="entries">
-
+  
     <div class="items">
       <div v-for="(item,index) in items" v-finger:long-tap="showDeleteModal" @click="showDiaryContentModal" :key="item._id" :data-index="index" class="item">
         <div class="dd">
@@ -19,12 +19,12 @@
         </div>
       </div>
     </div>
-
+  
     <footer>
       <div class="buttons"></div>
       <div class="total">1 Entries</div>
     </footer>
-
+  
     <diary-content-modal ref="DiaryContentModal">
       <div class="modal-date" v-if="items[selectedItem]">
         <p class="month">{{convertToMMM(items[selectedItem].createdate)}}</p>
@@ -40,8 +40,9 @@
           <img v-for="pic in items[selectedItem].pic" :src="pic" @click="loadImg">
         </div>
       </div>
-      <div class="modal-footer">
-
+      <div class="modal-footer" v-if="items[selectedItem]">
+        <i class="iconfont" :class="'icon-'+ items[selectedItem].weather"></i>
+        <i class="iconfont" :class="'icon-'+ items[selectedItem].mood"></i>
       </div>
     </diary-content-modal>
     <delete-modal ref="DeleteModal"></delete-modal>
@@ -51,10 +52,10 @@
 import axios from 'axios';
 import api from '../api/api-config.js'
 import Vue from 'vue'
-var moment = require('moment');
 import { mapGetters, mapMutations } from 'vuex'
 import DiaryContentModal from '../components/diary/DiaryContentModal.vue'
 import DeleteModal from '../components/DeleteModal.vue'
+var moment = require('moment');
 
 export default {
   data() {
@@ -158,7 +159,7 @@ export default {
 </script>
 <style lang="less" scoped>
 @import '../less/common.less';
-@import '//at.alicdn.com/t/font_7y3xysg41dghw7b9.css';
+@import '//at.alicdn.com/t/font_cy3k4msf00y66r.css';
 #entries {
   background-image: url('../assets/52502973_p0.png');
   height: @commoncontainerheight;
@@ -258,10 +259,17 @@ export default {
         }
       }
     }
-    .modal-footer{
+    .modal-footer {
+      display: flex;
+      align-items: center;
       box-sizing: border-box;
       height: 10%;
       background-color: @maincolor;
+      i {
+        font-size: 2rem;
+        color: #fff;
+        padding: 0 5px;
+      }
     }
   }
 }

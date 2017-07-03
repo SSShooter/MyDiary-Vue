@@ -1,5 +1,6 @@
 <template>
-  <div v-finger:touch-move="touchMove" class="index">
+  <div v-finger:touch-move="touchMove"
+       class="index">
     <div class="alphabet">#</div>
     <div class="alphabet">A</div>
     <div class="alphabet">B</div>
@@ -44,31 +45,31 @@ export default {
       var cell = document.querySelector('.index').offsetHeight / 27;
       if (Y < cell) { location.replace('#hash'); }
       else if (Y < cell * 2) { location.replace('#a'); }
-      else if (Y < cell * 3) { location.replace('#b');  }
-      else if (Y < cell * 4) { location.replace('#c');  }
-      else if (Y < cell * 5) { location.replace('#d');  }
-      else if (Y < cell * 6) { location.replace('#e');  }
-      else if (Y < cell * 7) { location.replace('#f');  }
-      else if (Y < cell * 8) { location.replace('#g');  }
-      else if (Y < cell * 9) { location.replace('#h');  }
-      else if (Y < cell * 10) { location.replace('#i');  }
-      else if (Y < cell * 11) { location.replace('#j');  }
-      else if (Y < cell * 12) { location.replace('#k');  }
-      else if (Y < cell * 13) { location.replace('#l');  }
-      else if (Y < cell * 14) { location.replace('#m');  }
-      else if (Y < cell * 15) { location.replace('#n');  }
-      else if (Y < cell * 16) { location.replace('#o');  }
-      else if (Y < cell * 17) { location.replace('#p');  }
-      else if (Y < cell * 18) { location.replace('#q');  }
-      else if (Y < cell * 19) { location.replace('#r');  }
-      else if (Y < cell * 20) { location.replace('#s');  }
-      else if (Y < cell * 21) { location.replace('#t');  }
-      else if (Y < cell * 22) { location.replace('#u');  }
-      else if (Y < cell * 23) { location.replace('#v');  }
-      else if (Y < cell * 24) { location.replace('#w');  }
-      else if (Y < cell * 25) { location.replace('#x');  }
-      else if (Y < cell * 26) { location.replace('#y');  }
-      else if (Y < cell * 27) { location.replace('#z');  }
+      else if (Y < cell * 3) { location.replace('#b'); }
+      else if (Y < cell * 4) { location.replace('#c'); }
+      else if (Y < cell * 5) { location.replace('#d'); }
+      else if (Y < cell * 6) { location.replace('#e'); }
+      else if (Y < cell * 7) { location.replace('#f'); }
+      else if (Y < cell * 8) { location.replace('#g'); }
+      else if (Y < cell * 9) { location.replace('#h'); }
+      else if (Y < cell * 10) { location.replace('#i'); }
+      else if (Y < cell * 11) { location.replace('#j'); }
+      else if (Y < cell * 12) { location.replace('#k'); }
+      else if (Y < cell * 13) { location.replace('#l'); }
+      else if (Y < cell * 14) { location.replace('#m'); }
+      else if (Y < cell * 15) { location.replace('#n'); }
+      else if (Y < cell * 16) { location.replace('#o'); }
+      else if (Y < cell * 17) { location.replace('#p'); }
+      else if (Y < cell * 18) { location.replace('#q'); }
+      else if (Y < cell * 19) { location.replace('#r'); }
+      else if (Y < cell * 20) { location.replace('#s'); }
+      else if (Y < cell * 21) { location.replace('#t'); }
+      else if (Y < cell * 22) { location.replace('#u'); }
+      else if (Y < cell * 23) { location.replace('#v'); }
+      else if (Y < cell * 24) { location.replace('#w'); }
+      else if (Y < cell * 25) { location.replace('#x'); }
+      else if (Y < cell * 26) { location.replace('#y'); }
+      else if (Y < cell * 27) { location.replace('#z'); }
     }
   }
 }

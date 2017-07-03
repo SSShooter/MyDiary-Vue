@@ -31,10 +31,10 @@ module.exports = {
           name: '[name].[ext]?[hash]'
         }
       },
-      { 
-        test: /\.css$/, 
-        loader: 'style-loader!css-loader' 
-      },
+      {
+        test: /\.css$/,
+        loader: 'style-loader!css-loader'
+      }
     ]
   },
   resolve: {

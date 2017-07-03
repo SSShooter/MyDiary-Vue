@@ -4,29 +4,25 @@
       <div class="month">{{month}}</div>
       <div class="date">{{date}}</div>
       <div class="day">{{day}} {{time}}</div>
-      <div>心情 天气</div>
+      <div @click="showMoodAndWeather">
+        {{mood}} {{weather}}
+      </div>
     </div>
     <div class="write">
-      <input v-model.trim="title"
-             placeholder="title">
-      <textarea v-model.trim="content"
-                placeholder="content"></textarea>
+      <input v-model.trim="title" placeholder="title">
+      <textarea v-model.trim="content" placeholder="content"></textarea>
     </div>
     <footer>
-      <i class="iconfont icon-zhaopian"
-         @click="showUploadModal"></i>
-      <i class="iconfont icon-baocun"
-         @click="newDiary"></i>
+      <i class="iconfont icon-zhaopian" @click="showUploadModal"></i>
+      <i class="iconfont icon-baocun" @click="newDiary"></i>
       <i class="iconfont icon-guanbi"></i>
     </footer>
   
-    <modal name="example"
-           :width="300"
-           :height="80"
-           :pivotY=".9">
+    <modal name="example" :width="300" :height="80" :pivotY=".9">
       <uploader></uploader>
     </modal>
-    
+  
+    <mood-and-weather ref="MoodAndWeather"></mood-and-weather>
   </div>
 </template>
 
@@ -37,8 +33,19 @@ var moment = require('moment');
 import Vue from 'vue'
 import { mapGetters, mapActions, mapMutations } from 'vuex'
 import Uploader from '../components/diary/Uploader.vue'
+import MoodAndWeather from '../components/diary/MoodAndWeather.vue'
 import vmodal from 'vue-js-modal'
 Vue.use(vmodal)
+var word2icon = {
+  sad: 'nanguo',
+  happy: 'kaixin-',
+  normal: 'mianwubiaoqing',
+  shock: 'zhenjing-',
+  sunny: 'qingtian',
+  cloudy: 'duoyun',
+  rainy: 'baoyu',
+  overcast: 'duoyunzhuanyin'
+}
 export default {
   data() {
     return {
@@ -49,41 +56,46 @@ export default {
       time: '',
       title: '',
       content: '',
-      mood: '',
-      weather: '',
       bookmark: '',
       tag: ''
     }
   },
   components: {
-    Uploader
+    Uploader,
+    MoodAndWeather
   },
   mounted() {
     this.moment = moment();
   },
   computed: mapGetters({
     uploadlist: 'getUploadlist',
-    currentFolder: 'getCurrentFolder'
+    currentFolder: 'getCurrentFolder',
+    mood: 'mood',
+    weather: 'weather'
   }),
   methods: {
     ...mapMutations([
-      'clearUploadlist'
+      'clearUploadlist',
+      'changeMoodAndWeather'
     ]),
     showUploadModal() {
       this.$modal.show('example');
     },
+    showMoodAndWeather() {
+      this.$refs.MoodAndWeather.isModalShow = true;
+    },
     newDiary() {
       if (!this.title && !this.content) {
         alert('请填写标题和日记内容');
-        return ;
+        return;
       }
       let data = {
         folderId: this.currentFolder,
         title: this.title,
         content: this.content,
         pic: this.uploadlist,
-        mood: this.mood,
-        weather: this.weather,
+        mood: word2icon[this.mood],
+        weather: word2icon[this.weather],
         bookmark: this.bookmark,
         tag: this.tag,
         createdate: +new Date()
@@ -93,12 +105,10 @@ export default {
           if (res.data.code === 0) {
             this.title = ''
             this.content = ''
-            this.mood = ''
-            this.weather = ''
             this.bookmark = ''
             this.tag = ''
             this.clearUploadlist();
-
+            this.changeMoodAndWeather({ mood: '心情', weather: '天气' })
             this.$router.replace('/diary/entries');
             this.$parent.menu = 'entries';
           }

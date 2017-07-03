@@ -14,24 +14,24 @@ export default new Vuex.Store({
     currentImg: ''
   },
   getters: {
-    getCurrentFolder(state) {
-      return state.currentFolder;
+    getCurrentFolder (state) {
+      return state.currentFolder
     },
-    getCurrentFolderName(state) {
-      return state.currentFolderName;
+    getCurrentFolderName (state) {
+      return state.currentFolderName
     },
-    getCurrentImg(state) {
-      return state.currentImg;
+    getCurrentImg (state) {
+      return state.currentImg
     }
   },
   mutations: {
-    changeCurrentFolder(state, newCurrentFolder) {
+    changeCurrentFolder (state, newCurrentFolder) {
       state.currentFolder = newCurrentFolder
     },
-    changeCurrentFolderName(state, newCurrentFolderName) {
+    changeCurrentFolderName (state, newCurrentFolderName) {
       state.currentFolderName = newCurrentFolderName
     },
-    changeCurrentImg(state, newCurrentImg) {
+    changeCurrentImg (state, newCurrentImg) {
       state.currentImg = newCurrentImg
     }
   }

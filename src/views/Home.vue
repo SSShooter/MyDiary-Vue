@@ -10,7 +10,7 @@
     </header>
   
     <div id="main">
-      <div v-for="item in items" class="item" :data-folderid="item._id" :data-foldername="item.foldername" :data-type="item.type" @click="jump" :key="item._id">
+      <div v-for="item in items" class="item" :data-folderid="item._id" :data-foldername="item.foldername" v-finger:long-tap="showDeleteModal" :data-type="item.type" @click="jump" :key="item._id">
         <i class="iconfont" :class="transferToIcon(item.type)"></i>
         <span>{{item.foldername}}</span>
         <div class="total">
@@ -38,7 +38,7 @@
 <script>
 import api from '../api/api-config.js'
 import Vue from 'vue'
-import axios from 'axios';
+import axios from 'axios'
 import { mapState } from 'vuex'
 
 import vmodal from 'vue-js-modal'
@@ -59,7 +59,8 @@ export default {
       nickname: '立花　瀧',
       realname: 'たちばな　たき',
       items: [],
-      list: []
+      list: [],
+      selectedItem:''
     }
   },
   activated() {
@@ -78,6 +79,17 @@ export default {
     },
     showSettingPanel() {
       this.$refs.SettingPanel.isModalShow = true;
+    },
+    showDeleteModal(e) {
+      this.$refs.DeleteModal.isModalShow = true;
+      if (e.target.dataset.folderid) {
+        this.selectedItem = e.target.dataset.folderid;
+      } else if (e.target.parentNode.dataset.folderid) {
+        this.selectedItem = e.target.parentNode.dataset.folderid;
+      } else {
+        this.selectedItem = e.target.parentNode.parentNode.dataset.folderid;
+      }
+      console.log(this.selectedItem)
     },
     jump(event) {
       var type = event.currentTarget.dataset.type,
@@ -103,13 +115,13 @@ export default {
           console.log(error);
         });
     },
-    deleteFolder(event) {
-      var id = event.currentTarget.dataset.folderid;
-      axios.delete(api.deleteList + id)
+    deleteItem() {
+      console.log(this.selectedItem)
+      axios.delete(api.deleteFolder + this.selectedItem)
         .then(res => {
           if (res.data.code === 0) {
             console.log(res)
-            this.getFolderContents()
+            this.getFolder()
           }
         })
         .catch(function (error) {

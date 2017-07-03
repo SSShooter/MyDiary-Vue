@@ -1,11 +1,11 @@
 <template>
   <transition name="fade">
     <div v-show="isModalShow">
-      <div class="mask"
-           @click="isModalShow=!isModalShow"></div>
+      <div class="mask" @click="isModalShow=!isModalShow"></div>
       <div class="modal">
-        <div class="takeplace">X</div>
-        <div class="close" @click="isModalShow=!isModalShow">X</div>
+        <div class="close" @click="isModalShow=!isModalShow">
+          <i class="iconfont icon-guanbi"></i>
+        </div>
         <slot></slot>
       </div>
     </div>
@@ -49,13 +49,10 @@ export default {
   color: @maincolor;
   border-radius: 8px;
   border: none;
-  //hack,左方用与close大小相等的float left占位
-  .takeplace{
-    float: left;
-    padding: 15px;
-  }
-  .close{
-    float: right;
+  .close {
+    position: absolute;
+    top: 0;
+    right: 0;
     padding: 15px;
     color: #fff;
   }

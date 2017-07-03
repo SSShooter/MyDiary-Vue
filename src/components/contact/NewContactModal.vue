@@ -1,11 +1,16 @@
 <template>
   <transition name="fade">
     <div v-show="isModalShow">
-      <div class="mask" @click="isModalShow=!isModalShow"></div>
+      <div class="mask"
+           @click="isModalShow=!isModalShow"></div>
       <div class="modal">
-        <input v-model.trim="contact" placeholder="姓名">
-        <input v-model="number" type="number" placeholder="联系方式">
-        <input v-model="initial" placeholder="首字母">
+        <input v-model.trim="contact"
+               placeholder="姓名">
+        <input v-model="number"
+               type="number"
+               placeholder="联系方式">
+        <input v-model="initial"
+               placeholder="首字母">
         <button @click="newContact">确定</button>
       </div>
     </div>
