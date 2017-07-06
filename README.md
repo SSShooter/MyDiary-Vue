@@ -29,7 +29,8 @@ vue2 / vuex / vue-router / webpack / ES6  / less
 ![ss5](screenshot/5.png)
 ![ss6](screenshot/6.png)
 ## 安装
-其实在登陆系统没做好之前，这个项目完全可以用作自己的网络笔记本和代办事项，欢迎各位使用
+其实在登陆系统没做好之前，这个项目完全可以用作自己的网络笔记本和代办事项，欢迎各位使用   
+**请先确定安装好了node.js和mongoDB**   
 **运行前请先安装MyDiary API**
 ``` bash
 # install dependencies
@@ -42,4 +43,4 @@ npm run dev
 npm run build
 ```
 ## PS
-17.7.26 BD就要发售啦~到时候可以仔细研究下剧中的App了~
+17.7.26 BD就要发售啦！到时候可以仔细研究下剧中的App了～
