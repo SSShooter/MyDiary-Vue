@@ -1,4 +1,5 @@
 # my-diary-vue   
+**不少不熟练的地方，请大家在issues提醒我**    
 ## 简介
 这个应用出自一部（曾经）很火的动画电影，这个电影的水平还是和人气成正比的    
 看电影的时候注意到这个日记应用，忍不住立刻[仿了一个](https://github.com/ssshooter/MyDiary)，那时候用的是jquery             
