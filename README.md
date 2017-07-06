@@ -18,6 +18,7 @@ vue2 / vuex / vue-router / webpack / ES6  / less
 - [ ] 搜索功能待完成
 - [ ] 数据库结构优化
 - [ ] 登陆界面
+- [ ] 首页设定页面
 - [ ] 交换日记
 - [ ] 十分遥远的下一个目标，重构为PWA
 ## 界面截图 
@@ -27,9 +28,9 @@ vue2 / vuex / vue-router / webpack / ES6  / less
 ![ss4](screenshot/4.png)
 ![ss5](screenshot/5.png)
 ![ss6](screenshot/6.png)
-
-## Build Setup
-**请先安装MyDiary API**
+## 安装
+其实在登陆系统没做好之前，这个项目完全可以用作自己的网络笔记本和代办事项，欢迎各位使用
+**运行前请先安装MyDiary API**
 ``` bash
 # install dependencies
 npm install
@@ -40,3 +41,5 @@ npm run dev
 # build for production with minification
 npm run build
 ```
+## PS
+17.7.26 BD就要发售啦~到时候可以仔细研究下剧中的App了~
