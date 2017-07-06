@@ -1,5 +1,23 @@
-# my-diary-vue
-
+# my-diary-vue   
+## 简介
+这个应用出自一部（曾经）很火的动画电影，这个电影的水平还是和人气成正比的      
+看电影的时候注意到这个日记应用，忍不住立刻仿了一个，那时候用的是jquery      
+之后，学Vue也有一段时间，浏览器端用得还算熟练，开始想更了解Vue的生态系统        
+看完了各种资料后，觉得难懂的地方还是必须从实践中理解，于是再次想起了MyDiary        
+这个项目前后端分离，后端使用nodejs和express实现RESTful API（[MyDiary API](https://github.com/ssshooter/MyDiary-API)）    
+数据库选择了mongoDB，由于对数据库不太熟悉，数据库构建还是有所欠缺        
+前端使用了vue全家桶，使用webpack进行打包    
+## 技术栈    
+vue2 / vuex / vue-router / webpack / ES6  / less     
+## 主要功能
+- 电话本，有搜索功能，有侧边栏的字母索引
+- 代办事项，可以新添、删除事项，划线表示完成
+- 笔记本功能，有搜索功能可
+- 可翻页小日历
+## todo
+- [ ] 搜索功能待完成
+- [ ] 数据库结构优化
+- [ ] 交换日记
 > A Vue.js project
 
 ## Build Setup
@@ -14,5 +32,3 @@ npm run dev
 # build for production with minification
 npm run build
 ```
-
-For detailed explanation on how things work, consult the [docs for vue-loader](http://vuejs.github.io/vue-loader).
