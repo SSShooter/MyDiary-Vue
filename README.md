@@ -19,7 +19,13 @@ vue2 / vuex / vue-router / webpack / ES6  / less
 - [ ] 数据库结构优化
 - [ ] 登陆界面
 - [ ] 交换日记
-> A Vue.js project
+## 界面截图 
+![ss1](screenshot/1.png)
+![ss2](screenshot/2.png)
+![ss3](screenshot/3.png)
+![ss4](screenshot/4.png)
+![ss5](screenshot/5.png)
+![ss6](screenshot/6.png)
 
 ## Build Setup
 ** 请先安装MyDiary API **
