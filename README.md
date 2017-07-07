@@ -16,19 +16,22 @@ vue2 / vuex / vue-router / webpack / ES6  / less
 - 笔记本功能，有搜索功能可
 - 可翻页小日历
 ## todo
+- [x] 登陆界面
+- [ ] 注册界面
 - [ ] 搜索功能待完成
 - [ ] 数据库结构优化
-- [ ] 登陆界面
-- [ ] 首页设定页面
+- [ ] 设定页面
 - [ ] 交换日记
 - [ ] 十分遥远的下一个目标，重构为PWA
-## 界面截图 
+## 界面截图    
+截图使用fireshot      
 ![ss1](screenshot/1.png)
 ![ss2](screenshot/2.png)
 ![ss3](screenshot/3.png)
 ![ss4](screenshot/4.png)
 ![ss5](screenshot/5.png)
 ![ss6](screenshot/6.png)
+![ss7](screenshot/7.png)
 ## 安装
 其实在登陆系统没做好之前，这个项目完全可以用作自己的网络笔记本和代办事项，欢迎各位使用   
 **请先确定安装好了node.js和mongoDB**   
