@@ -90,7 +90,6 @@ export default {
   }
   .confirm {
     border: 1px @maincolor solid;
-    border-radius: 5px;
     margin: 10px 0;
     padding: 5px 15px;
     background-color: #fff;

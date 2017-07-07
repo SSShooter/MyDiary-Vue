@@ -128,7 +128,6 @@ export default {
     line-height: 30px;
     margin: 2px;
     border: 1px solid @maincolor;
-    border-radius: 5px;
   }
   input {
     width: 180px;

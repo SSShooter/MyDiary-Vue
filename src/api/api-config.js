@@ -1,6 +1,8 @@
 const HOST = 'http://120.76.217.199:8080/api'
 
 const API = {
+    // 用户登陆
+  login: HOST + '/login',
     // 创建一个文件夹
   newFolder: HOST + '/folder',
 

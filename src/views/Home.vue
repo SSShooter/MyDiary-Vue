@@ -38,15 +38,15 @@
 <script>
 import api from '../api/api-config.js'
 import Vue from 'vue'
-import axios from 'axios'
 import { mapState } from 'vuex'
-
 import vmodal from 'vue-js-modal'
 Vue.use(vmodal)
 import SettingPanel from '../components/home/SettingPanel.vue'
 import NewFolderModal from '../components/home/NewFolderModal.vue'
 import DeleteModal from '../components/DeleteModal.vue'
 
+import axios from 'axios'
+axios.defaults.withCredentials = true
 
 export default {
   components: {
@@ -60,7 +60,7 @@ export default {
       realname: 'たちばな　たき',
       items: [],
       list: [],
-      selectedItem:''
+      selectedItem: ''
     }
   },
   activated() {
@@ -78,17 +78,18 @@ export default {
       this.$modal.show('new-folder');
     },
     showSettingPanel() {
-      this.$refs.SettingPanel.isModalShow = true;
+      this.$refs.SettingPanel.isModalShow = true
     },
     showDeleteModal(e) {
-      this.$refs.DeleteModal.isModalShow = true;
-      if (e.target.dataset.folderid) {
-        this.selectedItem = e.target.dataset.folderid;
-      } else if (e.target.parentNode.dataset.folderid) {
-        this.selectedItem = e.target.parentNode.dataset.folderid;
-      } else {
-        this.selectedItem = e.target.parentNode.parentNode.dataset.folderid;
+      this.$refs.DeleteModal.isModalShow = true
+      var target = e.target
+      while (!target.dataset.folderid) {
+        if (target.dataset.folderid) {
+          break
+        }
+        target = target.parentNode
       }
+      this.selectedItem = target.dataset.folderid
       console.log(this.selectedItem)
     },
     jump(event) {
@@ -110,6 +111,7 @@ export default {
           if (res.data.code === 0) {
             this.items = res.data.data
           }
+          console.log(res.data)
         })
         .catch(function (error) {
           console.log(error);

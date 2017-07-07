@@ -116,23 +116,25 @@ export default {
     },
     showDiaryContentModal(e) {
       this.$refs.DiaryContentModal.isModalShow = true;
-      if (e.target.dataset.index) {
-        this.selectedItem = e.target.dataset.index;
-      } else if (e.target.parentNode.dataset.index) {
-        this.selectedItem = e.target.parentNode.dataset.index;
-      } else {
-        this.selectedItem = e.target.parentNode.parentNode.dataset.index;
+      var target = e.target
+      while (!target.dataset.index) {
+        if (target.dataset.index) {
+          break
+        }
+        target = target.parentNode
       }
+      this.selectedItem = target.dataset.index
     },
     showDeleteModal(e) {
       this.$refs.DeleteModal.isModalShow = true;
-      if (e.target.dataset.index) {
-        this.selectedItem = e.target.dataset.index;
-      } else if (e.target.parentNode.dataset.index) {
-        this.selectedItem = e.target.parentNode.dataset.index;
-      } else {
-        this.selectedItem = e.target.parentNode.parentNode.dataset.index;
+      var target = e.target
+      while (!target.dataset.index) {
+        if (target.dataset.index) {
+          break
+        }
+        target = target.parentNode
       }
+      this.selectedItem = target.dataset.index
     },
     getFolderContents() {
       axios.get(api.getDiaryContents + this.currentFolder)

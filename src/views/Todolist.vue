@@ -66,12 +66,14 @@ export default {
   methods: {
     showDeleteModal(e) {
       this.$refs.DeleteModal.isModalShow = true;
-      if (e.target.dataset.id) {
-        this.selectedItem = e.target.dataset.id;
-      } else {
-        this.selectedItem = e.target.parentNode.dataset.id;
+      var target = e.target
+      while (!target.dataset.index) {
+        if (target.dataset.index) {
+          break
+        }
+        target = target.parentNode
       }
-      console.log(this.selectedItem)
+      this.selectedItem = target.dataset.index
     },
     getFolderContents() {
       axios.get(api.getListContents + this.currentFolder)

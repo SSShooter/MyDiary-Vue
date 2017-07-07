@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Phonebook from '../views/Phonebook.vue'
+import Login from '../views/Login.vue'
 import Home from '../views/Home.vue'
 import Todolist from '../views/Todolist.vue'
 import Diary from '../views/Diary.vue'
@@ -15,6 +16,10 @@ Vue.use(Router)
 const router = new Router({
   mode: 'history',
   routes: [
+    {
+      path:'/Login',
+      component: Login
+    },
     {
       path: '/home',
       component: Home

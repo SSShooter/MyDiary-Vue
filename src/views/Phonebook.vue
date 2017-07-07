@@ -64,12 +64,14 @@ export default {
     },
     showDeleteModal(e) {
       this.$refs.DeleteModal.isModalShow = true;
-      if (e.target.dataset.id) {
-        this.selectedItem = e.target.dataset.id;
-      } else {
-        this.selectedItem = e.target.parentNode.dataset.id;
+      var target = e.target
+      while (!target.dataset.id) {
+        if (target.dataset.id) {
+          break
+        }
+        target = target.parentNode
       }
-      console.log(this.selectedItem)
+      this.selectedItem = target.dataset.id
     },
     getFolderContents() {
       console.log(this.currentFolder)
@@ -127,7 +129,7 @@ header {
         font-size: 1.8rem;
         text-align: left;
       }
-      .number{
+      .number {
         font-size: .9;
         text-align: right;
       }
