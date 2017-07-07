@@ -1,12 +1,13 @@
 <template>
   <transition name="fade">
     <div v-show="isModalShow">
-      <div class="mask"
-           @click="isModalShow=!isModalShow"></div>
+      <div class="mask" @click="isModalShow=!isModalShow"></div>
       <div class="modal">
         <p>是否确定删除</p>
-        <button @click="yes">确定</button>
-        <button @click="no">取消</button>
+        <div>
+          <button @click="yes">确定</button>
+          <button @click="no">取消</button>
+        </div>
       </div>
     </div>
   </transition>
@@ -58,10 +59,10 @@ export default {
   padding: 0 20px;
   top: 50%;
   left: 50%;
-  margin-left: -140px;
-  margin-top: -80px;
-  width: 280px;
-  height: 160px;
+  margin-left: -90px;
+  margin-top: -50px;
+  width: 180px;
+  height: 100px;
   background-color: #fff;
   color: @maincolor;
   display: flex;
@@ -82,7 +83,8 @@ export default {
     color: @maincolor;
   }
   button {
-    width: 90px;
+    margin-top: 10px; 
+    width: 50px;
     background-color: @maincolor;
     color: #fff;
   }

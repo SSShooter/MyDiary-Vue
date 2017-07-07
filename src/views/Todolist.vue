@@ -1,24 +1,19 @@
 <template>
   <div class="todolist">
     <header>
+      <div class="left-btn">
+        <i class="iconfont icon-prev" @click="$router.go(-1)"></i>
+      </div>
       <span class="title">{{currentFolderName}}</span>
       <div class="right-btn">
-        <i class="iconfont icon-pen"
-           @click="isInputShow = !isInputShow"></i>
+        <i class="iconfont icon-pen" @click="isInputShow = !isInputShow"></i>
       </div>
     </header>
     <ul class="items">
-      <li v-for="item in items"
-          v-finger:long-tap="showDeleteModal"
-          class="item"
-          @click="changeState"
-          :key="item._id"
-          :data-id="item._id"
-          :class="{complete:item.state}">
+      <li v-for="item in items" v-finger:long-tap="showDeleteModal" class="item" @click="changeState" :key="item._id" :data-id="item._id" :class="{complete:item.state}">
         {{item.content}}
       </li>
-      <li v-show="isInputShow"
-          class="item">
+      <li v-show="isInputShow" class="item">
         <input v-model.lazy="newTodoItem">
       </li>
     </ul>

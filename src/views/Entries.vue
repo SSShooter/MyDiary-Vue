@@ -21,8 +21,8 @@
     </div>
   
     <footer>
-      <div class="buttons"></div>
-      <div class="total">1 Entries</div>
+      <div class="buttons"><i class="iconfont icon-shouye" @click="backHome"></i></div>
+      <div class="total">{{currentCurrentCount}} Entries</div>
     </footer>
   
     <diary-content-modal ref="DiaryContentModal">
@@ -87,12 +87,16 @@ export default {
     this.getFolderContents()
   },
   computed: mapGetters({
-    currentFolder: 'getCurrentFolder'
+    currentFolder: 'getCurrentFolder',
+    currentCurrentCount: 'getCurrentCurrentCount',
   }),
   methods: {
     ...mapMutations(
       ['changeCurrentImg']
     ),
+    backHome(){
+      this.$router.replace('/home');
+    },
     convertToMMMM(timestamp) {
       return moment(timestamp).format('MMMM');
     },
@@ -223,8 +227,7 @@ export default {
     text-align: center;
     align-items: center;
     justify-content: Space-between;
-    .buttons,
-    .total {
+    .total,i {
       font-size: 1.5rem;
       padding: 0 10px;
     }

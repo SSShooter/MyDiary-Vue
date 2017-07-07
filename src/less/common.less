@@ -1,6 +1,7 @@
-@import '//at.alicdn.com/t/font_du78pw1tlrw9udi.css';
+@import '//at.alicdn.com/t/font_vo3u2bfay0j54s4i.css';
 *{
   outline: none;
+  font-family: STXihei, "华文细黑", "Microsoft YaHei", "微软雅黑";
 }
 button{
   border-radius: 5px;
@@ -29,16 +30,22 @@ button{
   .title {
     line-height: @commonheaderheight - @paddingforbar;
   }
-  .right-btn {
-    position: absolute;
-    bottom: 0;
-    right: 0;
+  .right-btn,.left-btn {
     height: @commonheaderheight - @paddingforbar;
-    padding-right: 10px;
     .iconfont {
       line-height: @commonheaderheight - @paddingforbar;
       font-size: 1.2rem;
     }
+  }
+  .right-btn{
+    position: absolute;
+    bottom: 0;
+    right: 10px;
+  }
+  .left-btn{
+    position: absolute;
+    bottom: 0;
+    left: 10px;
   }
 }
 .diaryfooter {

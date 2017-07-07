@@ -1,7 +1,7 @@
 <template>
   <div class="home">
     <header>
-      <img src="http://tva1.sinaimg.cn/crop.316.53.496.496.180/686d7361jw1f3q2lpig4cj20vk0hswn3.jpg" alt="avatar" class="img-circle">
+      <img src="../assets/avatar.png" alt="avatar" class="img-circle">
       <div class="name">
         <div class="nickname">{{nickname}}</div>
         <div class="realname">{{realname}}</div>
@@ -10,7 +10,7 @@
     </header>
   
     <div id="main">
-      <div v-for="item in items" class="item" :data-folderid="item._id" :data-foldername="item.foldername" v-finger:long-tap="showDeleteModal" :data-type="item.type" @click="jump" :key="item._id">
+      <div v-for="item in items" class="item" :data-folderid="item._id" :data-total="item.total" :data-foldername="item.foldername" v-finger:long-tap="showDeleteModal" :data-type="item.type" @click="jump" :key="item._id">
         <i class="iconfont" :class="transferToIcon(item.type)"></i>
         <span>{{item.foldername}}</span>
         <div class="total">
@@ -38,7 +38,7 @@
 <script>
 import api from '../api/api-config.js'
 import Vue from 'vue'
-import { mapState } from 'vuex'
+import { mapState, mapMutations } from 'vuex'
 import vmodal from 'vue-js-modal'
 Vue.use(vmodal)
 import SettingPanel from '../components/home/SettingPanel.vue'
@@ -71,6 +71,11 @@ export default {
     'currentFolderName'
   ]),
   methods: {
+    ...mapMutations([
+      'changeCurrentFolder',
+      'changeCurrentFolderName',
+      'changeCurrentCount'
+    ]),
     transferToIcon(type) {
       return 'icon-' + (type === 'diary' ? 'book' : type === 'contact' ? 'contact' : type === 'todolist' ? 'alert' : false);
     },
@@ -93,11 +98,14 @@ export default {
       console.log(this.selectedItem)
     },
     jump(event) {
-      var type = event.currentTarget.dataset.type,
-        id = event.currentTarget.dataset.folderid,
-        name = event.currentTarget.dataset.foldername
-      this.$store.commit('changeCurrentFolder', id)
-      this.$store.commit('changeCurrentFolderName', name)
+      var dataset = event.currentTarget.dataset
+      var type = dataset.type
+      var id = dataset.folderid
+      var name = dataset.foldername
+      var total = dataset.total
+      this.changeCurrentFolder(id)
+      this.changeCurrentFolderName(name)
+      this.changeCurrentCount(total)
       if (type === 'diary')
         this.$router.push('/diary/entries/');
       if (type === 'contact')
@@ -118,7 +126,6 @@ export default {
         });
     },
     deleteItem() {
-      console.log(this.selectedItem)
       axios.delete(api.deleteFolder + this.selectedItem)
         .then(res => {
           if (res.data.code === 0) {

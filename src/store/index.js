@@ -11,6 +11,7 @@ export default new Vuex.Store({
   state: {
     currentFolder: '',
     currentFolderName: '',
+    currentCount:'',
     currentImg: ''
   },
   getters: {
@@ -19,6 +20,9 @@ export default new Vuex.Store({
     },
     getCurrentFolderName (state) {
       return state.currentFolderName
+    },
+    getCurrentCount (state) {
+      return state.CurrentCount
     },
     getCurrentImg (state) {
       return state.currentImg
@@ -30,6 +34,9 @@ export default new Vuex.Store({
     },
     changeCurrentFolderName (state, newCurrentFolderName) {
       state.currentFolderName = newCurrentFolderName
+    },
+    changeCurrentCount (state, newCurrentCount) {
+      state.CurrentCount = newCurrentCount
     },
     changeCurrentImg (state, newCurrentImg) {
       state.currentImg = newCurrentImg

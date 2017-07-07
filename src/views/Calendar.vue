@@ -27,7 +27,7 @@ export default {
       moment: moment(),
       thispage: 0,
       month: moment().format('MMM'),
-      date: moment().format('DD'),
+      date: moment().format('D'),
       day: moment().format('ddd'),
       month2: '',
       date2: '',
@@ -43,12 +43,12 @@ export default {
           this.moment = this.moment.add(1, 'd');
           if (this.thispage == 0) {
             this.month2 = this.moment.format('MMM');
-            this.date2 = this.moment.format('DD');
+            this.date2 = this.moment.format('D');
             this.day2 = this.moment.format('ddd');
             this.thispage = 1;
           } else {
             this.month = this.moment.format('MMM');
-            this.date = this.moment.format('DD');
+            this.date = this.moment.format('D');
             this.day = this.moment.format('ddd');
             this.thispage = 0;
           }
@@ -57,12 +57,12 @@ export default {
           this.moment = this.moment.subtract(1, 'd');
           if (this.thispage == 0) {
             this.month2 = this.moment.format('MMM');
-            this.date2 = this.moment.format('DD');
+            this.date2 = this.moment.format('D');
             this.day2 = this.moment.format('ddd');
             this.thispage = 1;
           } else {
             this.month = this.moment.format('MMM');
-            this.date = this.moment.format('DD');
+            this.date = this.moment.format('D');
             this.day = this.moment.format('ddd');
             this.thispage = 0;
           }

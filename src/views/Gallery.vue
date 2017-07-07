@@ -1,11 +1,11 @@
 <template>
   <div class="root">
     <div class="imgwrapper" :class="{normal:!isZoomIn}">
-      <img :src="large" @click="plus" :class="{img:!isZoomIn}" />
+      <img :src="large" @click="plus" :class="{img:!isZoomIn}">
     </div>
     <div class="imglist">
       <div v-for="img in imglist" @click="changeImg" class="thumbwrapper">
-        <img :src="img" />
+        <img :src="img">
       </div>
     </div>
   </div>
@@ -17,16 +17,16 @@ Vue.use(VueAwesomeSwiper)
 export default {
   data() {
     return {
-      imglist: ["http://www.time-record.net:8080/1498102597917NMzb.jpg","http://www.time-record.net:8080/1498131919564CCJ2.jpg","http://www.time-record.net:8080/1498102597917NMzb.jpg"],
-      large:"http://www.time-record.net:8080/1498102597917NMzb.jpg",
-      isZoomIn:false
+      imglist: ["http://www.time-record.net:8080/1498102597917NMzb.jpg", "http://www.time-record.net:8080/1498131919564CCJ2.jpg", "http://www.time-record.net:8080/1498102597917NMzb.jpg"],
+      large: "http://www.time-record.net:8080/1498102597917NMzb.jpg",
+      isZoomIn: false
     }
   },
-  methods:{
-    changeImg(e){
-      this.large = e.target.src; 
+  methods: {
+    changeImg(e) {
+      this.large = e.target.src;
     },
-    plus(){
+    plus() {
       this.isZoomIn = !this.isZoomIn;
     }
   }

@@ -2,15 +2,9 @@
   <div id="diary">
     <header>
       <div class="btn-group">
-        <button class="btn"
-                :class="{active: menu==='entries'}"
-                @click="loadEntries">Entries</button>
-        <button class="btn"
-                :class="{active: menu==='calendar'}"
-                @click="loadCalendar">Calendar</button>
-        <button class="btn"
-                :class="{active: menu==='write'}"
-                @click="loadWrite">Write</button>
+        <button class="btn" :class="{active: menu==='entries'}" @click="loadEntries">Entries</button>
+        <button class="btn" :class="{active: menu==='calendar'}" @click="loadCalendar">Calendar</button>
+        <button class="btn" :class="{active: menu==='write'}" @click="loadWrite">Write</button>
       </div>
       <div class="bookname">{{currentFolderName}}</div>
     </header>
@@ -71,10 +65,13 @@ header {
     float: left;
     border: 1px @maincolor solid;
     background-color: #fff;
+    border-radius: 0;
     &:first-child {
+      border-right: none;
       border-radius: 4px 0 0 4px;
     }
     &:last-child {
+      border-left: none;
       border-radius: 0 4px 4px 0;
     }
     color: @maincolor;

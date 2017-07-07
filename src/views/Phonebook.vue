@@ -1,6 +1,9 @@
 <template>
   <div id="phonebook">
     <header>
+      <div class="left-btn">
+        <i class="iconfont icon-prev" @click="$router.go(-1)"></i>
+      </div>
       <span class="title">{{currentFolderName}}</span>
       <div class="right-btn">
         <i class="iconfont icon-pen" @click="showNewContactModal"></i>
