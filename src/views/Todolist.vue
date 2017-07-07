@@ -22,7 +22,6 @@
 </template>
 
 <script>
-import axios from 'axios'
 import api from '../api/api-config.js'
 import { mapGetters } from 'vuex'
 import DeleteModal from '../components/DeleteModal.vue'
@@ -71,7 +70,7 @@ export default {
       this.selectedItem = target.dataset.index
     },
     getFolderContents() {
-      axios.get(api.getListContents + this.currentFolder)
+      this.$axios.get(api.getListContents + this.currentFolder)
         .then(res => {
           if (res.data.code === 0) {
             this.items = res.data.data
@@ -82,7 +81,7 @@ export default {
         });
     },
     deleteItem() {
-      axios.delete(api.deleteList + this.selectedItem)
+      this.$axios.delete(api.deleteList + this.selectedItem)
         .then(res => {
           if (res.data.code === 0) {
             console.log(res)
@@ -100,7 +99,7 @@ export default {
         content: this.newTodoItem,
         createdate: +new Date()
       }
-      axios.post(api.newList, data)
+      this.$axios.post(api.newList, data)
         .then(res => {
           if (res.data.code === 0) {
             this.getFolderContents()
@@ -112,7 +111,7 @@ export default {
         });
     },
     changeState(e) {
-      axios.put(api.changeListItemState + e.currentTarget.dataset.id)
+      this.$axios.put(api.changeListItemState + e.currentTarget.dataset.id)
         .then(res => {
           console.log(res)
           if (res.data.code === 0) {
@@ -152,7 +151,7 @@ export default {
       }
       input {
         display: inline-block;
-        width: 95%;
+        width: 90%;
         color: @maincolor;
         font-size: 20px;
         outline: none;

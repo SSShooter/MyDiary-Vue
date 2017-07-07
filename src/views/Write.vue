@@ -27,7 +27,6 @@
 </template>
 
 <script>
-import axios from 'axios';
 import api from '../api/api-config.js'
 var moment = require('moment');
 import Vue from 'vue'
@@ -100,7 +99,7 @@ export default {
         tag: this.tag,
         createdate: +new Date()
       }
-      axios.post(api.newDiary, data)
+      this.$axios.post(api.newDiary, data)
         .then(res => {
           if (res.data.code === 0) {
             this.title = ''

@@ -22,7 +22,7 @@
   
     <footer>
       <div class="buttons"><i class="iconfont icon-shouye" @click="backHome"></i></div>
-      <div class="total">{{currentCurrentCount}} Entries</div>
+      <div class="total">{{currentCount}} Entries</div>
     </footer>
   
     <diary-content-modal ref="DiaryContentModal">
@@ -52,7 +52,6 @@
   </div>
 </template>
 <script>
-import axios from 'axios';
 import api from '../api/api-config.js'
 import Vue from 'vue'
 import { mapGetters, mapMutations } from 'vuex'
@@ -88,7 +87,7 @@ export default {
   },
   computed: mapGetters({
     currentFolder: 'getCurrentFolder',
-    currentCurrentCount: 'getCurrentCurrentCount',
+    currentCount: 'getCurrentCount',
   }),
   methods: {
     ...mapMutations(
@@ -141,7 +140,7 @@ export default {
       this.selectedItem = target.dataset.index
     },
     getFolderContents() {
-      axios.get(api.getDiaryContents + this.currentFolder)
+      this.$axios.get(api.getDiaryContents + this.currentFolder)
         .then(res => {
           if (res.data.code === 0) {
             console.log(this.currentFolder)
@@ -153,7 +152,7 @@ export default {
         });
     },
     deleteItem() {
-      axios.delete(api.deleteDiary + this.items[this.selectedItem]._id)
+      this.$axios.delete(api.deleteDiary + this.items[this.selectedItem]._id)
         .then(res => {
           if (res.data.code === 0) {
             console.log(res)

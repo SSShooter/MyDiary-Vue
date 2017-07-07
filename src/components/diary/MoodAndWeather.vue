@@ -45,8 +45,6 @@
 </template>
 <script>
 import { mapGetters, mapMutations } from 'vuex'
-import axios from 'axios';
-import api from '../../api/api-config.js'
 export default {
   data() {
     return {

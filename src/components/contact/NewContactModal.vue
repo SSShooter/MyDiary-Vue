@@ -18,7 +18,6 @@
 </template>
 <script>
 import { mapGetters } from 'vuex'
-import axios from 'axios';
 import api from '../../api/api-config.js'
 const pinyin = require('pinyin');
 export default {
@@ -58,7 +57,7 @@ export default {
   methods: {
     newContact() {
       if (this.contact && this.number && this.initial)
-        axios.post(api.newContact, {
+        this.$axios.post(api.newContact, {
           folderId: this.currentFolder,
           contact: this.contact,
           initial: this.initial,

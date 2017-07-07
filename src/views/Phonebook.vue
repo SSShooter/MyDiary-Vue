@@ -25,7 +25,6 @@
 </template>
 
 <script>
-import axios from 'axios'
 import api from '../api/api-config.js'
 import { mapGetters } from 'vuex'
 import Index from '../components/contact/Index.vue'
@@ -78,7 +77,7 @@ export default {
     },
     getFolderContents() {
       console.log(this.currentFolder)
-      axios.get(api.getContactContents + this.currentFolder)
+      this.$axios.get(api.getContactContents + this.currentFolder)
         .then(res => {
           if (res.data.code === 0) {
             console.log(res.data.data)
@@ -90,7 +89,7 @@ export default {
         });
     },
     deleteItem() {
-      axios.delete(api.deleteContact + this.selectedItem)
+      this.$axios.delete(api.deleteContact + this.selectedItem)
         .then(res => {
           if (res.data.code === 0) {
             console.log(res)

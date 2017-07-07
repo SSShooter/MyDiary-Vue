@@ -9,10 +9,7 @@
 <script>
 import api from '../api/api-config'
 import Vue from 'vue'
-import axios from 'axios'
 import { mapState } from 'vuex'
-
-axios.defaults.withCredentials=true
 
 export default {
   data() {
@@ -27,7 +24,7 @@ export default {
         name: this.username,
         password: this.password
       }
-      axios.post(api.login, data)
+      this.$axios.post(api.login, data)
         .then(res => {
           console.log(res.data)
           if (res.data.code === 0) {

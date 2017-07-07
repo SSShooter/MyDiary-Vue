@@ -14,8 +14,6 @@
 </template>
 <script>
 import { mapGetters } from 'vuex'
-import axios from 'axios';
-const pinyin = require('pinyin');
 export default {
   data() {
     return {

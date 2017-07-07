@@ -10,7 +10,6 @@
   </div>
 </template>
 <script>
-import axios from 'axios';
 import api from '../../api/api-config.js'
 import { mapGetters, mapMutations } from 'vuex'
 export default {
@@ -39,11 +38,7 @@ export default {
       var formData = new FormData();
       formData.append('file', e.target.files[0])
       e.target.value = ''
-      axios({
-        url: api.uploadImg,
-        method: 'post',
-        data: formData
-      })
+      this.$axios.post(api.uploadImg, formData)
         .then(res => {
           console.log(res);
           this.refreshUploadlist(res.data.pic)

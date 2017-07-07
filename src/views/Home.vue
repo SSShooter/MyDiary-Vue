@@ -45,9 +45,6 @@ import SettingPanel from '../components/home/SettingPanel.vue'
 import NewFolderModal from '../components/home/NewFolderModal.vue'
 import DeleteModal from '../components/DeleteModal.vue'
 
-import axios from 'axios'
-axios.defaults.withCredentials = true
-
 export default {
   components: {
     SettingPanel,
@@ -114,7 +111,7 @@ export default {
         this.$router.push('/todolist/');
     },
     getFolder() {
-      axios.get(api.getFolder)
+      this.$axios.get(api.getFolder)
         .then(res => {
           if (res.data.code === 0) {
             this.items = res.data.data
@@ -126,7 +123,7 @@ export default {
         });
     },
     deleteItem() {
-      axios.delete(api.deleteFolder + this.selectedItem)
+      this.$axios.delete(api.deleteFolder + this.selectedItem)
         .then(res => {
           if (res.data.code === 0) {
             console.log(res)
