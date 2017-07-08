@@ -10,6 +10,7 @@ import Calendar from '../views/Calendar.vue'
 import Write from '../views/Write.vue'
 import Gallery from '../views/Gallery.vue'
 import Img from '../views/Img.vue'
+import Setting from '../views/Setting.vue'
 
 Vue.use(Router)
 
@@ -55,6 +56,10 @@ const router = new Router({
     {
       path: '/img',
       component: Img
+    },
+    {
+      path: '/setting',
+      component: Setting
     }
   ]
 })

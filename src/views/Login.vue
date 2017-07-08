@@ -3,7 +3,10 @@
     <img class="logo" src="../assets/logo.png">
     <input v-model="username" placeholder="请输入用户名">
     <input v-model="password" type="password" placeholder="请输入密码">
-    <button @click="login">登陆</button>
+    <button v-if="!isRegister" @click="login">登陆</button>
+    <button v-else @click="register">注册</button>
+    <p v-if="!isRegister" @click="isRegister=!isRegister">我没有账号 点击注册</p>
+    <p v-else @click="isRegister=!isRegister">我已有账号 点击注册</p>
   </div>
 </template>
 <script>
@@ -15,7 +18,8 @@ export default {
   data() {
     return {
       username: '',
-      password: ''
+      password: '',
+      isRegister: false
     }
   },
   methods: {
@@ -35,6 +39,25 @@ export default {
           console.log(error);
         });
     },
+    register() {
+      var data = {
+        name: this.username,
+        password: this.password
+      }
+      this.$axios.post(api.register, data)
+        .then(res => {
+          console.log(res.data)
+          if (res.data.code === 1 && res.data.err.code === 11000) {
+            alert('用户名已被占用...')
+          }
+          if (res.data.code === 0) {
+            this.$router.replace('home')
+          }
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+    },
   }
 }
 </script>
@@ -43,7 +66,7 @@ export default {
 @import '../less/common.less';
 .login {
   background-image: url('../assets/63524818_p0.png');
-  background-size:100%;
+  background-size: 100%;
   height: 100vh;
   display: flex;
   justify-content: center;
@@ -51,7 +74,8 @@ export default {
   flex-direction: column;
   .logo,
   input,
-  button {
+  button,
+  p {
     width: 250px;
   }
   input,
@@ -59,9 +83,6 @@ export default {
     height: 40px;
     font-size: 20px;
     margin-top: 10px;
-  }
-  .logo {
-    width: 250px;
   }
   input {
     box-sizing: border-box;
@@ -75,6 +96,11 @@ export default {
     background-color: #4582ff;
     color: #fff;
     border-radius: 50px;
+  }
+  p {
+    color: #fff;
+    margin-top: 10px;
+    text-align: right;
   }
 }
 </style>

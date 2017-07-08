@@ -3,6 +3,16 @@ const HOST = 'http://120.76.217.199:8080/api'
 const API = {
     // 用户登陆
   login: HOST + '/login',
+
+    // 用户注册
+  register: HOST + '/register',
+
+    // 获取当前用户信息
+  getinfo: HOST + '/getinfo',
+
+    // 保存当前用户信息
+  saveinfo: HOST + '/saveinfo',
+
     // 创建一个文件夹
   newFolder: HOST + '/folder',
 

@@ -3,8 +3,8 @@
     <header>
       <img src="../assets/avatar.png" alt="avatar" class="img-circle">
       <div class="name">
+        <div class="username">{{username}}</div>
         <div class="nickname">{{nickname}}</div>
-        <div class="realname">{{realname}}</div>
       </div>
       <i class="iconfont icon-tianjia" @click="showNewFolderModal"></i>
     </header>
@@ -27,10 +27,9 @@
         <i class="iconfont icon-search search"></i>
         <input type="text" name="search" id="search">
       </div>
-      <i class="iconfont icon-setting cog" @click="showSettingPanel"></i>
+      <i class="iconfont icon-setting cog" @click="toSetting"></i>
     </footer>
   
-    <setting-panel ref="SettingPanel"></setting-panel>
     <new-folder-modal></new-folder-modal>
     <delete-modal ref="DeleteModal"></delete-modal>
   </div>
@@ -41,27 +40,26 @@ import Vue from 'vue'
 import { mapState, mapMutations } from 'vuex'
 import vmodal from 'vue-js-modal'
 Vue.use(vmodal)
-import SettingPanel from '../components/home/SettingPanel.vue'
 import NewFolderModal from '../components/home/NewFolderModal.vue'
 import DeleteModal from '../components/DeleteModal.vue'
 
 export default {
   components: {
-    SettingPanel,
     NewFolderModal,
     DeleteModal
   },
   data() {
     return {
-      nickname: '立花　瀧',
-      realname: 'たちばな　たき',
+      username: '立花　瀧',
+      nickname: 'たちばな　たき',
       items: [],
       list: [],
       selectedItem: ''
     }
   },
   activated() {
-    this.getFolder();
+    this.getFolder()
+    this.getInfo()
   },
   computed: mapState([
     'currentFolder',
@@ -79,8 +77,8 @@ export default {
     showNewFolderModal() {
       this.$modal.show('new-folder');
     },
-    showSettingPanel() {
-      this.$refs.SettingPanel.isModalShow = true
+    toSetting() {
+      this.$router.push('/setting');
     },
     showDeleteModal(e) {
       this.$refs.DeleteModal.isModalShow = true
@@ -133,6 +131,19 @@ export default {
         .catch(function (error) {
           console.log(error);
         });
+    },
+    getInfo() {
+      this.$axios.get(api.getinfo)
+        .then(res => {
+          if (res.data.code === 0) {
+            this.username = res.data.data.username
+            this.nickname = res.data.data.nickname || '点击设置昵称'
+          }
+          console.log(res.data)
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
     }
   }
 }
@@ -162,6 +173,8 @@ header {
   }
   .name {
     .box();
+    width: ~"calc(100vw - 110px)";
+    overflow-x: scroll;
     .nickname {
       font-size: 1.2rem;
     }
