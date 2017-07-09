@@ -1,4 +1,6 @@
 # my-diary-vue   
+![logo](src/assets/logoBlue.png)
+[English](README.En.md)       
 **不少不熟练的地方，请大家在issues提醒我**    
 ## 简介
 这个应用出自一部（曾经）很火的动画电影，这个电影的水平还是和人气成正比的    
@@ -36,7 +38,7 @@ vue2 / vuex / vue-router / webpack / ES6  / less
 ## 安装
 其实在登陆系统没做好之前，这个项目完全可以用作自己的网络笔记本和代办事项，欢迎各位使用   
 **请先确定安装好了node.js和mongoDB**   
-**运行前请先安装MyDiary API**
+**运行前请先安装[MyDiary API](https://github.com/ssshooter/MyDiary-API)**
 ``` bash
 # install dependencies
 npm install
