@@ -72,6 +72,10 @@ export default {
     getFolderContents() {
       this.$axios.get(api.getListContents + this.currentFolder)
         .then(res => {
+          if (res.data.code === 11) {
+            alert('登录失效')
+            this.$router.push('/login')
+          }
           if (res.data.code === 0) {
             this.items = res.data.data
           }
@@ -130,18 +134,21 @@ export default {
 @import '../less/common.less';
 .todolist {
   header {
-    .commonheader(@bgcolor: @maincolor, @fontcolor: #fff);
+    .commonheader(@bgcolor: @main-color, @fontcolor: #fff);
   }
   .items {
     background-image: url('../assets/line.png');
     background-size: 100vw 60px;
+    background-attachment: local;
+    height: @todolist-container-height;
+    overflow-y: scroll;
     position: relative;
     .complete {
       text-decoration: line-through;
     }
     .item {
       box-sizing: border-box;
-      color: @maincolor;
+      color: @main-color;
       font-size: 20px;
       padding: 0 20px;
       line-height: 60px;
@@ -152,7 +159,7 @@ export default {
       input {
         display: inline-block;
         width: 90%;
-        color: @maincolor;
+        color: @main-color;
         font-size: 20px;
         outline: none;
         line-height: 30px;

@@ -38,7 +38,7 @@ export default {
   display: flex;
   justify-content: space-around;
   align-items: center;
-  background-color: @maincolor;
+  background-color: @main-color;
   color: #fff;
   width: 100vw;
   padding: 10px 0;

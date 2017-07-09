@@ -45,7 +45,7 @@ export default {
   height: 90vh;
   overflow: hidden;
   background-color: #fff;
-  color: @maincolor;
+  color: @main-color;
   border-radius: 15px;
   border: none;
   .close {

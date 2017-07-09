@@ -49,12 +49,11 @@ export default {
 @import '../less/common.less';
 header {
   .diaryheader;
-  box-sizing: border-box;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  border-bottom: 1px @maincolor solid;
+  border-bottom: 1px @main-color solid;
   .btn-group {
     display: inline-block;
   }
@@ -63,7 +62,7 @@ header {
     outline: none;
     padding: 5px 20px;
     float: left;
-    border: 1px @maincolor solid;
+    border: 1px @main-color solid;
     background-color: #fff;
     border-radius: 0;
     &:first-child {
@@ -74,15 +73,15 @@ header {
       border-left: none;
       border-radius: 0 4px 4px 0;
     }
-    color: @maincolor;
+    color: @main-color;
   }
   .active {
-    background-color: @maincolor;
+    background-color: @main-color;
     color: #fff;
   }
   .bookname {
     margin-top: 5px;
-    color: @maincolor;
+    color: @main-color;
   }
 }
 </style>

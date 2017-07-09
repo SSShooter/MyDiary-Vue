@@ -73,6 +73,10 @@ export default {
     getInfo() {
       this.$axios.get(api.getinfo)
         .then(res => {
+          if (res.data.code === 11) {
+            alert('登录失效')
+            this.$router.push('/login')
+          }
           var data = res.data.data
           if (res.data.code === 0) {
             this.username = data.username
@@ -88,7 +92,7 @@ export default {
         });
     },
     saveInfo() {
-      this.$axios.post(api.saveinfo,this.$data)
+      this.$axios.post(api.saveinfo, this.$data)
         .then(res => {
           if (res.data.code === 0) {
           }
@@ -105,7 +109,7 @@ export default {
 <style lang="less" scoped>
 @import '../less/common.less';
 header {
-  .commonheader(@bgcolor: @maincolor, @fontcolor: #fff);
+  .commonheader(@bgcolor: @main-color, @fontcolor: #fff);
 }
 
 .items {

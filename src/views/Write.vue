@@ -101,6 +101,10 @@ export default {
       }
       this.$axios.post(api.newDiary, data)
         .then(res => {
+          if (res.data.code === 11) {
+            alert('登录失效')
+            this.$router.push('/login')
+          }
           if (res.data.code === 0) {
             this.title = ''
             this.content = ''
@@ -132,12 +136,11 @@ export default {
 @import '../less/common.less';
 * {
   box-sizing: border-box;
-  outline: none;
 }
 
 .calendar {
   height: 180px;
-  background-color: @maincolor;
+  background-color: @main-color;
   display: flex;
   text-align: center;
   flex-direction: column;
@@ -157,7 +160,7 @@ export default {
     line-height: 3rem;
     font-size: 1.5rem;
     padding-left: 10px;
-    border-bottom: @maincolor 1px solid;
+    border-bottom: @main-color 1px solid;
   }
   textarea {
     resize: none;

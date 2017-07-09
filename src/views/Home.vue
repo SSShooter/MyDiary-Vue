@@ -111,6 +111,10 @@ export default {
     getFolder() {
       this.$axios.get(api.getFolder)
         .then(res => {
+          if (res.data.code === 11) {
+            alert('登录失效')
+            this.$router.push('/login')
+          }
           if (res.data.code === 0) {
             this.items = res.data.data
           }
@@ -151,7 +155,6 @@ export default {
 
 <style lang="less" scoped>
 @import '../less/common.less';
-@headerheight: 6rem;
 @black: #3c3c3c;
 .box() {
   float: left;
@@ -160,11 +163,10 @@ export default {
 }
 
 header {
-  padding-top: @paddingforbar;
+  margin-top: @padding-for-bar;
   box-sizing: border-box;
-  height: @headerheight;
-  width: 100vw;
-  background-color: @maincolor;
+  height: @home-header-height;
+  background-color: @main-color;
   color: #fff;
   img {
     .box();
@@ -181,15 +183,15 @@ header {
   }
   i {
     float: right;
-    line-height: @headerheight - @paddingforbar;
+    line-height: @home-header-height;
     font-size: 1.5rem;
     padding-right: 10px;
   }
 }
 
 #main {
-  height: ~"calc(100vh - 96px - 2.8rem)";
-  overflow: scroll;
+  height: @home-container-height;
+  overflow-y: scroll;
   box-sizing: border-box;
   .item {
     border-bottom: 1px #ccc solid;
@@ -218,7 +220,7 @@ footer {
   box-sizing: border-box;
   padding: 0 .4rem;
   width: 100vw;
-  height: 2.8rem;
+  height: @common-footer-height;
   background-color: #fff;
   border-top: 1px #CACACA solid;
   .inputdiv {
@@ -230,7 +232,7 @@ footer {
       box-sizing: border-box;
       border: none;
       border-radius: 10px;
-      background-color: @maincolor;
+      background-color: @main-color;
       padding-left: 30px;
       font-size: 20px;
       line-height: 28px;
@@ -248,7 +250,7 @@ footer {
     color: #fff;
   }
   .cog {
-    color: @maincolor;
+    color: @main-color;
     font-size: 24px;
   }
 }

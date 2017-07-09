@@ -69,8 +69,6 @@ export default {
         }
       }
     }
-  },
-  methods: {
   }
 }
 </script>
@@ -83,13 +81,13 @@ export default {
 }
 
 #calendar {
-  background-color: @maincolor;
-  height: @contactcontainerheight;
+  background-color: @main-color;
+  height: @calendar-container-height;
   .cadiv {
     width: 100vw;
     height: 100vw;
     background-color: #fff;
-    color: @maincolor;
+    color: @main-color;
     text-align: center;
     font-weight: bold;
     .date {

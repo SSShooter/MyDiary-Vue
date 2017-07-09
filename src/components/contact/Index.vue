@@ -80,7 +80,7 @@ export default {
   position: fixed;
   left: 0;
   width: 22px;
-  height: @contactcontainerheight;
+  height: @contact-container-height;
   padding-left: 5px;
   .alphabet {
     height: 3.7%;

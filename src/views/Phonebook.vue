@@ -12,7 +12,7 @@
     <div class="container">
       <index></index>
       <div v-for="(item,index) in items" class="wrap">
-        <div v-if="!items[index-1] || item.initial !== items[index-1].initial" class="initial" :id="item.initial">{{item.initial}}</div>
+        <div v-if="!items[index-1] || item.initial !== items[index-1].initial" class="initial" :id="item.initial!=='#'?item.initial:'hash'">{{item.initial.toUpperCase()}}</div>
         <div class="item" :data-id="item._id" v-finger:long-tap="showDeleteModal">
           <div class="name">{{item.contact}}</div>
           <div class="number">{{item.number}}</div>
@@ -79,6 +79,10 @@ export default {
       console.log(this.currentFolder)
       this.$axios.get(api.getContactContents + this.currentFolder)
         .then(res => {
+          if (res.data.code === 11) {
+            alert('登录失效')
+            this.$router.push('/login')
+          }
           if (res.data.code === 0) {
             console.log(res.data.data)
             this.items = res.data.data
@@ -107,7 +111,7 @@ export default {
 <style lang="less" scoped>
 @import '../less/common.less';
 header {
-  .commonheader(@bgcolor: #fff, @fontcolor: @maincolor);
+  .commonheader(@bgcolor: #fff, @fontcolor: @main-color);
 }
 
 .container {
@@ -115,8 +119,8 @@ header {
   justify-content: baseline;
   align-items: center;
   flex-direction: column;
-  height: @contactcontainerheight;
-  background-color: @maincolor;
+  height: @contact-container-height;
+  background-color: @main-color;
   box-sizing: border-box;
   overflow: scroll;
   .wrap {
@@ -124,7 +128,7 @@ header {
     .item {
       padding: 10px;
       background-color: #fff;
-      color: @maincolor;
+      color: @main-color;
       border-radius: 5px;
       margin: 5px 0;
       .name {

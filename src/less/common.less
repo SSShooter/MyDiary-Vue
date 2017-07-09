@@ -6,20 +6,26 @@
 button{
   border-radius: 5px;
 }
-@paddingforbar: 1.4rem;
-@maincolor: #5A95BA;
-@commonheaderheight:5rem;
-@commonfooterheight:2.8rem;
-@commoncontainerheight:calc(~"100vh - "(@commonheaderheight + @commonfooterheight));
-@contactcontainerheight:calc(~"100vh - "@commonheaderheight);
+@padding-for-bar: 1.4rem;
+@padding-for-bar: 0;
+@main-color: #5A95BA;
+@diary-header-height:4.6rem;
+@home-header-height: 4.6rem;
+@home-container-height:calc(~"100vh - "(@padding-for-bar + @common-footer-height + @home-header-height));
+@entries-container-height:calc(~"100vh - "(@padding-for-bar + @common-footer-height + @diary-header-height));
+@calendar-container-height:calc(~"100vh - "(@padding-for-bar + @diary-header-height));
+@todolist-container-height:calc(~"100vh - "(@padding-for-bar + @common-header-height));
+@common-header-height:3.6rem;
+@common-footer-height:2.8rem;
+@contact-container-height:calc(~"100vh - "@common-header-height);
 .diaryheader{
-  margin-top: @paddingforbar;
-  height: @commonheaderheight - @paddingforbar;
+  margin-top: @padding-for-bar;
+  height: @diary-header-height;
   box-sizing: border-box;
 }
 .commonheader(@bgcolor,@fontcolor) {
-  padding-top: @paddingforbar;
-  height: @commonheaderheight;
+  margin-top: @padding-for-bar;
+  height: @common-header-height;
   box-sizing: border-box;
   background-color: @bgcolor;
   text-align: center;
@@ -27,13 +33,13 @@ button{
   position: relative;
   z-index:0;
   .title {
-    line-height: @commonheaderheight - @paddingforbar;
+    line-height: @common-header-height;
     font-size: 1.3rem;
   }
   .right-btn,.left-btn {
-    height: @commonheaderheight - @paddingforbar;
+    height: @common-header-height;
     .iconfont {
-      line-height: @commonheaderheight - @paddingforbar;
+      line-height: @common-header-height;
       font-size: 1.2rem;
     }
   }
@@ -49,9 +55,9 @@ button{
   }
 }
 .diaryfooter {
-  height: 2.8rem;
+  height: @common-footer-height;
   width: 100vw;
-  background-color: @maincolor;
+  background-color: @main-color;
   color: #fff;
   position: fixed;
   left: 0;

@@ -21,7 +21,9 @@
     </div>
   
     <footer>
-      <div class="buttons"><i class="iconfont icon-shouye" @click="backHome"></i></div>
+      <div class="buttons">
+        <i class="iconfont icon-shouye" @click="backHome"></i>
+      </div>
       <div class="total">{{currentCount}} Entries</div>
     </footer>
   
@@ -93,7 +95,7 @@ export default {
     ...mapMutations(
       ['changeCurrentImg']
     ),
-    backHome(){
+    backHome() {
       this.$router.replace('/home');
     },
     convertToMMMM(timestamp) {
@@ -142,8 +144,11 @@ export default {
     getFolderContents() {
       this.$axios.get(api.getDiaryContents + this.currentFolder)
         .then(res => {
+          if (res.data.code === 11) {
+            alert('登录失效')
+            this.$router.push('/login')
+          }
           if (res.data.code === 0) {
-            console.log(this.currentFolder)
             this.items = res.data.data
           }
         })
@@ -154,6 +159,10 @@ export default {
     deleteItem() {
       this.$axios.delete(api.deleteDiary + this.items[this.selectedItem]._id)
         .then(res => {
+          if (res.data.code === 11) {
+            alert('登录失效')
+            this.$router.push('/login')
+          }
           if (res.data.code === 0) {
             console.log(res)
             this.getFolderContents()
@@ -175,12 +184,12 @@ export default {
 @import '../less/common.less';
 #entries {
   background-image: url('../assets/52502973_p0.png');
-  height: @commoncontainerheight;
+  height: @entries-container-height;
   box-sizing: border-box;
   padding: 8px;
   overflow-x: scroll;
   .item {
-    color: @maincolor;
+    color: @main-color;
     background-color: #fff;
     border-radius: 4px;
     box-sizing: border-box;
@@ -226,7 +235,8 @@ export default {
     text-align: center;
     align-items: center;
     justify-content: Space-between;
-    .total,i {
+    .total,
+    i {
       font-size: 1.5rem;
       padding: 0 10px;
     }
@@ -238,7 +248,7 @@ export default {
       justify-content: center;
       flex-direction: column;
       box-sizing: border-box;
-      background-color: @maincolor;
+      background-color: @main-color;
       color: #fff;
       height: 30%;
       span {
@@ -279,7 +289,7 @@ export default {
       justify-content: space-between;
       box-sizing: border-box;
       height: 10%;
-      background-color: @maincolor;
+      background-color: @main-color;
       i {
         font-size: 1.5rem;
         color: #fff;

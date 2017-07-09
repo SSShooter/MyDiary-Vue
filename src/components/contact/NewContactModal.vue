@@ -1,16 +1,11 @@
 <template>
   <transition name="fade">
     <div v-show="isModalShow">
-      <div class="mask"
-           @click="isModalShow=!isModalShow"></div>
+      <div class="mask" @click="isModalShow=!isModalShow"></div>
       <div class="modal">
-        <input v-model.trim="contact"
-               placeholder="姓名">
-        <input v-model="number"
-               type="number"
-               placeholder="联系方式">
-        <input v-model="initial"
-               placeholder="首字母">
+        <input v-model.trim="contact" placeholder="姓名">
+        <input v-model="number" type="number" placeholder="联系方式">
+        <input v-model="initial" placeholder="首字母">
         <button @click="newContact">确定</button>
       </div>
     </div>
@@ -65,9 +60,13 @@ export default {
           createdate: +new Date()
         })
           .then(res => {
+            if (res.data.code === 11) {
+              alert('登录失效')
+              this.$router.push('/login')
+            }
             if (res.data.code === 0) {
-              this.isModalShow = false;
-              this.$parent.getFolderContents();
+              this.isModalShow = false
+              this.$parent.getFolderContents()
             }
           })
           .catch(function (error) {
@@ -103,7 +102,7 @@ export default {
   width: 280px;
   height: 160px;
   background-color: #fff;
-  color: @maincolor;
+  color: @main-color;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -114,16 +113,16 @@ export default {
     height: 30px;
     line-height: 30px;
     margin: 2px;
-    border: 1px solid @maincolor;
+    border: 1px solid @main-color;
   }
   input {
     width: 180px;
     padding: 0 20px;
-    color: @maincolor;
+    color: @main-color;
   }
   button {
     width: 90px;
-    background-color: @maincolor;
+    background-color: @main-color;
     color: #fff;
   }
 }

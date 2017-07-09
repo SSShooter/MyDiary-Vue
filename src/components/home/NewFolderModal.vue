@@ -33,9 +33,13 @@ export default {
   },
   methods: {
     newFolder() {
+      if (!this.newFolderName) {
+        alert('请输入文件夹名')
+        return
+      }
       if (this.newFolderName.length > 8) {
-        alert("文件夹名称请不要超过8个字");
-        return;
+        alert('文件夹名称请不要超过8个字')
+        return
       }
       this.$axios.post(api.newFolder, {
         type: this.newFolderType,
@@ -43,6 +47,10 @@ export default {
         createdate: +new Date()
       })
         .then(res => {
+          if (res.data.code === 11) {
+            alert('登录失效')
+            this.$router.push('/login')
+          }
           if (res.data.code === 0) {
             this.$modal.hide('new-folder');
             this.$parent.getFolder();
@@ -58,7 +66,7 @@ export default {
 <style lang="less" scoped>
 @import '../../less/common.less';
 .pop-up-box {
-  color: @maincolor;
+  color: @main-color;
   box-sizing: border-box;
   padding: 30px 10px;
   text-align: center;
@@ -80,19 +88,19 @@ export default {
     }
   }
   .foldername {
-    border: 1px @maincolor solid;
+    border: 1px @main-color solid;
     border-radius: 5px;
-    color: @maincolor;
+    color: @main-color;
     line-height: 1.5rem;
     padding: 0 10px;
     margin: 10px 0;
   }
   .confirm {
-    border: 1px @maincolor solid;
+    border: 1px @main-color solid;
     margin: 10px 0;
     padding: 5px 15px;
     background-color: #fff;
-    color: @maincolor;
+    color: @main-color;
   }
 }
 </style>

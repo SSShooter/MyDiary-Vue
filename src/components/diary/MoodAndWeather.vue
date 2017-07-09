@@ -99,7 +99,7 @@ export default {
   width: 280px;
   height: 160px;
   background-color: #fff;
-  color: @maincolor;
+  color: @main-color;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -125,16 +125,16 @@ export default {
     height: 30px;
     line-height: 30px;
     margin: 2px;
-    border: 1px solid @maincolor;
+    border: 1px solid @main-color;
   }
   input {
     width: 180px;
     padding: 0 20px;
-    color: @maincolor;
+    color: @main-color;
   }
   button {
     width: 90px;
-    background-color: @maincolor;
+    background-color: @main-color;
     color: #fff;
   }
 }
