@@ -13,25 +13,28 @@
       <div class="devide">
         <span>你的情报</span>
       </div>
+      <div class="avatar" @click="changeAvatar">
+        <img src="http://wx1.sinaimg.cn/mw690/4508e79bgy1fh82yh5ljjj20k00zktck.jpg">
+      </div>
       <div class="item">
         <span class="title">用户名</span>
-        <input class="value" v-model="username" disabled></input>
+        <input class="value" v-model="username" disabled>
       </div>
       <div class="item">
         <span class="title">昵称</span>
-        <input class="value" v-model="nickname"></input>
+        <input class="value" v-model="nickname">
       </div>
       <div class="item">
         <span class="title">性别</span>
-        <input class="value" v-model="gender"></input>
+        <input class="value" v-model="gender">
       </div>
       <div class="item">
         <span class="title">手机号码</span>
-        <input class="value" v-model="mobile"></input>
+        <input class="value" v-model="mobile">
       </div>
       <div class="item">
         <span class="title">电子邮件</span>
-        <input class="value" v-model="email"></input>
+        <input class="value" v-model="email">
       </div>
       <div class="devide">
         <span>关于MyDiary</span>
@@ -45,13 +48,16 @@
           <i class="iconfont icon-github-copy"></i>由来</span>
       </div>
     </div>
+    <upload-avatar ref="UploadAvatar"></upload-avatar>
   </div>
 </template>
 
 <script>
 import api from '../api/api-config.js'
 import { mapGetters } from 'vuex'
+
 import DeleteModal from '../components/DeleteModal.vue'
+import UploadAvatar from '../components/setting/UploadAvatar.vue'
 
 export default {
   data() {
@@ -64,7 +70,8 @@ export default {
     }
   },
   components: {
-    DeleteModal
+    DeleteModal,
+    UploadAvatar
   },
   activated() {
     this.getInfo()
@@ -101,6 +108,9 @@ export default {
         .catch(function (error) {
           console.log(error);
         });
+    },
+    changeAvatar(){
+      this.$refs.UploadAvatar.isModalShow = true
     }
   }
 }
@@ -108,11 +118,30 @@ export default {
 
 <style lang="less" scoped>
 @import '../less/common.less';
+@import '../../node_modules/vue-croppa/dist/vue-croppa.css';
 header {
   .commonheader(@bgcolor: @main-color, @fontcolor: #fff);
 }
 
 .items {
+  height: @todolist-container-height;
+  overflow-y: scroll;
+  .avatar {
+    border-radius: 50%;
+    position: relative;
+    left: 50%;
+    height: 100px;
+    width: 100px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    margin-left: -50px;
+    overflow: hidden;
+    border-bottom: #ccc 1px dashed;
+    img {
+      width: 100%;
+      overflow: hidden;
+    }
+  }
   .devide {
     height: 30px;
     line-height: 30px;
@@ -135,6 +164,9 @@ header {
       text-align: right;
       height: 45px;
       border: none;
+    }
+    &:nth-child(3) {
+      border-top: #ccc 1px dashed;
     }
   }
 }
