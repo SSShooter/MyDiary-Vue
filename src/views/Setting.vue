@@ -14,7 +14,7 @@
         <span>你的情报</span>
       </div>
       <div class="avatar" @click="changeAvatar">
-        <img src="http://wx1.sinaimg.cn/mw690/4508e79bgy1fh82yh5ljjj20k00zktck.jpg">
+        <img :src="avatar">
       </div>
       <div class="item">
         <span class="title">用户名</span>
@@ -66,7 +66,8 @@ export default {
       nickname: '',
       email: '',
       mobile: '',
-      gender: ''
+      gender: '',
+      avatar:''
     }
   },
   components: {
@@ -91,6 +92,7 @@ export default {
             this.email = data.email
             this.mobile = data.mobile
             this.gender = data.gender
+            this.avatar = data.avatar
           }
           console.log(res.data)
         })

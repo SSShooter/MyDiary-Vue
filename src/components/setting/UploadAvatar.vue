@@ -15,6 +15,7 @@
 </template>
 <script>
 import { mapGetters, mapMutations } from 'vuex'
+import api from '../../api/api-config.js'
 import Vue from 'vue'
 import Croppa from 'vue-croppa'
 
@@ -23,29 +24,31 @@ export default {
   data() {
     return {
       isModalShow: false,
-      weather: 'sunny',
-      mood: 'happy',
       myCroppa: {}
     }
   },
-  watch: {
-    isModalShow(val) {
-      if (!val) {
-        this.contact = '';
-        this.number = '';
-        this.initial = '';
-      }
-    }
-  },
-  computed: mapGetters({
-    currentFolder: 'getCurrentFolder'
-  }),
   methods: {
-    ...mapMutations([
-      'changeMoodAndWeather'
-    ]),
     upload() {
-      console.log(this.myCroppa.generateDataUrl())
+      this.myCroppa.generateBlob(blob => {
+        console.log(blob)
+        var formData = new FormData();
+        formData.append('file', blob)
+        this.$axios.post(api.uploadavatar, formData)
+          .then(res => {
+            console.log(res)
+            if (res.data.code === 11) {
+              alert('登录失效')
+              this.$router.push('/login')
+            }
+            if (res.data.code === 0) {
+              this.isModalShow = false
+              this.$parent.getInfo()
+            }
+          })
+          .catch(function (error) {
+            console.log(error);
+          });
+      })
     },
     remove() {
       this.myCroppa.remove()

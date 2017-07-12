@@ -13,6 +13,9 @@ const API = {
     // 保存当前用户信息
   saveinfo: HOST + '/saveinfo',
 
+    // 上传头像
+  uploadavatar: HOST + '/uploadavatar',
+
     // 创建一个文件夹
   newFolder: HOST + '/folder',
 
