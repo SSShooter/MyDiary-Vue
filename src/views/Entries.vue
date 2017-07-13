@@ -42,7 +42,7 @@
         </div>
         <span class="content">{{items[selectedItem].content}}</span>
         <div class="img-wrapper">
-          <img v-for="pic in items[selectedItem].pic" :src="pic" @click="loadImg">
+          <img v-for="pic in items[selectedItem].pic" :src="pic" @click="viewImg">
         </div>
       </div>
       <div class="modal-footer" v-if="items[selectedItem]">
@@ -183,7 +183,7 @@ export default {
           console.log(error);
         });
     },
-    loadImg(e) {
+    viewImg(e) {
       console.log(e.currentTarget.src)
       this.changeCurrentImg(e.currentTarget.src)
       this.$router.push('/img');
@@ -314,8 +314,7 @@ export default {
         margin-top: 20px;
         width: 100%;
         img {
-          height: 50px;
-          width: 50px;
+          width: 100%;
         }
       }
     }

@@ -15,12 +15,10 @@
     <footer>
       <i class="iconfont icon-zhaopian" @click="showUploadModal"></i>
       <i class="iconfont icon-baocun" @click="newDiary"></i>
-      <i class="iconfont icon-guanbi"></i>
+      <i class="iconfont icon-guanbi" @click="clear"></i>
     </footer>
   
-    <modal name="example" :width="300" :height="80" :pivotY=".9">
-      <uploader></uploader>
-    </modal>
+    <uploader ref="Uploader"></uploader>
   
     <mood-and-weather ref="MoodAndWeather"></mood-and-weather>
   </div>
@@ -33,8 +31,6 @@ import Vue from 'vue'
 import { mapGetters, mapActions, mapMutations } from 'vuex'
 import Uploader from '../components/diary/Uploader.vue'
 import MoodAndWeather from '../components/diary/MoodAndWeather.vue'
-import vmodal from 'vue-js-modal'
-Vue.use(vmodal)
 var word2icon = {
   sad: 'nanguo',
   happy: 'kaixin-',
@@ -79,7 +75,7 @@ export default {
       'changeCurrentCount'
     ]),
     showUploadModal() {
-      this.$modal.show('example');
+      this.$refs.Uploader.isModalShow = true;
     },
     showMoodAndWeather() {
       this.$refs.MoodAndWeather.isModalShow = true;
@@ -121,6 +117,16 @@ export default {
         .catch(err => {
           console.log(err);
         });
+    },
+    clear() {
+      var a = confirm('是否清空页面？')
+      if (a) {
+        this.title = ''
+        this.content = ''
+        this.bookmark = ''
+        this.tag = ''
+        this.clearUploadlist();
+      }
     }
   },
   watch: {

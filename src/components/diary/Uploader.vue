@@ -1,13 +1,16 @@
 <template>
-  <div class="wrap-all" @click="test">
-    <div class="uploader">
-      <div class="imgwrapper" v-for="pic in uploadlist">
-        <img :src="pic">
+  <transition name="fade">
+    <div v-show="isModalShow">
+      <div class="mask" @click="isModalShow=!isModalShow"></div>
+      <div class="modal">
+        <div class="wrapper" v-for="pic in uploadlist">
+          <img :src="pic" @click="viewImg">
+        </div>
+        <input @change="getimg" type="file" id="file">
+        <label class="wrapper" for="file">+</label>
       </div>
-      <input @change="getimg" type="file" id="file">
-      <label for="file">+</label>
     </div>
-  </div>
+  </transition>
 </template>
 <script>
 import api from '../../api/api-config.js'
@@ -16,7 +19,8 @@ export default {
   data() {
     return {
       file: '',
-      uploaderWidth: 1
+      uploaderWidth: 1,
+      isModalShow: false
     }
   },
   watch: {
@@ -30,10 +34,9 @@ export default {
   }),
   methods: {
     ...mapMutations([
-      'refreshUploadlist'
+      'refreshUploadlist',
+      'changeCurrentImg'
     ]),
-    test() {
-    },
     getimg(e) {
       var formData = new FormData();
       formData.append('file', e.target.files[0])
@@ -49,29 +52,51 @@ export default {
         .catch(err => {
           console.log(err);
         });
-    }
+    },
+    viewImg(e) {
+      console.log(e.currentTarget.src)
+      this.changeCurrentImg(e.currentTarget.src)
+      this.$router.push('/img');
+    },
   }
 }
 </script>
 
 <style lang="less" scoped>
-.wrap-all {
-  width: 100%;
-  overflow-x: scroll;
+@import '../../less/common.less';
+.mask {
+  position: absolute;
+  left: 0;
+  top: 0;
+  background-color: #000;
+  opacity: .3;
+  height: 100vh;
+  width: 100vw;
 }
 
-.uploader {
-  display: flex;
+.modal {
+  position: absolute;
+  box-sizing: border-box;
+  bottom: @common-footer-height;
+  width: 100vw;
+  height: 100px;
+  background-color: #fff;
+  color: @main-color;
   overflow-x: scroll;
-  .imgwrapper {
-    display: block;
-    height: 80px;
-    width: 80px;
-    flex-shrink: 0;
-    overflow: hidden;
-    img {
-      height: 100%;
-    }
+  display: flex;
+  align-items: center;
+}
+
+.wrapper {
+  display: block;
+  height: 80px;
+  width: 80px;
+  flex-shrink: 0;
+  overflow: hidden;
+  margin: 0 5px;
+  img {
+    width: 100%;
+    height: 100%;
   }
 }
 
@@ -80,10 +105,7 @@ input {
 }
 
 label {
-  display: block;
   box-sizing: border-box;
-  height: 80px;
-  width: 80px;
   flex-shrink: 0;
   text-align: center;
   line-height: 80px;
