@@ -128,6 +128,7 @@ header {
 .items {
   height: @todolist-container-height;
   overflow-y: scroll;
+  font-size: 1.2rem;
   .avatar {
     border-radius: 50%;
     position: relative;

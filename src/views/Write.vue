@@ -75,7 +75,8 @@ export default {
   methods: {
     ...mapMutations([
       'clearUploadlist',
-      'changeMoodAndWeather'
+      'changeMoodAndWeather',
+      'changeCurrentCount'
     ]),
     showUploadModal() {
       this.$modal.show('example');
@@ -84,7 +85,7 @@ export default {
       this.$refs.MoodAndWeather.isModalShow = true;
     },
     newDiary() {
-      if (!this.title && !this.content) {
+      if (!this.title || !this.content) {
         alert('请填写标题和日记内容');
         return;
       }
@@ -114,6 +115,7 @@ export default {
             this.changeMoodAndWeather({ mood: '心情', weather: '天气' })
             this.$router.replace('/diary/entries');
             this.$parent.menu = 'entries';
+            this.changeCurrentCount('plus1')
           }
         })
         .catch(err => {

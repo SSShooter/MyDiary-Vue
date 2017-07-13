@@ -43,6 +43,7 @@ export default {
             if (res.data.code === 0) {
               this.isModalShow = false
               this.$parent.getInfo()
+              this.myCroppa.remove()
             }
           })
           .catch(function (error) {

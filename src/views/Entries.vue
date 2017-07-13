@@ -18,6 +18,8 @@
           <i class="iconfont icon-bookmark"></i>
         </div>
       </div>
+      <p v-show="isBottom" class="bottom">- 到底了 -</p>
+      <infinite-loading v-show="!isBottom" :on-infinite="onInfinite" ref="infiniteLoading"></infinite-loading>
     </div>
   
     <footer>
@@ -59,6 +61,7 @@ import Vue from 'vue'
 import { mapGetters, mapMutations } from 'vuex'
 import DiaryContentModal from '../components/diary/DiaryContentModal.vue'
 import DeleteModal from '../components/DeleteModal.vue'
+import InfiniteLoading from 'vue-infinite-loading'
 var moment = require('moment');
 
 export default {
@@ -76,16 +79,22 @@ export default {
         "createdate": "2017-06-18",
         "__v": 0,
         "pic": []
-      }
+      },
+      page: 0,
+      isBottom: false
     }
   },
   components: {
+    InfiniteLoading,
     DiaryContentModal,
     DeleteModal
   },
   //钩子的触发顺序created-> mounted-> activated，退出时触发deactivated。当再次进入（前进或者后退）时，只触发activated。
   activated() {
+    this.page = 0
     this.getFolderContents()
+    this.isBottom = false
+    console.log(this.currentCount)
   },
   computed: mapGetters({
     currentFolder: 'getCurrentFolder',
@@ -142,7 +151,8 @@ export default {
       this.selectedItem = target.dataset.index
     },
     getFolderContents() {
-      this.$axios.get(api.getDiaryContents + this.currentFolder)
+      console.log(api.getDiaryContents + this.currentFolder + '/' + this.page)
+      this.$axios.get(api.getDiaryContents + this.currentFolder + '/' + this.page)
         .then(res => {
           if (res.data.code === 11) {
             alert('登录失效')
@@ -150,6 +160,7 @@ export default {
           }
           if (res.data.code === 0) {
             this.items = res.data.data
+            this.page += 1
           }
         })
         .catch(function (error) {
@@ -176,7 +187,28 @@ export default {
       console.log(e.currentTarget.src)
       this.changeCurrentImg(e.currentTarget.src)
       this.$router.push('/img');
-    }
+    },
+    onInfinite() {
+      this.$axios.get(api.getDiaryContents + this.currentFolder + '/' + this.page)
+        .then(res => {
+          if (res.data.code === 11) {
+            alert('登录失效')
+            this.$router.push('/login')
+          }
+          if (res.data.code === 0) {
+            if (res.data.data.length === 0) {
+              this.isBottom = true
+              return
+            }
+            this.items = this.items.concat(res.data.data)
+            this.page += 1
+            this.$refs.infiniteLoading.$emit('$InfiniteLoading:loaded')
+          }
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+    },
   }
 }
 </script>
@@ -228,6 +260,10 @@ export default {
         font-size: 18px;
       }
     }
+  }
+  .bottom {
+    text-align: center;
+    color: @main-color;
   }
   footer {
     .diaryfooter;

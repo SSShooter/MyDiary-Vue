@@ -11,34 +11,37 @@ export default new Vuex.Store({
   state: {
     currentFolder: '',
     currentFolderName: '',
-    currentCount:'',
+    currentCount: '',
     currentImg: ''
   },
   getters: {
-    getCurrentFolder (state) {
+    getCurrentFolder(state) {
       return state.currentFolder
     },
-    getCurrentFolderName (state) {
+    getCurrentFolderName(state) {
       return state.currentFolderName
     },
-    getCurrentCount (state) {
-      return state.CurrentCount
+    getCurrentCount(state) {
+      return state.currentCount
     },
-    getCurrentImg (state) {
+    getCurrentImg(state) {
       return state.currentImg
     }
   },
   mutations: {
-    changeCurrentFolder (state, newCurrentFolder) {
+    changeCurrentFolder(state, newCurrentFolder) {
       state.currentFolder = newCurrentFolder
     },
-    changeCurrentFolderName (state, newCurrentFolderName) {
+    changeCurrentFolderName(state, newCurrentFolderName) {
       state.currentFolderName = newCurrentFolderName
     },
-    changeCurrentCount (state, newCurrentCount) {
-      state.CurrentCount = newCurrentCount
+    changeCurrentCount(state, newCurrentCount) {
+      if (newCurrentCount === 'plus1')
+        state.currentCount = Number(state.currentCount) + 1
+      else
+        state.currentCount = newCurrentCount
     },
-    changeCurrentImg (state, newCurrentImg) {
+    changeCurrentImg(state, newCurrentImg) {
       state.currentImg = newCurrentImg
     }
   }

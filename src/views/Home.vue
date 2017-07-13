@@ -1,8 +1,8 @@
 <template>
   <div class="home">
     <header>
-      <img src="../assets/avatar.png" alt="avatar" class="img-circle">
-      <div class="name">
+      <img :src="avatar" alt="avatar" class="img-circle" @click="toSetting">
+      <div class="name" @click="toSetting">
         <div class="username">{{username}}</div>
         <div class="nickname">{{nickname}}</div>
       </div>
@@ -50,10 +50,10 @@ export default {
   },
   data() {
     return {
-      username: '立花　瀧',
-      nickname: 'たちばな　たき',
+      username: '',
+      nickname: '',
+      avatar: '',
       items: [],
-      list: [],
       selectedItem: ''
     }
   },
@@ -101,6 +101,7 @@ export default {
       this.changeCurrentFolder(id)
       this.changeCurrentFolderName(name)
       this.changeCurrentCount(total)
+      console.log(total)
       if (type === 'diary')
         this.$router.push('/diary/entries/');
       if (type === 'contact')
@@ -142,6 +143,7 @@ export default {
           if (res.data.code === 0) {
             this.username = res.data.data.username
             this.nickname = res.data.data.nickname || '点击设置昵称'
+            this.avatar = res.data.data.avatar
           }
           console.log(res.data)
         })
@@ -177,8 +179,8 @@ header {
     .box();
     width: ~"calc(100vw - 110px)";
     overflow-x: scroll;
-    .nickname {
-      font-size: 1.2rem;
+    .username {
+      font-size: 1.3rem;
     }
   }
   i {
