@@ -11,7 +11,7 @@
     </header>
     <div class="items">
       <div class="devide">
-        <span>你的情报</span>
+        <span>用户信息</span>
       </div>
       <div class="avatar" @click="changeAvatar">
         <img :src="avatar">
@@ -146,6 +146,7 @@ header {
     }
   }
   .devide {
+    font-size: .8em;
     height: 30px;
     line-height: 30px;
     padding: 0 20px;
