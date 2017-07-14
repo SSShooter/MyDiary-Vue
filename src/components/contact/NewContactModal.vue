@@ -14,7 +14,6 @@
 <script>
 import { mapGetters } from 'vuex'
 import api from '../../api/api-config.js'
-const pinyin = require('pinyin');
 export default {
   data() {
     return {
@@ -31,19 +30,6 @@ export default {
         this.number = '';
         this.initial = '';
       }
-    },
-    contact(val, oldval) {
-      var reg = /^[A-Za-z]$/;
-      if (oldval === '') {
-        if (reg.test(val)) {
-          this.initial = val;
-        } else {
-          this.initial = pinyin(val.split('')[0], {
-            style: pinyin.STYLE_FIRST_LETTER
-          })[0][0];
-          if (!reg.test(this.initial)) this.initial = '#';
-        }
-      }
     }
   },
   computed: mapGetters({
@@ -51,27 +37,31 @@ export default {
   }),
   methods: {
     newContact() {
-      if (this.contact && this.number && this.initial)
-        this.$axios.post(api.newContact, {
-          folderId: this.currentFolder,
-          contact: this.contact,
-          initial: this.initial,
-          number: this.number,
-          createdate: +new Date()
-        })
-          .then(res => {
-            if (res.data.code === 11) {
-              alert('登录失效')
-              this.$router.push('/login')
-            }
-            if (res.data.code === 0) {
-              this.isModalShow = false
-              this.$parent.getFolderContents()
-            }
+      if (this.contact && this.number)
+        if (/^[a-zA-Z#]$/.test(this.initial))
+          this.$axios.post(api.newContact, {
+            folderId: this.currentFolder,
+            contact: this.contact,
+            initial: this.initial,
+            number: this.number,
+            createdate: +new Date()
           })
-          .catch(function (error) {
-            console.log(error);
-          });
+            .then(res => {
+              if (res.data.code === 11) {
+                alert('登录失效')
+                this.$router.push('/login')
+              }
+              if (res.data.code === 0) {
+                this.isModalShow = false
+                this.$parent.getFolderContents()
+              }
+            })
+            .catch(function (error) {
+              console.log(error);
+            });
+        else {
+          alert('首字母只能是A-Z或#')
+        }
       else {
         alert('信息还没填好吧？')
       }
