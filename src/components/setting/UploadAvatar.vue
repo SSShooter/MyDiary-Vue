@@ -36,10 +36,6 @@ export default {
         this.$axios.post(api.uploadavatar, formData)
           .then(res => {
             console.log(res)
-            if (res.data.code === 11) {
-              alert('登录失效')
-              this.$router.push('/login')
-            }
             if (res.data.code === 0) {
               this.isModalShow = false
               this.$parent.getInfo()

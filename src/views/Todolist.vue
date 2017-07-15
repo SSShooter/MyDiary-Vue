@@ -72,10 +72,6 @@ export default {
     getFolderContents() {
       this.$axios.get(api.getListContents + this.currentFolder)
         .then(res => {
-          if (res.data.code === 11) {
-            alert('登录失效')
-            this.$router.push('/login')
-          }
           if (res.data.code === 0) {
             this.items = res.data.data
           }

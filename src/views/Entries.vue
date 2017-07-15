@@ -154,10 +154,6 @@ export default {
       console.log(api.getDiaryContents + this.currentFolder + '/' + this.page)
       this.$axios.get(api.getDiaryContents + this.currentFolder + '/' + this.page)
         .then(res => {
-          if (res.data.code === 11) {
-            alert('登录失效')
-            this.$router.push('/login')
-          }
           if (res.data.code === 0) {
             this.items = res.data.data
             this.page += 1
@@ -170,10 +166,6 @@ export default {
     deleteItem() {
       this.$axios.delete(api.deleteDiary + this.items[this.selectedItem]._id)
         .then(res => {
-          if (res.data.code === 11) {
-            alert('登录失效')
-            this.$router.push('/login')
-          }
           if (res.data.code === 0) {
             console.log(res)
             this.getFolderContents()
@@ -191,10 +183,6 @@ export default {
     onInfinite() {
       this.$axios.get(api.getDiaryContents + this.currentFolder + '/' + this.page)
         .then(res => {
-          if (res.data.code === 11) {
-            alert('登录失效')
-            this.$router.push('/login')
-          }
           if (res.data.code === 0) {
             if (res.data.data.length === 0) {
               this.isBottom = true

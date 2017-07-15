@@ -47,10 +47,6 @@ export default {
             createdate: +new Date()
           })
             .then(res => {
-              if (res.data.code === 11) {
-                alert('登录失效')
-                this.$router.push('/login')
-              }
               if (res.data.code === 0) {
                 this.isModalShow = false
                 this.$parent.getFolderContents()

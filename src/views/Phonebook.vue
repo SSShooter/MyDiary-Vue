@@ -79,10 +79,6 @@ export default {
       console.log(this.currentFolder)
       this.$axios.get(api.getContactContents + this.currentFolder)
         .then(res => {
-          if (res.data.code === 11) {
-            alert('登录失效')
-            this.$router.push('/login')
-          }
           if (res.data.code === 0) {
             console.log(res.data.data)
             this.items = res.data.data

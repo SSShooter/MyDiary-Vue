@@ -43,10 +43,6 @@ export default {
       e.target.value = ''
       this.$axios.post(api.uploadImg, formData)
         .then(res => {
-          if (res.data.code === 11) {
-            alert('登录失效')
-            this.$router.push('/login')
-          }
           this.refreshUploadlist(res.data.pic)
         })
         .catch(err => {

@@ -81,10 +81,6 @@ export default {
     getInfo() {
       this.$axios.get(api.getinfo)
         .then(res => {
-          if (res.data.code === 11) {
-            alert('登录失效')
-            this.$router.push('/login')
-          }
           var data = res.data.data
           if (res.data.code === 0) {
             this.username = data.username

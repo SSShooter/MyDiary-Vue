@@ -112,10 +112,6 @@ export default {
     getFolder() {
       this.$axios.get(api.getFolder)
         .then(res => {
-          if (res.data.code === 11) {
-            alert('登录失效')
-            this.$router.push('/login')
-          }
           if (res.data.code === 0) {
             this.items = res.data.data
           }
