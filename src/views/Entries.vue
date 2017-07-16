@@ -167,7 +167,7 @@ export default {
       this.$axios.delete(api.deleteDiary + this.items[this.selectedItem]._id)
         .then(res => {
           if (res.data.code === 0) {
-            console.log(res)
+            this.page = 0
             this.getFolderContents()
           }
         })

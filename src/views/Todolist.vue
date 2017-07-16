@@ -59,15 +59,9 @@ export default {
   },
   methods: {
     showDeleteModal(e) {
-      this.$refs.DeleteModal.isModalShow = true;
-      var target = e.target
-      while (!target.dataset.index) {
-        if (target.dataset.index) {
-          break
-        }
-        target = target.parentNode
-      }
-      this.selectedItem = target.dataset.index
+      this.$refs.DeleteModal.isModalShow = true
+      console.log(e.target.dataset.id)
+      this.selectedItem = e.target.dataset.id
     },
     getFolderContents() {
       this.$axios.get(api.getListContents + this.currentFolder)
@@ -84,7 +78,6 @@ export default {
       this.$axios.delete(api.deleteList + this.selectedItem)
         .then(res => {
           if (res.data.code === 0) {
-            console.log(res)
             this.getFolderContents()
           }
         })
@@ -113,7 +106,6 @@ export default {
     changeState(e) {
       this.$axios.put(api.changeListItemState + e.currentTarget.dataset.id)
         .then(res => {
-          console.log(res)
           if (res.data.code === 0) {
             this.getFolderContents()
           }
@@ -128,39 +120,38 @@ export default {
 
 <style lang="less" scoped>
 @import '../less/common.less';
-.todolist {
-  header {
-    .commonheader(@bgcolor: @main-color, @fontcolor: #fff);
+header {
+  .commonheader(@bgcolor: @main-color, @fontcolor: #fff);
+}
+
+.items {
+  background-image: url('../assets/line.png');
+  background-size: 100vw 60px;
+  background-attachment: local;
+  height: @todolist-container-height;
+  overflow-y: scroll;
+  position: relative;
+  .complete {
+    text-decoration: line-through;
   }
-  .items {
-    background-image: url('../assets/line.png');
-    background-size: 100vw 60px;
-    background-attachment: local;
-    height: @todolist-container-height;
-    overflow-y: scroll;
-    position: relative;
-    .complete {
-      text-decoration: line-through;
+  .item {
+    box-sizing: border-box;
+    color: @main-color;
+    font-size: 20px;
+    padding: 0 20px;
+    line-height: 60px;
+    word-wrap: break-word;
+    &:before {
+      content: '·'
     }
-    .item {
-      box-sizing: border-box;
+    input {
+      display: inline-block;
+      width: 90%;
       color: @main-color;
       font-size: 20px;
-      padding: 0 20px;
-      line-height: 60px;
-      word-wrap: break-word;
-      &:before {
-        content: '·'
-      }
-      input {
-        display: inline-block;
-        width: 90%;
-        color: @main-color;
-        font-size: 20px;
-        outline: none;
-        line-height: 30px;
-        border: none;
-      }
+      outline: none;
+      line-height: 30px;
+      border: none;
     }
   }
 }

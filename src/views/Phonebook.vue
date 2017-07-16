@@ -80,7 +80,6 @@ export default {
       this.$axios.get(api.getContactContents + this.currentFolder)
         .then(res => {
           if (res.data.code === 0) {
-            console.log(res.data.data)
             this.items = res.data.data
           }
         })
@@ -92,7 +91,6 @@ export default {
       this.$axios.delete(api.deleteContact + this.selectedItem)
         .then(res => {
           if (res.data.code === 0) {
-            console.log(res)
             this.getFolderContents()
           }
         })

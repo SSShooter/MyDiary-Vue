@@ -30,7 +30,6 @@ export default {
       }
       this.$axios.post(api.login, data)
         .then(res => {
-          console.log(res.data)
           if (res.data.code === 0) {
             this.$router.replace('home')
           }
@@ -46,7 +45,6 @@ export default {
       }
       this.$axios.post(api.register, data)
         .then(res => {
-          console.log(res.data)
           if (res.data.code === 1 && res.data.err.code === 11000) {
             alert('用户名已被占用...')
           }

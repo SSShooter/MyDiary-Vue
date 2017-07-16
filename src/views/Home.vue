@@ -125,7 +125,6 @@ export default {
       this.$axios.delete(api.deleteFolder + this.selectedItem)
         .then(res => {
           if (res.data.code === 0) {
-            console.log(res)
             this.getFolder()
           }
         })
@@ -141,7 +140,6 @@ export default {
             this.nickname = res.data.data.nickname || '点击设置昵称'
             this.avatar = res.data.data.avatar
           }
-          console.log(res.data)
         })
         .catch(function (error) {
           console.log(error);

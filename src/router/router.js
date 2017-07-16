@@ -11,6 +11,7 @@ import Write from '../views/Write.vue'
 import Gallery from '../views/Gallery.vue'
 import Img from '../views/Img.vue'
 import Setting from '../views/Setting.vue'
+import Help from '../views/Help.vue'
 
 Vue.use(Router)
 
@@ -64,6 +65,10 @@ const router = new Router({
     {
       path: '/setting',
       component: Setting
+    },
+    {
+      path: '/help',
+      component: Help
     }
   ]
 })

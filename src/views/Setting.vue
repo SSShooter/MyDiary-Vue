@@ -41,7 +41,7 @@
       </div>
       <div class="item">
         <span class="title">
-          <i class="iconfont icon-shuoming"></i>说明</span>
+          <i class="iconfont icon-shuoming" @click="toHelp"></i>帮助</span>
       </div>
       <div class="item">
         <span class="title">
@@ -67,7 +67,7 @@ export default {
       email: '',
       mobile: '',
       gender: '',
-      avatar:''
+      avatar: ''
     }
   },
   components: {
@@ -90,7 +90,6 @@ export default {
             this.gender = data.gender
             this.avatar = data.avatar
           }
-          console.log(res.data)
         })
         .catch(function (error) {
           console.log(error);
@@ -100,15 +99,18 @@ export default {
       this.$axios.post(api.saveinfo, this.$data)
         .then(res => {
           if (res.data.code === 0) {
+            alert('信息已更新！')
           }
-          console.log(res.data)
         })
         .catch(function (error) {
           console.log(error);
         });
     },
-    changeAvatar(){
+    changeAvatar() {
       this.$refs.UploadAvatar.isModalShow = true
+    },
+    toHelp(){
+      this.$router.push('/help')
     }
   }
 }

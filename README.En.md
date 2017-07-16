@@ -21,10 +21,11 @@ The front and back ends of the project are separated
 - [x] login page
 - [x] register page
 - [x] setting page
+- [x] diary pagination
 - [ ] search function
 - [ ] database optimization
-- [ ] diary pagination
 - [ ] exchange diary
+- [ ] pc client(electron)
 - [ ] PWA
 ## screenshot    
 use fireshot      
