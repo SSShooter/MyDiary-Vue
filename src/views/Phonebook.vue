@@ -27,9 +27,9 @@
 <script>
 import api from '../api/api-config.js'
 import { mapGetters } from 'vuex'
-import Index from '../components/contact/Index.vue'
-import NewContactModal from '../components/contact/NewContactModal.vue'
-import DeleteModal from '../components/DeleteModal.vue'
+import Index from '~/contact/Index'
+import NewContactModal from '~/contact/NewContactModal'
+import DeleteModal from '~/DeleteModal'
 
 import Vue from 'vue'
 import AlloyFinger from 'alloyfinger/alloy_finger.js'

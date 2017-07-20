@@ -28,8 +28,8 @@
 import api from '../api/api-config.js'
 var moment = require('moment')
 import { mapGetters, mapMutations } from 'vuex'
-import Uploader from '../components/diary/Uploader.vue'
-import MoodAndWeather from '../components/diary/MoodAndWeather.vue'
+import Uploader from '~/diary/Uploader'
+import MoodAndWeather from '~/diary/MoodAndWeather'
 var word2icon = {
   sad: 'nanguo',
   happy: 'kaixin-',

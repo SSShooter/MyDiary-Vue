@@ -54,8 +54,8 @@
 
 <script>
 import api from '../api/api-config.js'
-import DeleteModal from '../components/DeleteModal.vue'
-import UploadAvatar from '../components/setting/UploadAvatar.vue'
+import DeleteModal from '~/DeleteModal'
+import UploadAvatar from '~/setting/UploadAvatar'
 
 export default {
   data () {

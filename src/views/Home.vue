@@ -40,8 +40,8 @@ import Vue from 'vue'
 import { mapState, mapMutations } from 'vuex'
 import vmodal from 'vue-js-modal'
 Vue.use(vmodal)
-import NewFolderModal from '../components/home/NewFolderModal.vue'
-import DeleteModal from '../components/DeleteModal.vue'
+import NewFolderModal from '~/home/NewFolderModal'
+import DeleteModal from '~/DeleteModal'
 
 export default {
   components: {

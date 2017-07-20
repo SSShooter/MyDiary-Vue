@@ -58,8 +58,8 @@
 <script>
 import api from '../api/api-config.js'
 import { mapGetters, mapMutations } from 'vuex'
-import DiaryContentModal from '../components/diary/DiaryContentModal.vue'
-import DeleteModal from '../components/DeleteModal.vue'
+import DiaryContentModal from '~/diary/DiaryContentModal'
+import DeleteModal from '~/DeleteModal'
 import InfiniteLoading from 'vue-infinite-loading'
 var moment = require('moment')
 
