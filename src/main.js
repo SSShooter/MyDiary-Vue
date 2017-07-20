@@ -11,10 +11,9 @@ axios.interceptors.response.use(function (res) {
     router.push('/login')
     return
   }
-  return res;
+  return res
 }, function (error) {
-  // Do something with request error 
-  return Promise.reject(error);
+  return Promise.reject(error)
 })
 Vue.prototype.$axios = axios
 new Vue({

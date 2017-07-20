@@ -15,7 +15,7 @@
 import { mapGetters } from 'vuex'
 import api from '../../api/api-config.js'
 export default {
-  data() {
+  data () {
     return {
       isModalShow: false,
       contact: '',
@@ -24,11 +24,11 @@ export default {
     }
   },
   watch: {
-    isModalShow(val) {
+    isModalShow (val) {
       if (!val) {
-        this.contact = '';
-        this.number = '';
-        this.initial = '';
+        this.contact = ''
+        this.number = ''
+        this.initial = ''
       }
     }
   },
@@ -36,9 +36,9 @@ export default {
     currentFolder: 'getCurrentFolder'
   }),
   methods: {
-    newContact() {
-      if (this.contact && this.number)
-        if (/^[a-zA-Z#]$/.test(this.initial))
+    newContact () {
+      if (this.contact && this.number) {
+        if (/^[a-zA-Z#]$/.test(this.initial)) {
           this.$axios.post(api.newContact, {
             folderId: this.currentFolder,
             contact: this.contact,
@@ -53,12 +53,12 @@ export default {
               }
             })
             .catch(function (error) {
-              console.log(error);
-            });
-        else {
+              console.log(error)
+            })
+        } else {
           alert('首字母只能是A-Z或#')
         }
-      else {
+      } else {
         alert('信息还没填好吧？')
       }
     }

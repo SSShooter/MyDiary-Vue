@@ -39,7 +39,7 @@ Vue.use(AlloyFingerVue, {
 })
 
 export default {
-  data() {
+  data () {
     return {
       contact: '',
       initial: '',
@@ -48,7 +48,7 @@ export default {
       selectedItem: ''
     }
   },
-  activated() {
+  activated () {
     this.getFolderContents()
   },
   computed: mapGetters({
@@ -61,11 +61,11 @@ export default {
     NewContactModal
   },
   methods: {
-    showNewContactModal() {
-      this.$refs.NewContactModal.isModalShow = true;
+    showNewContactModal () {
+      this.$refs.NewContactModal.isModalShow = true
     },
-    showDeleteModal(e) {
-      this.$refs.DeleteModal.isModalShow = true;
+    showDeleteModal (e) {
+      this.$refs.DeleteModal.isModalShow = true
       var target = e.target
       while (!target.dataset.id) {
         if (target.dataset.id) {
@@ -75,7 +75,7 @@ export default {
       }
       this.selectedItem = target.dataset.id
     },
-    getFolderContents() {
+    getFolderContents () {
       console.log(this.currentFolder)
       this.$axios.get(api.getContactContents + this.currentFolder)
         .then(res => {
@@ -84,10 +84,10 @@ export default {
           }
         })
         .catch(function (error) {
-          console.log(error);
-        });
+          console.log(error)
+        })
     },
-    deleteItem() {
+    deleteItem () {
       this.$axios.delete(api.deleteContact + this.selectedItem)
         .then(res => {
           if (res.data.code === 0) {
@@ -95,8 +95,8 @@ export default {
           }
         })
         .catch(function (error) {
-          console.log(error);
-        });
+          console.log(error)
+        })
     }
   }
 }

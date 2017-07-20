@@ -14,7 +14,7 @@
 </template>
 <script>
 export default {
-  data() {
+  data () {
     return {
       isModalShow: false
     }

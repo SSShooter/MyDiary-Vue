@@ -15,7 +15,7 @@
 <script>
 import { mapGetters } from 'vuex'
 export default {
-  data() {
+  data () {
     return {
       isModalShow: false,
       contact: '',
@@ -29,11 +29,11 @@ export default {
     currentFolder: 'getCurrentFolder'
   }),
   methods: {
-    yes() {
+    yes () {
       this.$parent.deleteItem()
       this.isModalShow = !this.isModalShow
     },
-    no() {
+    no () {
       this.isModalShow = !this.isModalShow
     }
   }

@@ -19,10 +19,10 @@
 import Vue from 'vue'
 import VueAwesomeSwiper from 'vue-awesome-swiper'
 Vue.use(VueAwesomeSwiper)
-var moment = require('moment');
+var moment = require('moment')
 export default {
   name: 'calendar',
-  data() {
+  data () {
     return {
       moment: moment(),
       thispage: 0,
@@ -37,34 +37,34 @@ export default {
         loop: true,
         onSlideNextStart: () => {
           if (this.theWayToSkipTheFirstRunOfOnSlideNextStart === 0) {
-            this.theWayToSkipTheFirstRunOfOnSlideNextStart = 1;
-            return false;
+            this.theWayToSkipTheFirstRunOfOnSlideNextStart = 1
+            return false
           }
-          this.moment = this.moment.add(1, 'd');
-          if (this.thispage == 0) {
-            this.month2 = this.moment.format('MMM');
-            this.date2 = this.moment.format('D');
-            this.day2 = this.moment.format('ddd');
-            this.thispage = 1;
+          this.moment = this.moment.add(1, 'd')
+          if (this.thispage === 0) {
+            this.month2 = this.moment.format('MMM')
+            this.date2 = this.moment.format('D')
+            this.day2 = this.moment.format('ddd')
+            this.thispage = 1
           } else {
-            this.month = this.moment.format('MMM');
-            this.date = this.moment.format('D');
-            this.day = this.moment.format('ddd');
-            this.thispage = 0;
+            this.month = this.moment.format('MMM')
+            this.date = this.moment.format('D')
+            this.day = this.moment.format('ddd')
+            this.thispage = 0
           }
         },
         onSlidePrevStart: () => {
-          this.moment = this.moment.subtract(1, 'd');
-          if (this.thispage == 0) {
-            this.month2 = this.moment.format('MMM');
-            this.date2 = this.moment.format('D');
-            this.day2 = this.moment.format('ddd');
-            this.thispage = 1;
+          this.moment = this.moment.subtract(1, 'd')
+          if (this.thispage === 0) {
+            this.month2 = this.moment.format('MMM')
+            this.date2 = this.moment.format('D')
+            this.day2 = this.moment.format('ddd')
+            this.thispage = 1
           } else {
-            this.month = this.moment.format('MMM');
-            this.date = this.moment.format('D');
-            this.day = this.moment.format('ddd');
-            this.thispage = 0;
+            this.month = this.moment.format('MMM')
+            this.date = this.moment.format('D')
+            this.day = this.moment.format('ddd')
+            this.thispage = 0
           }
         }
       }

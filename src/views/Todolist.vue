@@ -34,7 +34,7 @@ Vue.use(AlloyFingerVue, {
 })
 
 export default {
-  data() {
+  data () {
     return {
       isInputShow: false,
       newTodoItem: '',
@@ -44,8 +44,8 @@ export default {
   components: {
     DeleteModal
   },
-  activated() {
-    this.isInputShow = false;
+  activated () {
+    this.isInputShow = false
     this.getFolderContents()
   },
   computed: mapGetters({
@@ -53,17 +53,17 @@ export default {
     currentFolderName: 'getCurrentFolderName'
   }),
   watch: {
-    newTodoItem() {
-      this.newTodo();
+    newTodoItem () {
+      this.newTodo()
     }
   },
   methods: {
-    showDeleteModal(e) {
+    showDeleteModal (e) {
       this.$refs.DeleteModal.isModalShow = true
       console.log(e.target.dataset.id)
       this.selectedItem = e.target.dataset.id
     },
-    getFolderContents() {
+    getFolderContents () {
       this.$axios.get(api.getListContents + this.currentFolder)
         .then(res => {
           if (res.data.code === 0) {
@@ -71,10 +71,10 @@ export default {
           }
         })
         .catch(function (error) {
-          console.log(error);
-        });
+          console.log(error)
+        })
     },
-    deleteItem() {
+    deleteItem () {
       this.$axios.delete(api.deleteList + this.selectedItem)
         .then(res => {
           if (res.data.code === 0) {
@@ -82,10 +82,10 @@ export default {
           }
         })
         .catch(function (error) {
-          console.log(error);
-        });
+          console.log(error)
+        })
     },
-    newTodo() {
+    newTodo () {
       if (!this.newTodoItem) return false
       let data = {
         folderId: this.currentFolder,
@@ -100,10 +100,10 @@ export default {
           }
         })
         .catch(function (error) {
-          console.log(error);
-        });
+          console.log(error)
+        })
     },
-    changeState(e) {
+    changeState (e) {
       this.$axios.put(api.changeListItemState + e.currentTarget.dataset.id)
         .then(res => {
           if (res.data.code === 0) {
@@ -111,8 +111,8 @@ export default {
           }
         })
         .catch(function (error) {
-          console.log(error);
-        });
+          console.log(error)
+        })
     }
   }
 }

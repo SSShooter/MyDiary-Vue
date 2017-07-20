@@ -14,24 +14,23 @@
   </transition>
 </template>
 <script>
-import { mapGetters, mapMutations } from 'vuex'
 import api from '../../api/api-config.js'
 import Vue from 'vue'
 import Croppa from 'vue-croppa'
 
 Vue.use(Croppa)
 export default {
-  data() {
+  data () {
     return {
       isModalShow: false,
       myCroppa: {}
     }
   },
   methods: {
-    upload() {
+    upload () {
       this.myCroppa.generateBlob(blob => {
         console.log(blob)
-        var formData = new FormData();
+        var formData = new FormData()
         formData.append('file', blob)
         this.$axios.post(api.uploadavatar, formData)
           .then(res => {
@@ -42,11 +41,11 @@ export default {
             }
           })
           .catch(function (error) {
-            console.log(error);
-          });
+            console.log(error)
+          })
       })
     },
-    remove() {
+    remove () {
       this.myCroppa.remove()
     }
   }

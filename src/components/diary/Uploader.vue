@@ -16,7 +16,7 @@
 import api from '../../api/api-config.js'
 import { mapGetters, mapMutations } from 'vuex'
 export default {
-  data() {
+  data () {
     return {
       file: '',
       uploaderWidth: 1,
@@ -24,8 +24,8 @@ export default {
     }
   },
   watch: {
-    uploadlist() {
-      this.uploaderWidth = this.uploadlist.length + 1;
+    uploadlist () {
+      this.uploaderWidth = this.uploadlist.length + 1
     }
   },
   computed: mapGetters({
@@ -37,8 +37,8 @@ export default {
       'refreshUploadlist',
       'changeCurrentImg'
     ]),
-    getimg(e) {
-      var formData = new FormData();
+    getimg (e) {
+      var formData = new FormData()
       formData.append('file', e.target.files[0])
       e.target.value = ''
       this.$axios.post(api.uploadImg, formData)
@@ -46,14 +46,14 @@ export default {
           this.refreshUploadlist(res.data.pic)
         })
         .catch(err => {
-          console.log(err);
-        });
+          console.log(err)
+        })
     },
-    viewImg(e) {
+    viewImg (e) {
       console.log(e.currentTarget.src)
       this.changeCurrentImg(e.currentTarget.src)
-      this.$router.push('/img');
-    },
+      this.$router.push('/img')
+    }
   }
 }
 </script>

@@ -54,13 +54,11 @@
 
 <script>
 import api from '../api/api-config.js'
-import { mapGetters } from 'vuex'
-
 import DeleteModal from '../components/DeleteModal.vue'
 import UploadAvatar from '../components/setting/UploadAvatar.vue'
 
 export default {
-  data() {
+  data () {
     return {
       username: '',
       nickname: '',
@@ -74,11 +72,11 @@ export default {
     DeleteModal,
     UploadAvatar
   },
-  activated() {
+  activated () {
     this.getInfo()
   },
   methods: {
-    getInfo() {
+    getInfo () {
       this.$axios.get(api.getinfo)
         .then(res => {
           var data = res.data.data
@@ -92,10 +90,10 @@ export default {
           }
         })
         .catch(function (error) {
-          console.log(error);
-        });
+          console.log(error)
+        })
     },
-    saveInfo() {
+    saveInfo () {
       this.$axios.post(api.saveinfo, this.$data)
         .then(res => {
           if (res.data.code === 0) {
@@ -103,13 +101,13 @@ export default {
           }
         })
         .catch(function (error) {
-          console.log(error);
-        });
+          console.log(error)
+        })
     },
-    changeAvatar() {
+    changeAvatar () {
       this.$refs.UploadAvatar.isModalShow = true
     },
-    toHelp(){
+    toHelp () {
       this.$router.push('/help')
     }
   }

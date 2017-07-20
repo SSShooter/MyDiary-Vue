@@ -57,28 +57,27 @@
 </template>
 <script>
 import api from '../api/api-config.js'
-import Vue from 'vue'
 import { mapGetters, mapMutations } from 'vuex'
 import DiaryContentModal from '../components/diary/DiaryContentModal.vue'
 import DeleteModal from '../components/DeleteModal.vue'
 import InfiniteLoading from 'vue-infinite-loading'
-var moment = require('moment');
+var moment = require('moment')
 
 export default {
-  data() {
+  data () {
     return {
       selectedItem: '',
       items: [],
       example: {
-        "_id": "594785c8887da62d86d8235b",
-        "folderId": "594782856659ac2d39589508",
-        "title": "第二篇日记2",
-        "content": "something happend",
-        "mood": "kaixin-",
-        "weather": "baoxue",
-        "createdate": "2017-06-18",
-        "__v": 0,
-        "pic": []
+        '_id': '594785c8887da62d86d8235b',
+        'folderId': '594782856659ac2d39589508',
+        'title': '第二篇日记2',
+        'content': 'something happend',
+        'mood': 'kaixin-',
+        'weather': 'baoxue',
+        'createdate': '2017-06-18',
+        '__v': 0,
+        'pic': []
       },
       page: 0,
       isBottom: false
@@ -89,8 +88,8 @@ export default {
     DiaryContentModal,
     DeleteModal
   },
-  //钩子的触发顺序created-> mounted-> activated，退出时触发deactivated。当再次进入（前进或者后退）时，只触发activated。
-  activated() {
+  // 钩子的触发顺序created-> mounted-> activated，退出时触发deactivated。当再次进入（前进或者后退）时，只触发activated。
+  activated () {
     this.page = 0
     this.getFolderContents()
     this.isBottom = false
@@ -98,38 +97,38 @@ export default {
   },
   computed: mapGetters({
     currentFolder: 'getCurrentFolder',
-    currentCount: 'getCurrentCount',
+    currentCount: 'getCurrentCount'
   }),
   methods: {
     ...mapMutations(
       ['changeCurrentImg']
     ),
-    backHome() {
-      this.$router.replace('/home');
+    backHome () {
+      this.$router.replace('/home')
     },
-    convertToMMMM(timestamp) {
-      return moment(timestamp).format('MMMM');
+    convertToMMMM (timestamp) {
+      return moment(timestamp).format('MMMM')
     },
-    convertToDD(timestamp) {
-      return moment(timestamp).format('DD');
+    convertToDD (timestamp) {
+      return moment(timestamp).format('DD')
     },
-    convertToD(timestamp) {
-      return moment(timestamp).format('D');
+    convertToD (timestamp) {
+      return moment(timestamp).format('D')
     },
-    convertToddd(timestamp) {
-      return moment(timestamp).format('ddd');
+    convertToddd (timestamp) {
+      return moment(timestamp).format('ddd')
     },
-    convertToHHmm(timestamp) {
-      return moment(timestamp).format('HH:mm');
+    convertToHHmm (timestamp) {
+      return moment(timestamp).format('HH:mm')
     },
-    convertToYYYY(timestamp) {
-      return moment(timestamp).format('YYYY');
+    convertToYYYY (timestamp) {
+      return moment(timestamp).format('YYYY')
     },
-    convertTodddd(timestamp) {
-      return moment(timestamp).format('dddd');
+    convertTodddd (timestamp) {
+      return moment(timestamp).format('dddd')
     },
-    showDiaryContentModal(e) {
-      this.$refs.DiaryContentModal.isModalShow = true;
+    showDiaryContentModal (e) {
+      this.$refs.DiaryContentModal.isModalShow = true
       var target = e.target
       while (!target.dataset.index) {
         if (target.dataset.index) {
@@ -139,8 +138,8 @@ export default {
       }
       this.selectedItem = target.dataset.index
     },
-    showDeleteModal(e) {
-      this.$refs.DeleteModal.isModalShow = true;
+    showDeleteModal (e) {
+      this.$refs.DeleteModal.isModalShow = true
       var target = e.target
       while (!target.dataset.index) {
         if (target.dataset.index) {
@@ -150,7 +149,7 @@ export default {
       }
       this.selectedItem = target.dataset.index
     },
-    getFolderContents() {
+    getFolderContents () {
       console.log(api.getDiaryContents + this.currentFolder + '/' + this.page)
       this.$axios.get(api.getDiaryContents + this.currentFolder + '/' + this.page)
         .then(res => {
@@ -160,10 +159,10 @@ export default {
           }
         })
         .catch(function (error) {
-          console.log(error);
-        });
+          console.log(error)
+        })
     },
-    deleteItem() {
+    deleteItem () {
       this.$axios.delete(api.deleteDiary + this.items[this.selectedItem]._id)
         .then(res => {
           if (res.data.code === 0) {
@@ -172,15 +171,15 @@ export default {
           }
         })
         .catch(function (error) {
-          console.log(error);
-        });
+          console.log(error)
+        })
     },
-    viewImg(e) {
+    viewImg (e) {
       console.log(e.currentTarget.src)
       this.changeCurrentImg(e.currentTarget.src)
-      this.$router.push('/img');
+      this.$router.push('/img')
     },
-    onInfinite() {
+    onInfinite () {
       this.$axios.get(api.getDiaryContents + this.currentFolder + '/' + this.page)
         .then(res => {
           if (res.data.code === 0) {
@@ -194,9 +193,9 @@ export default {
           }
         })
         .catch(function (error) {
-          console.log(error);
-        });
-    },
+          console.log(error)
+        })
+    }
   }
 }
 </script>

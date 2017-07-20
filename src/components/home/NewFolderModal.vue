@@ -25,14 +25,14 @@
 <script>
 import api from '../../api/api-config.js'
 export default {
-  data() {
+  data () {
     return {
       newFolderType: 'diary',
-      newFolderName: '',
+      newFolderName: ''
     }
   },
   methods: {
-    newFolder() {
+    newFolder () {
       if (!this.newFolderName) {
         alert('请输入文件夹名')
         return
@@ -48,13 +48,13 @@ export default {
       })
         .then(res => {
           if (res.data.code === 0) {
-            this.$modal.hide('new-folder');
-            this.$parent.getFolder();
+            this.$modal.hide('new-folder')
+            this.$parent.getFolder()
           }
         })
         .catch(function (error) {
-          console.log(error);
-        });
+          console.log(error)
+        })
     }
   }
 }

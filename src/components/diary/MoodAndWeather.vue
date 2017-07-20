@@ -46,7 +46,7 @@
 <script>
 import { mapGetters, mapMutations } from 'vuex'
 export default {
-  data() {
+  data () {
     return {
       isModalShow: false,
       weather: 'sunny',
@@ -54,11 +54,11 @@ export default {
     }
   },
   watch: {
-    isModalShow(val) {
+    isModalShow (val) {
       if (!val) {
-        this.contact = '';
-        this.number = '';
-        this.initial = '';
+        this.contact = ''
+        this.number = ''
+        this.initial = ''
       }
     }
   },
@@ -69,7 +69,7 @@ export default {
     ...mapMutations([
       'changeMoodAndWeather'
     ]),
-    update() {
+    update () {
       this.changeMoodAndWeather({ mood: this.mood, weather: this.weather })
       this.isModalShow = !this.isModalShow
     }

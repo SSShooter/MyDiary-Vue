@@ -18,29 +18,29 @@
 <script>
 import { mapGetters } from 'vuex'
 export default {
-  data() {
+  data () {
     return {
       menu: 'entries'
     }
   },
-  activated() {
-    this.menu = this.$route.path.split('/')[2];
+  activated () {
+    this.menu = this.$route.path.split('/')[2]
   },
   computed: mapGetters({
     currentFolderName: 'getCurrentFolderName'
   }),
   methods: {
-    loadEntries() {
-      this.$router.replace('/diary/entries');
-      this.menu = 'entries';
+    loadEntries () {
+      this.$router.replace('/diary/entries')
+      this.menu = 'entries'
     },
-    loadCalendar() {
-      this.$router.replace('/diary/calendar');
-      this.menu = 'calendar';
+    loadCalendar () {
+      this.$router.replace('/diary/calendar')
+      this.menu = 'calendar'
     },
-    loadWrite() {
-      this.$router.replace('/diary/write');
-      this.menu = 'write';
+    loadWrite () {
+      this.$router.replace('/diary/write')
+      this.menu = 'write'
     }
   }
 }

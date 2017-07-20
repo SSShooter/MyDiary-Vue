@@ -15,19 +15,19 @@ import Vue from 'vue'
 import VueAwesomeSwiper from 'vue-awesome-swiper'
 Vue.use(VueAwesomeSwiper)
 export default {
-  data() {
+  data () {
     return {
-      imglist: ["http://www.time-record.net:8080/1498102597917NMzb.jpg", "http://www.time-record.net:8080/1498131919564CCJ2.jpg", "http://www.time-record.net:8080/1498102597917NMzb.jpg"],
-      large: "http://www.time-record.net:8080/1498102597917NMzb.jpg",
+      imglist: ['http://www.time-record.net:8080/1498102597917NMzb.jpg', 'http://www.time-record.net:8080/1498131919564CCJ2.jpg', 'http://www.time-record.net:8080/1498102597917NMzb.jpg'],
+      large: 'http://www.time-record.net:8080/1498102597917NMzb.jpg',
       isZoomIn: false
     }
   },
   methods: {
-    changeImg(e) {
-      this.large = e.target.src;
+    changeImg (e) {
+      this.large = e.target.src
     },
-    plus() {
-      this.isZoomIn = !this.isZoomIn;
+    plus () {
+      this.isZoomIn = !this.isZoomIn
     }
   }
 }

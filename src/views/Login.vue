@@ -11,11 +11,9 @@
 </template>
 <script>
 import api from '../api/api-config'
-import Vue from 'vue'
-import { mapState } from 'vuex'
 
 export default {
-  data() {
+  data () {
     return {
       username: '',
       password: '',
@@ -23,7 +21,7 @@ export default {
     }
   },
   methods: {
-    login() {
+    login () {
       var data = {
         name: this.username,
         password: this.password
@@ -35,10 +33,10 @@ export default {
           }
         })
         .catch(function (error) {
-          console.log(error);
-        });
+          console.log(error)
+        })
     },
-    register() {
+    register () {
       var data = {
         name: this.username,
         password: this.password
@@ -53,9 +51,9 @@ export default {
           }
         })
         .catch(function (error) {
-          console.log(error);
-        });
-    },
+          console.log(error)
+        })
+    }
   }
 }
 </script>

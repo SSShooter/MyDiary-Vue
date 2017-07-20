@@ -48,7 +48,7 @@ export default {
     NewFolderModal,
     DeleteModal
   },
-  data() {
+  data () {
     return {
       username: '',
       nickname: '',
@@ -57,7 +57,7 @@ export default {
       selectedItem: ''
     }
   },
-  activated() {
+  activated () {
     this.getFolder()
     this.getInfo()
   },
@@ -71,16 +71,16 @@ export default {
       'changeCurrentFolderName',
       'changeCurrentCount'
     ]),
-    transferToIcon(type) {
-      return 'icon-' + (type === 'diary' ? 'book' : type === 'contact' ? 'contact' : type === 'todolist' ? 'alert' : false);
+    transferToIcon (type) {
+      return 'icon-' + (type === 'diary' ? 'book' : type === 'contact' ? 'contact' : type === 'todolist' ? 'alert' : false)
     },
-    showNewFolderModal() {
-      this.$modal.show('new-folder');
+    showNewFolderModal () {
+      this.$modal.show('new-folder')
     },
-    toSetting() {
-      this.$router.push('/setting');
+    toSetting () {
+      this.$router.push('/setting')
     },
-    showDeleteModal(e) {
+    showDeleteModal (e) {
       this.$refs.DeleteModal.isModalShow = true
       var target = e.target
       while (!target.dataset.folderid) {
@@ -92,7 +92,7 @@ export default {
       this.selectedItem = target.dataset.folderid
       console.log(this.selectedItem)
     },
-    jump(event) {
+    jump (event) {
       var dataset = event.currentTarget.dataset
       var type = dataset.type
       var id = dataset.folderid
@@ -102,14 +102,11 @@ export default {
       this.changeCurrentFolderName(name)
       this.changeCurrentCount(total)
       console.log(total)
-      if (type === 'diary')
-        this.$router.push('/diary/entries/');
-      if (type === 'contact')
-        this.$router.push('/phonebook/');
-      if (type === 'todolist')
-        this.$router.push('/todolist/');
+      if (type === 'diary') { this.$router.push('/diary/entries/') }
+      if (type === 'contact') { this.$router.push('/phonebook/') }
+      if (type === 'todolist') { this.$router.push('/todolist/') }
     },
-    getFolder() {
+    getFolder () {
       this.$axios.get(api.getFolder)
         .then(res => {
           if (res.data.code === 0) {
@@ -118,10 +115,10 @@ export default {
           console.log(res.data)
         })
         .catch(function (error) {
-          console.log(error);
-        });
+          console.log(error)
+        })
     },
-    deleteItem() {
+    deleteItem () {
       this.$axios.delete(api.deleteFolder + this.selectedItem)
         .then(res => {
           if (res.data.code === 0) {
@@ -129,10 +126,10 @@ export default {
           }
         })
         .catch(function (error) {
-          console.log(error);
-        });
+          console.log(error)
+        })
     },
-    getInfo() {
+    getInfo () {
       this.$axios.get(api.getinfo)
         .then(res => {
           if (res.data.code === 0) {
@@ -142,8 +139,8 @@ export default {
           }
         })
         .catch(function (error) {
-          console.log(error);
-        });
+          console.log(error)
+        })
     }
   }
 }

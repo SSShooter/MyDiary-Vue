@@ -26,9 +26,8 @@
 
 <script>
 import api from '../api/api-config.js'
-var moment = require('moment');
-import Vue from 'vue'
-import { mapGetters, mapActions, mapMutations } from 'vuex'
+var moment = require('moment')
+import { mapGetters, mapMutations } from 'vuex'
 import Uploader from '../components/diary/Uploader.vue'
 import MoodAndWeather from '../components/diary/MoodAndWeather.vue'
 var word2icon = {
@@ -42,7 +41,7 @@ var word2icon = {
   overcast: 'duoyunzhuanyin'
 }
 export default {
-  data() {
+  data () {
     return {
       moment: '',
       month: '',
@@ -59,8 +58,8 @@ export default {
     Uploader,
     MoodAndWeather
   },
-  mounted() {
-    this.moment = moment();
+  mounted () {
+    this.moment = moment()
   },
   computed: mapGetters({
     uploadlist: 'getUploadlist',
@@ -74,16 +73,16 @@ export default {
       'changeMoodAndWeather',
       'changeCurrentCount'
     ]),
-    showUploadModal() {
-      this.$refs.Uploader.isModalShow = true;
+    showUploadModal () {
+      this.$refs.Uploader.isModalShow = true
     },
-    showMoodAndWeather() {
-      this.$refs.MoodAndWeather.isModalShow = true;
+    showMoodAndWeather () {
+      this.$refs.MoodAndWeather.isModalShow = true
     },
-    newDiary() {
+    newDiary () {
       if (!this.title || !this.content) {
-        alert('请填写标题和日记内容');
-        return;
+        alert('请填写标题和日记内容')
+        return
       }
       let data = {
         folderId: this.currentFolder,
@@ -103,30 +102,30 @@ export default {
             this.content = ''
             this.bookmark = ''
             this.tag = ''
-            this.clearUploadlist();
+            this.clearUploadlist()
             this.changeMoodAndWeather({ mood: '心情', weather: '天气' })
-            this.$router.replace('/diary/entries');
-            this.$parent.menu = 'entries';
+            this.$router.replace('/diary/entries')
+            this.$parent.menu = 'entries'
             this.changeCurrentCount('plus1')
           }
         })
         .catch(err => {
-          console.log(err);
-        });
+          console.log(err)
+        })
     },
-    clear() {
+    clear () {
       var a = confirm('是否清空页面？')
       if (a) {
         this.title = ''
         this.content = ''
         this.bookmark = ''
         this.tag = ''
-        this.clearUploadlist();
+        this.clearUploadlist()
       }
     }
   },
   watch: {
-    moment() {
+    moment () {
       this.month = this.moment.format('MMM')
       this.date = this.moment.format('DD')
       this.day = this.moment.format('dddd')

@@ -5,25 +5,25 @@ const state = {
 }
 
 const mutations = {
-  refreshUploadlist(state, newurl) {
+  refreshUploadlist (state, newurl) {
     state.uploadlist.push(newurl)
   },
-  clearUploadlist(state) {
+  clearUploadlist (state) {
     state.uploadlist = []
   },
-  changeMoodAndWeather(state, {mood, weather}) {
+  changeMoodAndWeather (state, {mood, weather}) {
     state.mood = mood
     state.weather = weather
   }
 }
 const getters = {
-  getUploadlist(state) {
+  getUploadlist (state) {
     return state.uploadlist
   },
-  mood(state) {
+  mood (state) {
     return state.mood
   },
-  weather(state) {
+  weather (state) {
     return state.weather
   }
 }
