@@ -1,4 +1,5 @@
 # my-diary-vue   
+[![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)    
 <img src="src/assets/logoBlue.png" width = "30%"/>
 
 ### [English](README.En.md)       
@@ -27,7 +28,7 @@ vue2 / vuex / vue-router / webpack / ES6  / less
 - [ ] 搜索功能
 - [ ] 数据库结构优化
 - [ ] 交换日记
-- [ ] 使用electron构建pc端
+- [x] 使用electron构建pc端
 - [ ] 十分遥远的下一个目标，重构为PWA
 ## 界面截图    
 截图使用fireshot      
