@@ -1,4 +1,5 @@
-# my-diary-vue   
+# my-diary-vue
+[![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)   
 <img src="src/assets/logoBlue.png" width = "30%"/>
 
 ### [中文](README.md)           
