@@ -2,7 +2,7 @@
   <div id="entries">
   
     <div class="items">
-      <div v-for="(item,index) in items" v-finger:long-tap="showDeleteModal" @click="showDiaryContentModal" :key="item._id" :data-index="index" class="item">
+      <div v-for="(item,index) in items" v-finger:long-tap="showDeleteModal" @click="showDiaryContentModal($event)" :key="item._id" :data-index="index" class="item">
         <div class="dd">
           <p class="date">{{convertToDD(item.createdate)}}</p>
           <p class="day">{{convertToddd(item.createdate)}}</p>
@@ -129,14 +129,7 @@ export default {
     },
     showDiaryContentModal (e) {
       this.$refs.DiaryContentModal.isModalShow = true
-      var target = e.target
-      while (!target.dataset.index) {
-        if (target.dataset.index) {
-          break
-        }
-        target = target.parentNode
-      }
-      this.selectedItem = target.dataset.index
+      this.selectedItem = e.currentTarget.dataset.index
     },
     showDeleteModal (e) {
       this.$refs.DeleteModal.isModalShow = true

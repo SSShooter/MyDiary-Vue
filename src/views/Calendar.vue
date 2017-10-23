@@ -2,12 +2,12 @@
   <div id="calendar">
     <swiper class="cadiv"
             :options="swiperOption">
-      <swiper-slide>
+      <swiper-slide class="date-box">
         <div class="month">{{month}}</div>
         <div class="date">{{date}}</div>
         <div class="day">{{day}}</div>
       </swiper-slide>
-      <swiper-slide>
+      <swiper-slide class="date-box">
         <div class="month">{{month2}}</div>
         <div class="date">{{date2}}</div>
         <div class="day">{{day2}}</div>
@@ -18,17 +18,19 @@
 <script>
 import Vue from 'vue'
 import VueAwesomeSwiper from 'vue-awesome-swiper'
+import moment from 'moment'
 Vue.use(VueAwesomeSwiper)
-var moment = require('moment')
+
 export default {
   name: 'calendar',
   data () {
+    let mo = moment()
     return {
-      moment: moment(),
+      moment: mo,
       thispage: 0,
-      month: moment().format('MMM'),
-      date: moment().format('D'),
-      day: moment().format('ddd'),
+      month: mo.format('MMM'),
+      date: mo.format('D'),
+      day: mo.format('ddd'),
       month2: '',
       date2: '',
       day2: '',
@@ -74,12 +76,7 @@ export default {
 </script>
 <style lang="less" scoped>
 @import '../less/common.less';
-.swiper-slide {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-}
-
+@import '../../node_modules/swiper/dist/css/swiper.css';
 #calendar {
   background-color: @main-color;
   height: @calendar-container-height;
@@ -90,8 +87,13 @@ export default {
     color: @main-color;
     text-align: center;
     font-weight: bold;
-    .date {
-      font-size: 5rem;
+    .date-box {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      .date {
+        font-size: 5rem;
+      }
     }
   }
 }

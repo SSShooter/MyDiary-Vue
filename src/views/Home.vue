@@ -186,6 +186,7 @@ header {
   height: @home-container-height;
   overflow-y: scroll;
   box-sizing: border-box;
+  width: 100%;
   .item {
     border-bottom: 1px #ccc solid;
     padding: 10px 10px 10px 0;

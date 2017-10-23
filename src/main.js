@@ -4,7 +4,7 @@ import router from './router/router'
 import store from './store/index'
 import axios from 'axios'
 axios.defaults.withCredentials = true
-axios.interceptors.response.use(function (res) {
+axios.interceptors.response.use(res => {
   console.log(res.data)
   if (res.data && res.data.code === 11) {
     alert('登录失效')
