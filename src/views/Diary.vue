@@ -67,11 +67,11 @@ header {
     border-radius: 0;
     &:first-child {
       border-right: none;
-      border-radius: 4px 0 0 4px;
+      border-radius: 8px 0 0 8px;
     }
     &:last-child {
       border-left: none;
-      border-radius: 0 4px 4px 0;
+      border-radius: 0 8px 8px 0;
     }
     color: @main-color;
   }

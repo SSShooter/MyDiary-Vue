@@ -1,7 +1,7 @@
 <template>
   <div id="entries">
-  
-    <div class="items">
+
+    <div v-if="items.length!==0" class="items">
       <div v-for="(item,index) in items" v-finger:long-tap="showDeleteModal" @click="showDiaryContentModal($event)" :key="item._id" :data-index="index" class="item">
         <div class="dd">
           <p class="date">{{convertToDD(item.createdate)}}</p>
@@ -21,19 +21,19 @@
       <p v-show="isBottom" class="bottom">- 到底了 -</p>
       <infinite-loading v-show="!isBottom" :on-infinite="onInfinite" ref="infiniteLoading"></infinite-loading>
     </div>
-  
+
     <footer>
       <div class="buttons">
         <i class="iconfont icon-shouye" @click="backHome"></i>
       </div>
       <div class="total">{{currentCount}} Entries</div>
     </footer>
-  
+
     <diary-content-modal ref="DiaryContentModal">
       <div class="modal-date" v-if="items[selectedItem]">
         <span class="month">{{convertToMMMM(items[selectedItem].createdate)}}</span>
         <span class="date">{{convertToD(items[selectedItem].createdate)}}</span>
-        <span>{{convertTodddd(items[selectedItem].createdate)}}&nbsp;&nbsp;{{convertToYYYY(items[selectedItem].createdate)}}</span>
+        <span>{{convertTodddd(items[selectedItem].createdate) + ' ' + convertToYYYY(items[selectedItem].createdate)}}</span>
         <span>{{convertToHHmm(items[selectedItem].createdate)}}</span>
       </div>
       <div class="modal-content" v-if="items[selectedItem]">
@@ -61,7 +61,7 @@ import { mapGetters, mapMutations } from 'vuex'
 import DiaryContentModal from '~/diary/DiaryContentModal'
 import DeleteModal from '~/DeleteModal'
 import InfiniteLoading from 'vue-infinite-loading'
-var moment = require('moment')
+import moment from 'moment'
 
 export default {
   data () {
@@ -69,15 +69,15 @@ export default {
       selectedItem: '',
       items: [],
       example: {
-        '_id': '594785c8887da62d86d8235b',
-        'folderId': '594782856659ac2d39589508',
-        'title': '第二篇日记2',
-        'content': 'something happend',
-        'mood': 'kaixin-',
-        'weather': 'baoxue',
-        'createdate': '2017-06-18',
-        '__v': 0,
-        'pic': []
+        _id: '594785c8887da62d86d8235b',
+        folderId: '594782856659ac2d39589508',
+        title: '第二篇日记2',
+        content: 'something happend',
+        mood: 'kaixin-',
+        weather: 'baoxue',
+        createdate: '2017-06-18',
+        __v: 0,
+        pic: []
       },
       page: 0,
       isBottom: false
@@ -88,7 +88,8 @@ export default {
     DiaryContentModal,
     DeleteModal
   },
-  // 钩子的触发顺序created-> mounted-> activated，退出时触发deactivated。当再次进入（前进或者后退）时，只触发activated。
+  // 钩子的触发顺序created-> mounted-> activated，
+  // 退出时触发deactivated。当再次进入（前进或者后退）时，只触发activated。
   activated () {
     this.page = 0
     this.getFolderContents()
@@ -100,9 +101,7 @@ export default {
     currentCount: 'getCurrentCount'
   }),
   methods: {
-    ...mapMutations(
-      ['changeCurrentImg']
-    ),
+    ...mapMutations(['changeCurrentImg']),
     backHome () {
       this.$router.replace('/home')
     },
@@ -128,6 +127,7 @@ export default {
       return moment(timestamp).format('dddd')
     },
     showDiaryContentModal (e) {
+      // 可以试试prop.sync
       this.$refs.DiaryContentModal.isModalShow = true
       this.selectedItem = e.currentTarget.dataset.index
     },
@@ -143,8 +143,8 @@ export default {
       this.selectedItem = target.dataset.index
     },
     getFolderContents () {
-      console.log(api.getDiaryContents + this.currentFolder + '/' + this.page)
-      this.$axios.get(api.getDiaryContents + this.currentFolder + '/' + this.page)
+      this.$axios
+        .get(api.getDiaryContents + this.currentFolder + '/' + this.page)
         .then(res => {
           if (res.data.code === 0) {
             this.items = res.data.data
@@ -156,7 +156,8 @@ export default {
         })
     },
     deleteItem () {
-      this.$axios.delete(api.deleteDiary + this.items[this.selectedItem]._id)
+      this.$axios
+        .delete(api.deleteDiary + this.items[this.selectedItem]._id)
         .then(res => {
           if (res.data.code === 0) {
             this.page = 0
@@ -173,7 +174,8 @@ export default {
       this.$router.push('/img')
     },
     onInfinite () {
-      this.$axios.get(api.getDiaryContents + this.currentFolder + '/' + this.page)
+      this.$axios
+        .get(api.getDiaryContents + this.currentFolder + '/' + this.page)
         .then(res => {
           if (res.data.code === 0) {
             if (res.data.data.length === 0) {
@@ -200,50 +202,53 @@ export default {
   box-sizing: border-box;
   padding: 8px;
   overflow-x: scroll;
-  .item {
-    color: @main-color;
-    background-color: #fff;
-    border-radius: 4px;
-    box-sizing: border-box;
-    height: 4.5rem;
-    padding: 5px;
-    margin-bottom: 8px;
-    .dd {
-      float: left;
-      width: 3rem;
+  .items {
+    // overflow-x: hidden;
+    .item {
+      color: @main-color;
+      background-color: #fff;
+      border-radius: 4px;
+      box-sizing: border-box;
+      height: 4.5rem;
+      padding: 5px;
+      margin-bottom: 8px;
+      .dd {
+        float: left;
+        width: 3rem;
+        text-align: center;
+        .date {
+          font-size: 2rem;
+        }
+        .day {
+          font-size: 0.8em;
+        }
+      }
+      .content {
+        float: left;
+        width: ~'calc(100% - 120px)';
+        padding-left: 5px;
+        .time {
+          font-size: 0.7em;
+        }
+        .title,
+        .article {
+          overflow: hidden;
+          text-overflow: ellipsis;
+          height: 1.5rem;
+        }
+      }
+      .state {
+        float: right;
+        font-weight: bold;
+        .icon {
+          font-size: 18px;
+        }
+      }
+    }
+    .bottom {
       text-align: center;
-      .date {
-        font-size: 2rem;
-      }
-      .day {
-        font-size: .8em;
-      }
+      color: @main-color;
     }
-    .content {
-      float: left;
-      width: ~"calc(100% - 120px)";
-      padding-left: 5px;
-      .time {
-        font-size: .7em;
-      }
-      .title,
-      .article {
-        overflow: hidden;
-        text-overflow: ellipsis;
-        height: 1.5rem;
-      }
-    }
-    .state {
-      float: right;
-      font-weight: bold;
-      .icon {
-        font-size: 18px;
-      }
-    }
-  }
-  .bottom {
-    text-align: center;
-    color: @main-color;
   }
   footer {
     .diaryfooter;
@@ -269,7 +274,7 @@ export default {
       height: 30%;
       span {
         margin: 1px 0;
-        font-size: .8rem;
+        font-size: 0.8rem;
       }
       .date {
         font-size: 4rem;

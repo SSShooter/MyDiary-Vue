@@ -11,8 +11,8 @@
     </header>
     <div class="container">
       <index></index>
-      <div v-for="(item,index) in items" class="wrap">
-        <div v-if="!items[index-1] || item.initial !== items[index-1].initial" class="initial" :id="item.initial!=='#'?item.initial:'hash'">{{item.initial.toUpperCase()}}</div>
+      <div v-for="(item,index) in items" class="wrap" :key="item.initial">
+        <div :data-alphabet="item.initial.toUpperCase()"  v-if="!items[index-1] || item.initial !== items[index-1].initial" class="initial">{{item.initial.toUpperCase()}}</div>
         <div class="item" :data-id="item._id" v-finger:long-tap="showDeleteModal">
           <div class="name">{{item.contact}}</div>
           <div class="number">{{item.number}}</div>
@@ -76,7 +76,6 @@ export default {
       this.selectedItem = target.dataset.id
     },
     getFolderContents () {
-      console.log(this.currentFolder)
       this.$axios.get(api.getContactContents + this.currentFolder)
         .then(res => {
           if (res.data.code === 0) {

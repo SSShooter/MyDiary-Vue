@@ -6,7 +6,7 @@
       </div>
       <span class="title">{{currentFolderName}}</span>
       <div class="right-btn">
-        <i class="iconfont icon-pen" @click="isInputShow = !isInputShow"></i>
+        <i class="iconfont icon-pen" @click="newTodoInput"></i>
       </div>
     </header>
     <ul class="items">
@@ -64,7 +64,8 @@ export default {
       this.selectedItem = e.target.dataset.id
     },
     getFolderContents () {
-      this.$axios.get(api.getListContents + this.currentFolder)
+      this.$axios
+        .get(api.getListContents + this.currentFolder)
         .then(res => {
           if (res.data.code === 0) {
             this.items = res.data.data
@@ -75,7 +76,8 @@ export default {
         })
     },
     deleteItem () {
-      this.$axios.delete(api.deleteList + this.selectedItem)
+      this.$axios
+        .delete(api.deleteList + this.selectedItem)
         .then(res => {
           if (res.data.code === 0) {
             this.getFolderContents()
@@ -85,6 +87,14 @@ export default {
           console.log(error)
         })
     },
+    newTodoInput () {
+      this.isInputShow = !this.isInputShow
+      if (this.isInputShow) {
+        Vue.nextTick(function () {
+          document.querySelector('.item:last-of-type > input').focus()
+        })
+      }
+    },
     newTodo () {
       if (!this.newTodoItem) return false
       let data = {
@@ -92,7 +102,8 @@ export default {
         content: this.newTodoItem,
         createdate: +new Date()
       }
-      this.$axios.post(api.newList, data)
+      this.$axios
+        .post(api.newList, data)
         .then(res => {
           if (res.data.code === 0) {
             this.getFolderContents()
@@ -104,7 +115,8 @@ export default {
         })
     },
     changeState (e) {
-      this.$axios.put(api.changeListItemState + e.currentTarget.dataset.id)
+      this.$axios
+        .put(api.changeListItemState + e.currentTarget.dataset.id)
         .then(res => {
           if (res.data.code === 0) {
             this.getFolderContents()
@@ -128,7 +140,7 @@ header {
   background-image: url('../assets/line.png');
   background-size: 100vw 60px;
   background-attachment: local;
-  height: @todolist-container-height;
+  max-height: @todolist-container-height;
   overflow-y: scroll;
   position: relative;
   .complete {
@@ -142,7 +154,7 @@ header {
     line-height: 60px;
     word-wrap: break-word;
     &:before {
-      content: '·'
+      content: '·';
     }
     input {
       display: inline-block;

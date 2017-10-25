@@ -86,7 +86,7 @@ export default {
             this.email = data.email
             this.mobile = data.mobile
             this.gender = data.gender
-            this.avatar = data.avatar
+            this.avatar = data.avatar || '/static/avatar63808612.jpg'
           }
         })
         .catch(function (error) {
@@ -124,7 +124,7 @@ header {
 .items {
   height: @todolist-container-height;
   overflow-y: scroll;
-  font-size: 1.2rem;
+  font-size: 1rem;
   .avatar {
     border-radius: 50%;
     position: relative;

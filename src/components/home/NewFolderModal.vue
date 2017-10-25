@@ -64,7 +64,7 @@ export default {
 .pop-up-box {
   color: @main-color;
   box-sizing: border-box;
-  padding: 30px 10px;
+  padding: 20px 10px;
   text-align: center;
   .checkbox {
     margin: 10px 0;

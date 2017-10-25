@@ -1,5 +1,5 @@
 <template>
-  <transition name="fade">
+  <transition name="fadeinout">
     <div v-show="isModalShow">
       <div class="mask" @click="update"></div>
       <div class="modal">

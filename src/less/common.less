@@ -11,13 +11,13 @@ button{
 @main-color: #5A95BA;
 @diary-header-height:4.6rem;
 @home-header-height: 4.6rem;
-@home-container-height:calc(~"100vh - "(@padding-for-bar + @common-footer-height + @home-header-height));
-@entries-container-height:calc(~"100vh - "(@padding-for-bar + @common-footer-height + @diary-header-height));
-@calendar-container-height:calc(~"100vh - "(@padding-for-bar + @diary-header-height));
-@todolist-container-height:calc(~"100vh - "(@padding-for-bar + @common-header-height));
+@home-container-height:calc(~"99.5vh - "(@padding-for-bar + @common-footer-height + @home-header-height));
+@entries-container-height:calc(~"99.5vh - "(@padding-for-bar + @common-footer-height + @diary-header-height));
+@calendar-container-height:calc(~"99.5vh - "(@padding-for-bar + @diary-header-height));
+@todolist-container-height:calc(~"99.5vh - "(@padding-for-bar + @common-header-height));
 @common-header-height:3.6rem;
 @common-footer-height:2.8rem;
-@contact-container-height:calc(~"100vh - "@common-header-height);
+@contact-container-height:calc(~"99.5vh - "@common-header-height);
 .diaryheader{
   margin-top: @padding-for-bar;
   height: @diary-header-height;
@@ -70,5 +70,18 @@ button{
 
 .fade-enter,
 .fade-leave-active {
+  opacity: 0
+}
+
+.fadeinout-enter-active {
+  transition: opacity .3s
+}
+
+.fadeinout-leave-active {
+  transition: opacity .2s
+}
+
+.fadeinout-enter,
+.fadeinout-leave-active {
   opacity: 0
 }

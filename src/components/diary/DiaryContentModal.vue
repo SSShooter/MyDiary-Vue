@@ -1,5 +1,5 @@
 <template>
-  <transition name="fade">
+  <transition name="fadeinout">
     <div v-show="isModalShow">
       <div class="mask" @click="isModalShow=!isModalShow"></div>
       <div class="modal">
@@ -28,10 +28,11 @@ export default {
   position: absolute;
   left: 0;
   top: 0;
+  bottom: 0;
+  right: 0;
   background-color: #000;
   opacity: .3;
-  height: 100vh;
-  width: 100vw;
+  z-index: 9;
 }
 
 .modal {
@@ -40,7 +41,7 @@ export default {
   top: 50%;
   left: 50%;
   margin-left: -45vw;
-  margin-top: -45vh;
+  margin-top: -46vh;
   width: 90vw;
   height: 90vh;
   overflow: hidden;
@@ -48,6 +49,7 @@ export default {
   color: @main-color;
   border-radius: 15px;
   border: none;
+  z-index: 10;
   .close {
     position: absolute;
     top: 0;
