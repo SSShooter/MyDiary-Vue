@@ -4,10 +4,10 @@ import Phonebook from '../views/Phonebook.vue'
 import Login from '../views/Login.vue'
 import Home from '../views/Home.vue'
 import Todolist from '../views/Todolist.vue'
-import Diary from '../views/Diary.vue'
-import Entries from '../views/Entries.vue'
-import Calendar from '../views/Calendar.vue'
-import Write from '../views/Write.vue'
+import Diary from '../views/Diary/Index.vue'
+import Entries from '../views/Diary/Entries.vue'
+import Calendar from '../views/Diary/Calendar.vue'
+import Write from '../views/Diary/Write.vue'
 import Gallery from '../views/Gallery.vue'
 import Img from '../views/Img.vue'
 import Setting from '../views/Setting.vue'
@@ -90,5 +90,4 @@ const router = new Router({
 //     })
 //   })
 // })
-
 export default router

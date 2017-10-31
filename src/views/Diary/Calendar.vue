@@ -75,8 +75,8 @@ export default {
 }
 </script>
 <style lang="less" scoped>
-@import '../less/common.less';
-@import '../../node_modules/swiper/dist/css/swiper.css';
+@import '~@/less/common.less';
+@import '~/swiper/dist/css/swiper.css';
 #calendar {
   background-color: @main-color;
   height: @calendar-container-height;

@@ -25,11 +25,11 @@
 </template>
 
 <script>
-import api from '../api/api-config.js'
-var moment = require('moment')
+import api from '@/api/api-config.js'
 import { mapGetters, mapMutations } from 'vuex'
 import Uploader from '~/diary/Uploader'
 import MoodAndWeather from '~/diary/MoodAndWeather'
+import moment from 'moment'
 var word2icon = {
   sad: 'nanguo',
   happy: 'kaixin-',
@@ -136,7 +136,7 @@ export default {
 </script>
 
 <style lang="less" scoped>
-@import '../less/common.less';
+@import '~@/less/common.less';
 * {
   box-sizing: border-box;
 }

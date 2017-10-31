@@ -56,7 +56,7 @@
   </div>
 </template>
 <script>
-import api from '../api/api-config.js'
+import api from '@/api/api-config.js'
 import { mapGetters, mapMutations } from 'vuex'
 import DiaryContentModal from '~/diary/DiaryContentModal'
 import DeleteModal from '~/DeleteModal'
@@ -195,9 +195,9 @@ export default {
 }
 </script>
 <style lang="less" scoped>
-@import '../less/common.less';
+@import '~@/less/common.less';
 #entries {
-  background-image: url('../assets/52502973_p0.png');
+  background-image: url('~@/assets/52502973_p0.png');
   height: @entries-container-height;
   box-sizing: border-box;
   padding: 8px;

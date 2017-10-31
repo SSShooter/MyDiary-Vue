@@ -206,7 +206,9 @@ header {
   overflow: auto;
   width: 100%;
   .item {
-    // border-bottom: 1px #ccc solid;
+    &:active{
+      background-color: #fbfbfb;
+    }
     padding: 10px;
     line-height: 2.5rem;
     color: rgb(92, 115, 136);

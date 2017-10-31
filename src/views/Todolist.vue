@@ -10,12 +10,12 @@
       </div>
     </header>
     <ul class="items">
-      <li v-for="item in items" v-finger:long-tap="showDeleteModal" class="item" @click="changeState" :key="item._id" :data-id="item._id" :class="{complete:item.state}">
-        {{item.content}}
-      </li>
-      <li v-show="isInputShow" class="item">
-        <input v-model.lazy="newTodoItem">
-      </li>
+        <li v-for="item in items" v-finger:long-tap="showDeleteModal" class="item" @click="changeState" :key="item._id" :data-id="item._id" :class="{complete:item.state}">
+          {{item.content}}
+        </li>
+        <li v-show="isInputShow" class="item will-add">
+          <input v-model.lazy="newTodoItem">
+        </li>
     </ul>
     <delete-modal ref="DeleteModal"></delete-modal>
   </div>
@@ -25,7 +25,6 @@
 import api from '../api/api-config.js'
 import { mapGetters } from 'vuex'
 import DeleteModal from '../components/DeleteModal.vue'
-
 import Vue from 'vue'
 import AlloyFinger from 'alloyfinger/alloy_finger.js'
 import AlloyFingerVue from 'alloyfinger/vue/alloy_finger.vue.js'
@@ -91,7 +90,7 @@ export default {
       this.isInputShow = !this.isInputShow
       if (this.isInputShow) {
         Vue.nextTick(function () {
-          document.querySelector('.item:last-of-type > input').focus()
+          document.querySelector('.will-add > input').focus()
         })
       }
     },
@@ -137,9 +136,6 @@ header {
 }
 
 .items {
-  background-image: url('../assets/line.png');
-  background-size: 100vw 60px;
-  background-attachment: local;
   max-height: @todolist-container-height;
   overflow-y: scroll;
   position: relative;
@@ -151,10 +147,17 @@ header {
     color: @main-color;
     font-size: 20px;
     padding: 0 20px;
-    line-height: 60px;
+    line-height: 45px;
     word-wrap: break-word;
     &:before {
       content: '·';
+    }
+    &:after {
+      content: ' ';
+      display: block;
+      background-color: #ccc;
+      width: 100%;
+      height: 1px;
     }
     input {
       display: inline-block;

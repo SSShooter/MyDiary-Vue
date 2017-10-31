@@ -39,11 +39,11 @@
       <div class="devide">
         <span>关于MyDiary</span>
       </div>
-      <div class="item">
+      <div class="item" @click="toHelp">
         <span class="title">
-          <i class="iconfont icon-shuoming" @click="toHelp"></i>帮助</span>
+          <i class="iconfont icon-shuoming"></i>帮助</span>
       </div>
-      <div class="item">
+      <div class="item" @click="toAbout">
         <span class="title">
           <i class="iconfont icon-github-copy"></i>由来</span>
       </div>
@@ -109,6 +109,9 @@ export default {
     },
     toHelp () {
       this.$router.push('/help')
+    },
+    toAbout () {
+      this.$router.push('/about')
     }
   }
 }
