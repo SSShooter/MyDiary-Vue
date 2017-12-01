@@ -59,7 +59,6 @@ export default {
   methods: {
     showDeleteModal (e) {
       this.$refs.DeleteModal.isModalShow = true
-      console.log(e.target.dataset.id)
       this.selectedItem = e.target.dataset.id
     },
     getFolderContents () {
@@ -89,7 +88,7 @@ export default {
     newTodoInput () {
       this.isInputShow = !this.isInputShow
       if (this.isInputShow) {
-        Vue.nextTick(function () {
+        this.$nextTick(function () {
           document.querySelector('.will-add > input').focus()
         })
       }

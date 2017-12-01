@@ -1,25 +1,27 @@
 <template>
-  <div id="entries">
-
-    <div v-if="items.length!==0" class="items">
-      <div v-for="(item,index) in items" v-finger:long-tap="showDeleteModal" @click="showDiaryContentModal($event)" :key="item._id" :data-index="index" class="item">
-        <div class="dd">
-          <p class="date">{{convertToDD(item.createdate)}}</p>
-          <p class="day">{{convertToddd(item.createdate)}}</p>
+  <div>
+    <div id="entries">
+      <div v-if="items.length!==0" class="items">
+        <div v-for="(item,index) in items" v-finger:long-tap="showDeleteModal" @click="showDiaryContentModal($event)" :key="item._id" :data-index="index" class="item">
+          <div class="dd">
+            <p class="date">{{convertToDD(item.createdate)}}</p>
+            <p class="day">{{convertToddd(item.createdate)}}</p>
+          </div>
+          <div class="content">
+            <div class="time">{{convertToHHmm(item.createdate)}}</div>
+            <div class="title">{{item.title}}</div>
+            <div class="article">{{item.content}}</div>
+          </div>
+          <div class="state">
+            <i class="iconfont" :class="'icon-'+ item.weather"></i>
+            <i class="iconfont" :class="'icon-'+ item.mood"></i>
+            <i class="iconfont icon-bookmark"></i>
+          </div>
         </div>
-        <div class="content">
-          <div class="time">{{convertToHHmm(item.createdate)}}</div>
-          <div class="title">{{item.title}}</div>
-          <div class="article">{{item.content}}</div>
-        </div>
-        <div class="state">
-          <i class="iconfont" :class="'icon-'+ item.weather"></i>
-          <i class="iconfont" :class="'icon-'+ item.mood"></i>
-          <i class="iconfont icon-bookmark"></i>
-        </div>
+        <p v-show="isBottom" class="bottom">- 到底了 -</p>
+        <infinite-loading v-show="!isBottom" :on-infinite="onInfinite" ref="infiniteLoading"></infinite-loading>
       </div>
-      <p v-show="isBottom" class="bottom">- 到底了 -</p>
-      <infinite-loading v-show="!isBottom" :on-infinite="onInfinite" ref="infiniteLoading"></infinite-loading>
+
     </div>
 
     <footer>
@@ -36,7 +38,7 @@
         <span>{{convertTodddd(items[selectedItem].createdate) + ' ' + convertToYYYY(items[selectedItem].createdate)}}</span>
         <span>{{convertToHHmm(items[selectedItem].createdate)}}</span>
       </div>
-      <div class="modal-content" v-if="items[selectedItem]">
+      <div class="modal-content" v-if="items[selectedItem]" @click.prevent>
         <div class="title">
           <span>{{items[selectedItem].title}}</span>
         </div>
@@ -52,6 +54,7 @@
         </div>
       </div>
     </diary-content-modal>
+
     <delete-modal ref="DeleteModal"></delete-modal>
   </div>
 </template>
@@ -198,12 +201,14 @@ export default {
 @import '~@/less/common.less';
 #entries {
   background-image: url('~@/assets/52502973_p0.png');
-  height: @entries-container-height;
+  position: absolute;
+  top: @diary-header-height;
+  bottom: @common-footer-height;
+  width: 100%;
   box-sizing: border-box;
   padding: 8px;
   overflow-x: scroll;
   .items {
-    // overflow-x: hidden;
     .item {
       color: @main-color;
       background-color: #fff;
@@ -250,71 +255,71 @@ export default {
       color: @main-color;
     }
   }
-  footer {
-    .diaryfooter;
+}
+footer {
+  .diaryfooter;
+  display: flex;
+  text-align: center;
+  align-items: center;
+  justify-content: Space-between;
+  .total,
+  i {
+    font-size: 1.5rem;
+    padding: 0 10px;
+  }
+}
+.modal {
+  .modal-date {
     display: flex;
-    text-align: center;
     align-items: center;
-    justify-content: Space-between;
-    .total,
-    i {
-      font-size: 1.5rem;
-      padding: 0 10px;
+    justify-content: center;
+    flex-direction: column;
+    box-sizing: border-box;
+    background-color: @main-color;
+    color: #fff;
+    height: 30%;
+    span {
+      margin: 1px 0;
+      font-size: 0.8rem;
+    }
+    .date {
+      font-size: 4rem;
+      line-height: 4rem;
     }
   }
-  .modal {
-    .modal-date {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-direction: column;
-      box-sizing: border-box;
-      background-color: @main-color;
-      color: #fff;
-      height: 30%;
-      span {
-        margin: 1px 0;
-        font-size: 0.8rem;
-      }
-      .date {
-        font-size: 4rem;
-        line-height: 4rem;
-      }
+  .modal-content {
+    box-sizing: border-box;
+    padding: 5px 10%;
+    height: 60%;
+    overflow-y: scroll;
+    .title {
+      font-size: 1.5rem;
+      text-align: center;
     }
-    .modal-content {
-      box-sizing: border-box;
-      padding: 5px 10%;
-      height: 60%;
-      overflow-y: scroll;
-      .title {
-        font-size: 1.5rem;
-        text-align: center;
-      }
-      .content {
-        word-break: break-all;
-        white-space: pre-wrap;
-        color: #545454;
-      }
-      .img-wrapper {
-        margin-top: 20px;
+    .content {
+      word-break: break-all;
+      white-space: pre-wrap;
+      color: #545454;
+    }
+    .img-wrapper {
+      margin-top: 20px;
+      width: 100%;
+      img {
         width: 100%;
-        img {
-          width: 100%;
-        }
       }
     }
-    .modal-footer {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      box-sizing: border-box;
-      height: 10%;
-      background-color: @main-color;
-      i {
-        font-size: 1.5rem;
-        color: #fff;
-        padding-left: 10px;
-      }
+  }
+  .modal-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    box-sizing: border-box;
+    height: 10%;
+    background-color: @main-color;
+    i {
+      font-size: 1.5rem;
+      color: #fff;
+      padding-left: 10px;
     }
   }
 }

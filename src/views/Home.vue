@@ -206,7 +206,7 @@ header {
   overflow: auto;
   width: 100%;
   .item {
-    &:active{
+    &:active {
       background-color: #fbfbfb;
     }
     padding: 10px;
