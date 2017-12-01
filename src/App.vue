@@ -32,11 +32,15 @@ export default {
 </script>
 
 <style lang="less">
-.item {
-  &:active {
-    background-color: #fbfbfb;
+// home的item的点击阴影
+.home {
+  .item {
+    &:active {
+      background-color: #fbfbfb;
+    }
   }
 }
+
 .child-view {
   position: absolute;
   width: 100%;
