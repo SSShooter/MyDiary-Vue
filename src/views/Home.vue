@@ -214,15 +214,7 @@ header {
     color: rgb(92, 115, 136);
     height: 2.5rem;
     overflow: hidden;
-    &:after {
-      content: ' ';
-      display: block;
-      position: relative;
-      top: 8px;
-      height: 1px;
-      width: 120%;
-      background-color: #ccc;
-    }
+    box-shadow: 20px -1px #ccc; // 模拟border-bottom
     .iconfont {
       font-size: 1.5rem;
     }
