@@ -133,6 +133,15 @@ export default {
       // 可以试试prop.sync
       this.$refs.DiaryContentModal.isModalShow = true
       this.selectedItem = e.currentTarget.dataset.index
+      // 阻止底层滑动
+      this.$nextTick(() => {
+        document
+          .querySelector('.modal-content')
+          .addEventListener('touchstart', e => {
+            if (e.target === e.currentTarget) return
+            e.preventDefault()
+          })
+      })
     },
     showDeleteModal (e) {
       this.$refs.DeleteModal.isModalShow = true
