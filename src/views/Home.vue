@@ -206,15 +206,17 @@ header {
   overflow: auto;
   width: 100%;
   .item {
+    // home的item的点击阴影
     &:active {
-      background-color: #fbfbfb;
+      background-color: #eeeeee;
     }
     padding: 10px;
     line-height: 2.5rem;
     color: rgb(92, 115, 136);
     height: 2.5rem;
     overflow: hidden;
-    box-shadow: 20px -1px #ccc; // 模拟border-bottom
+    margin-bottom: 1px; // 留出阴影位置
+    box-shadow: 20px 1px #ccc; // 模拟border-bottom
     .iconfont {
       font-size: 1.5rem;
     }

@@ -32,13 +32,10 @@ export default {
 </script>
 
 <style lang="less">
-// home的item的点击阴影
-.home {
-  .item {
-    &:active {
-      background-color: #fbfbfb;
-    }
-  }
+body {
+  user-select: none; // 禁止文字被选中
+  outline:none; // 去除点击外边框
+  -webkit-tap-highlight-color: rgba(0,0,0,0); // 去除点击高亮
 }
 
 .child-view {

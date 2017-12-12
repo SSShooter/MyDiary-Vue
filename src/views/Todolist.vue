@@ -6,7 +6,8 @@
       </div>
       <span class="title">{{currentFolderName}}</span>
       <div class="right-btn">
-        <i class="iconfont icon-pen" @click="newTodoInput"></i>
+        <i v-if="isInputShow" class="iconfont icon-1" @click="newTodoInput"></i>
+        <i v-else class="iconfont icon-pen" @click="newTodoInput"></i>
       </div>
     </header>
     <ul class="items">
@@ -112,6 +113,7 @@ export default {
           console.log(error)
         })
     },
+    // 更改事项状态
     changeState (e) {
       this.$axios
         .put(api.changeListItemState + e.currentTarget.dataset.id)

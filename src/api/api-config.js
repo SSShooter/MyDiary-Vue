@@ -1,4 +1,5 @@
-const HOST = 'http://120.76.217.199:8080/api'
+const HOST = 'http://192.168.0.144:8090/api'
+// const HOST = 'http://120.76.217.199:8080/api'
 
 const API = {
     // 用户登陆
