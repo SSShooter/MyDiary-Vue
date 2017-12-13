@@ -1,12 +1,13 @@
 <template>
   <transition name="fade">
     <div v-show="isModalShow">
-      <div class="mask" @click="isModalShow=!isModalShow"></div>
-      <div class="modal">
-        <p>是否确定删除</p>
-        <div>
-          <button @click="yes">确定</button>
-          <button @click="no">取消</button>
+      <div class="mask" v-finger:tap="toggle">
+        <div class="modal">
+          <p>是否确定删除</p>
+          <div>
+            <button v-finger:tap="yes">确定</button>
+            <button v-finger:tap="no">取消</button>
+          </div>
         </div>
       </div>
     </div>
@@ -23,12 +24,15 @@ export default {
       initial: ''
     }
   },
-  watch: {
-  },
+  watch: {},
   computed: mapGetters({
     currentFolder: 'getCurrentFolder'
   }),
   methods: {
+    toggle (e) {
+      console.log(e.target.className)
+      if (e.target.className === 'mask') this.isModalShow = !this.isModalShow
+    },
     yes () {
       this.$parent.deleteItem()
       this.isModalShow = !this.isModalShow
@@ -42,23 +46,20 @@ export default {
 <style lang="less" scoped>
 @import '../less/common.less';
 .mask {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   position: absolute;
   left: 0;
+  right: 0;
   top: 0;
-  background-color: #000;
-  opacity: .3;
-  height: 100vh;
-  width: 100vw;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.3);
 }
 
 .modal {
-  position: absolute;
   box-sizing: border-box;
   padding: 0 20px;
-  top: 50%;
-  left: 50%;
-  margin-left: -90px;
-  margin-top: -50px;
   width: 180px;
   height: 100px;
   background-color: #fff;
@@ -81,7 +82,7 @@ export default {
     color: @main-color;
   }
   button {
-    margin-top: 10px; 
+    margin-top: 10px;
     width: 50px;
     background-color: @main-color;
     color: #fff;

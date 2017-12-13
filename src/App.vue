@@ -35,6 +35,7 @@ export default {
 body {
   user-select: none; // 禁止文字被选中
   outline:none; // 去除点击外边框
+  -webkit-touch-callout: none; // 长按链接不弹出菜单
   -webkit-tap-highlight-color: rgba(0,0,0,0); // 去除点击高亮
 }
 
