@@ -128,7 +128,6 @@ export default {
           if (res.data.code === 0) {
             this.items = res.data.data
           }
-          console.log(res.data)
         })
         .catch(function (error) {
           console.log(error)

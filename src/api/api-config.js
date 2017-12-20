@@ -9,7 +9,7 @@ const API = {
   register: HOST + '/register',
 
     // 获取当前用户信息
-  getinfo: HOST + '/getinfo',
+  getinfo: HOST + '/info',
 
     // 保存当前用户信息
   saveinfo: HOST + '/saveinfo',
