@@ -31,13 +31,6 @@ import Index from '~/contact/Index'
 import NewContactModal from '~/contact/NewContactModal'
 import DeleteModal from '~/DeleteModal'
 
-import Vue from 'vue'
-import AlloyFinger from 'alloyfinger/alloy_finger.js'
-import AlloyFingerVue from 'alloyfinger/vue/alloy_finger.vue.js'
-Vue.use(AlloyFingerVue, {
-  AlloyFinger
-})
-
 export default {
   data () {
     return {

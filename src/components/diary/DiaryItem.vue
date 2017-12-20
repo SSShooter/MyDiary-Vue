@@ -22,26 +22,14 @@ import moment from 'moment'
 export default {
   props: ['item'],
   methods: {
-    convertToMMMM (timestamp) {
-      return moment(timestamp).format('MMMM')
-    },
     convertToDD (timestamp) {
       return moment(timestamp).format('DD')
-    },
-    convertToD (timestamp) {
-      return moment(timestamp).format('D')
     },
     convertToddd (timestamp) {
       return moment(timestamp).format('ddd')
     },
     convertToHHmm (timestamp) {
       return moment(timestamp).format('HH:mm')
-    },
-    convertToYYYY (timestamp) {
-      return moment(timestamp).format('YYYY')
-    },
-    convertTodddd (timestamp) {
-      return moment(timestamp).format('dddd')
     }
   }
 }

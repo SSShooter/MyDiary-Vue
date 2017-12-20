@@ -2,7 +2,7 @@
   <div>
     <div id="entries">
       <div v-if="items.length!==0" class="items">
-        <diary-item v-for="(item,index) in items" v-finger:long-tap="showDeleteModal" @click.native="showDiaryContentModal(item)" :key="item._id" :data-index="index" :item="item"></diary-item>
+        <diary-item v-for="(item,index) in items" v-finger:long-tap="showDeleteModal.bind(this,item._id)" @click.native="showDiaryContentModal(item)" :key="item._id" :data-index="index" :item="item"></diary-item>
         <p v-show="isBottom" class="bottom">- 到底了 -</p>
         <infinite-loading v-show="!isBottom" :on-infinite="onInfinite" ref="infiniteLoading"></infinite-loading>
       </div>
@@ -82,16 +82,17 @@ export default {
           })
       })
     },
-    showDeleteModal (e) {
-      this.$refs.DeleteModal.isModalShow = true
-      var target = e.target
-      while (!target.dataset.index) {
-        if (target.dataset.index) {
-          break
-        }
-        target = target.parentNode
-      }
-      this.selectedItem = target.dataset.index
+    showDeleteModal (id, e) {
+      console.log(id)
+      // this.$refs.DeleteModal.isModalShow = true
+      // var target = e.target
+      // while (!target.dataset.index) {
+      //   if (target.dataset.index) {
+      //     break
+      //   }
+      //   target = target.parentNode
+      // }
+      // this.selectedItem = target.dataset.index
     },
     getFolderContents () {
       this.$axios
