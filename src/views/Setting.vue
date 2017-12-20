@@ -94,7 +94,7 @@ export default {
         })
     },
     saveInfo () {
-      this.$axios.post(api.saveinfo, this.$data)
+      this.$axios.put(api.saveinfo, this.$data)
         .then(res => {
           if (res.data.code === 0) {
             alert('信息已更新！')

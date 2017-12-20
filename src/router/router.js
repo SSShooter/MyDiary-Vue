@@ -1,17 +1,18 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Phonebook from '../views/Phonebook.vue'
-import Login from '../views/Login.vue'
-import Home from '../views/Home.vue'
-import Todolist from '../views/Todolist.vue'
-import Diary from '../views/Diary/Index.vue'
-import Entries from '../views/Diary/Entries.vue'
-import Calendar from '../views/Diary/Calendar.vue'
-import Write from '../views/Diary/Write.vue'
-import Gallery from '../views/Gallery.vue'
-import Img from '../views/Img.vue'
-import Setting from '../views/Setting.vue'
-import Help from '../views/Help.vue'
+import Phonebook from '../views/Phonebook'
+import Login from '../views/Login'
+import Home from '../views/Home'
+import Todolist from '../views/Todolist'
+import Diary from '../views/Diary/Index'
+import Entries from '../views/Diary/Entries'
+import Calendar from '../views/Diary/Calendar'
+import Write from '../views/Diary/Write'
+import Gallery from '../views/Gallery'
+import Img from '../views/Img'
+import Setting from '../views/Setting'
+import Help from '../views/Help'
+import About from '../views/About'
 
 Vue.use(Router)
 
@@ -71,6 +72,10 @@ const router = new Router({
     {
       path: '/help',
       component: Help
+    },
+    {
+      path: '/about',
+      component: About
     }
   ]
 })

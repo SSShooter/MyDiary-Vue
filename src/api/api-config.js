@@ -12,10 +12,10 @@ const API = {
   getinfo: HOST + '/info',
 
     // 保存当前用户信息
-  saveinfo: HOST + '/saveinfo',
+  saveinfo: HOST + '/info',
 
     // 上传头像
-  uploadavatar: HOST + '/uploadavatar',
+  uploadavatar: HOST + '/avatar',
 
     // 创建一个文件夹
   newFolder: HOST + '/folder',
@@ -28,6 +28,9 @@ const API = {
 
     // 创建一篇日记
   newDiary: HOST + '/diary',
+
+  // 创建一篇日记
+  searchDiary: HOST + '/diary',
 
     // 获取所有文件夹
   getFolder: HOST + '/folder',

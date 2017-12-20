@@ -31,7 +31,7 @@
     <footer>
       <div class="inputdiv">
         <i class="iconfont icon-search search"></i>
-        <input type="text" name="search" id="search">
+        <input type="text" name="search" id="search" v-model="keyword">
       </div>
       <i class="iconfont icon-setting cog" @click="toSetting"></i>
     </footer>
@@ -57,11 +57,17 @@ export default {
   },
   data () {
     return {
+      keyword: '', // 搜索关键词
       username: '',
       nickname: '',
       avatar: '',
       items: [],
       selectedItem: ''
+    }
+  },
+  watch: {
+    keyword (val) {
+      this.searchDiary(val)
     }
   },
   mounted () {
@@ -128,6 +134,20 @@ export default {
           if (res.data.code === 0) {
             this.items = res.data.data
           }
+        })
+        .catch(function (error) {
+          console.log(error)
+        })
+    },
+    searchDiary (keyword) {
+      this.$axios
+        .get(api.searchDiary, {
+          params: {
+            q: keyword
+          }
+        })
+        .then(res => {
+          console.log(res)
         })
         .catch(function (error) {
           console.log(error)
