@@ -2,14 +2,19 @@
   <div id="calendar">
     <swiper class="cadiv" :options="swiperOption">
       <swiper-slide class="date-box">
-        <div class="month">{{month}}</div>
-        <div class="date">{{date}}</div>
-        <div class="day">{{day}}</div>
+        <div class="month">{{m(date0).format('MMM')}}</div>
+        <div class="date">{{m(date0).format('D')}}</div>
+        <div class="day">{{m(date0).format('ddd')}}</div>
       </swiper-slide>
       <swiper-slide class="date-box">
-        <div class="month">{{month2}}</div>
-        <div class="date">{{date2}}</div>
-        <div class="day">{{day2}}</div>
+        <div class="month">{{m(date1).format('MMM')}}</div>
+        <div class="date">{{m(date1).format('D')}}</div>
+        <div class="day">{{m(date1).format('ddd')}}</div>
+      </swiper-slide>
+      <swiper-slide class="date-box">
+        <div class="month">{{m(date2).format('MMM')}}</div>
+        <div class="date">{{m(date2).format('D')}}</div>
+        <div class="day">{{m(date2).format('ddd')}}</div>
       </swiper-slide>
     </swiper>
   </div>
@@ -19,54 +24,28 @@ import Vue from 'vue'
 import VueAwesomeSwiper from 'vue-awesome-swiper'
 import moment from 'moment'
 Vue.use(VueAwesomeSwiper)
-
 export default {
   name: 'calendar',
   data () {
-    let mo = moment()
     return {
-      moment: mo,
+      m: moment,
       thispage: 0,
-      month: mo.format('MMM'),
-      date: mo.format('D'),
-      day: mo.format('ddd'),
-      month2: '',
+      date0: +new Date(),
+      date1: '',
       date2: '',
-      day2: '',
-      theWayToSkipTheFirstRunOfOnSlideNextStart: 0,
       swiperOption: {
         loop: true,
-        onSlideNextStart: () => {
-          if (this.theWayToSkipTheFirstRunOfOnSlideNextStart === 0) {
-            this.theWayToSkipTheFirstRunOfOnSlideNextStart = 1
-            return false
-          }
-          this.moment = this.moment.add(1, 'd')
-          if (this.thispage === 0) {
-            this.month2 = this.moment.format('MMM')
-            this.date2 = this.moment.format('D')
-            this.day2 = this.moment.format('ddd')
-            this.thispage = 1
-          } else {
-            this.month = this.moment.format('MMM')
-            this.date = this.moment.format('D')
-            this.day = this.moment.format('ddd')
-            this.thispage = 0
-          }
+        onSlideNextStart: (swiper, even) => {
+          let realIndex = swiper.realIndex
+          let nextIndex = realIndex + 1 > 2 ? 0 : realIndex + 1
+          this['date' + nextIndex] =
+            this['date' + realIndex] + 1000 * 60 * 60 * 24
         },
-        onSlidePrevStart: () => {
-          this.moment = this.moment.subtract(1, 'd')
-          if (this.thispage === 0) {
-            this.month2 = this.moment.format('MMM')
-            this.date2 = this.moment.format('D')
-            this.day2 = this.moment.format('ddd')
-            this.thispage = 1
-          } else {
-            this.month = this.moment.format('MMM')
-            this.date = this.moment.format('D')
-            this.day = this.moment.format('ddd')
-            this.thispage = 0
-          }
+        onSlidePrevStart: (swiper, even) => {
+          let realIndex = swiper.realIndex
+          let prevIndex = realIndex - 1 < 0 ? 2 : realIndex - 1
+          this['date' + prevIndex] =
+            this['date' + realIndex] - 1000 * 60 * 60 * 24
         }
       }
     }
