@@ -1,7 +1,6 @@
 <template>
   <div id="calendar">
-    <swiper class="cadiv"
-            :options="swiperOption">
+    <swiper class="cadiv" :options="swiperOption">
       <swiper-slide class="date-box">
         <div class="month">{{month}}</div>
         <div class="date">{{date}}</div>

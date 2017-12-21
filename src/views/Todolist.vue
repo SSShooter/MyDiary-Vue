@@ -25,8 +25,7 @@
 <script>
 import api from '../api/api-config.js'
 import { mapGetters } from 'vuex'
-import DeleteModal from '../components/DeleteModal.vue'
-import Vue from 'vue'
+import DeleteModal from '../components/DeleteModal'
 
 export default {
   data () {

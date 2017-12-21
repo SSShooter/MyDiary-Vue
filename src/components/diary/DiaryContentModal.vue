@@ -44,14 +44,8 @@ export default {
     convertToMMMM (timestamp) {
       return moment(timestamp).format('MMMM')
     },
-    convertToDD (timestamp) {
-      return moment(timestamp).format('DD')
-    },
     convertToD (timestamp) {
       return moment(timestamp).format('D')
-    },
-    convertToddd (timestamp) {
-      return moment(timestamp).format('ddd')
     },
     convertToHHmm (timestamp) {
       return moment(timestamp).format('HH:mm')

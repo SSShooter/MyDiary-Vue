@@ -82,17 +82,9 @@ export default {
           })
       })
     },
-    showDeleteModal (id, e) {
-      console.log(id)
-      // this.$refs.DeleteModal.isModalShow = true
-      // var target = e.target
-      // while (!target.dataset.index) {
-      //   if (target.dataset.index) {
-      //     break
-      //   }
-      //   target = target.parentNode
-      // }
-      // this.selectedItem = target.dataset.index
+    showDeleteModal (id) {
+      this.$refs.DeleteModal.isModalShow = true
+      this.selectedItem = id
     },
     getFolderContents () {
       this.$axios
@@ -109,7 +101,7 @@ export default {
     },
     deleteItem () {
       this.$axios
-        .delete(api.deleteDiary + this.items[this.selectedItem]._id)
+        .delete(api.deleteDiary + this.selectedItem)
         .then(res => {
           if (res.data.code === 0) {
             this.page = 0
