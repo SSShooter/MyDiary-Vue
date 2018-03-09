@@ -1,9 +1,8 @@
 {
-  "name": "test",
+  "name": "MyDiary-Vue",
   "version": "1.0.0",
-  "description": "new test",
+  "description": "MyDiary-Vue",
   "author": "ssshooter <472356884@qq.com>",
-  "private": true,
   "scripts": {
     "dev": "node build/dev-server.js",
     "start": "node build/dev-server.js",
@@ -18,7 +17,7 @@
     "eruda": "^1.3.1",
     "less": "^2.7.2",
     "less-loader": "^4.0.5",
-    "moment": "^2.18.1",
+    "moment": "^2.19.3",
     "smooth-scrollbar": "^8.1.11",
     "style-loader": "^0.18.2",
     "vue": "^2.3.3",
